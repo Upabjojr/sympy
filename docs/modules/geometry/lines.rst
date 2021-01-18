@@ -1,7 +1,7 @@
 Lines
 -----
 
-.. module:: diofant.geometry.line
+.. module:: sympy.geometry.line
 
 .. autoclass:: LinearEntity
    :members:

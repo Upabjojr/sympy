@@ -2,5 +2,5 @@
 Miscellaneous
 =============
 
-.. automodule:: diofant.utilities.misc
+.. automodule:: sympy.utilities.misc
    :members:

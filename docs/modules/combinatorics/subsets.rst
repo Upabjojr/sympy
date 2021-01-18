@@ -3,9 +3,9 @@
 Subsets
 =======
 
-.. module:: diofant.combinatorics.subsets
+.. module:: sympy.combinatorics.subsets
 
 .. autoclass:: Subset
    :members:
 
-.. automethod:: diofant.combinatorics.subsets.ksubsets
+.. automethod:: sympy.combinatorics.subsets.ksubsets

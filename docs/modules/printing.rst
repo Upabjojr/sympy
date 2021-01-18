@@ -1,7 +1,7 @@
 Printing
 ========
 
-.. module:: diofant.printing
+.. module:: sympy.printing
 
 See the :ref:`tutorial-printing` section in Tutorial for introduction into
 printing.
@@ -12,11 +12,11 @@ internally.
 Printer Class
 -------------
 
-.. automodule:: diofant.printing.printer
+.. automodule:: sympy.printing.printer
 
 The main class responsible for printing is ``Printer`` (see also its
 `source code
-<https://github.com/diofant/diofant/blob/master/diofant/printing/printer.py>`_):
+<https://github.com/sympy/sympy/blob/master/sympy/printing/printer.py>`_):
 
 .. autoclass:: Printer
     :members: doprint, _print, set_global_settings, order
@@ -27,10 +27,10 @@ The main class responsible for printing is ``Printer`` (see also its
 PrettyPrinter Class
 -------------------
 
-The pretty printing subsystem is implemented in ``diofant.printing.pretty.pretty``
+The pretty printing subsystem is implemented in ``sympy.printing.pretty.pretty``
 by the ``PrettyPrinter`` class deriving from ``Printer``. It relies on
-the modules ``diofant.printing.pretty.stringPict``, and
-``diofant.printing.pretty.pretty_symbology`` for rendering nice-looking
+the modules ``sympy.printing.pretty.stringPict``, and
+``sympy.printing.pretty.pretty_symbology`` for rendering nice-looking
 formulas.
 
 The module ``stringPict`` provides a base class ``stringPict`` and a derived
@@ -41,13 +41,13 @@ The module ``pretty_symbology`` provides primitives to construct 2D shapes
 (hline, vline, etc) together with a technique to use unicode automatically
 when possible.
 
-.. automodule:: diofant.printing.pretty.pretty
+.. automodule:: sympy.printing.pretty.pretty
    :members:
 
 CCodePrinter
 ------------
 
-.. module:: diofant.printing.ccode
+.. module:: sympy.printing.ccode
 
 This class implements C code printing (i.e. it converts Python expressions
 to strings of C code).
@@ -72,14 +72,14 @@ Usage::
 Fortran Printing
 ----------------
 
-The ``fcode`` function translates a diofant expression into Fortran code. The main
+The ``fcode`` function translates a sympy expression into Fortran code. The main
 purpose is to take away the burden of manually translating long mathematical
 expressions. Therefore the resulting expression should also require no (or
 very little) manual tweaking to make it compilable. The optional arguments
 of ``fcode`` can be used to fine-tune the behavior of ``fcode`` in such a way
 that manual changes in the result are no longer needed.
 
-.. module:: diofant.printing.fcode
+.. module:: sympy.printing.fcode
 .. autofunction:: fcode
 .. autoclass:: FCodePrinter
    :members:
@@ -197,22 +197,22 @@ translated in pure Fortran and (iii) a string of Fortran code. A few examples:
 Mathematica code printing
 -------------------------
 
-.. module:: diofant.printing.mathematica
+.. module:: sympy.printing.mathematica
 
-.. autoclass:: diofant.printing.mathematica.MCodePrinter
+.. autoclass:: sympy.printing.mathematica.MCodePrinter
    :members:
 
    .. autoattribute:: MCodePrinter.printmethod
 
-.. autofunction:: diofant.printing.mathematica.mathematica_code
+.. autofunction:: sympy.printing.mathematica.mathematica_code
 
 LambdaPrinter
 -------------
 
-.. module:: diofant.printing.lambdarepr
+.. module:: sympy.printing.lambdarepr
 
 This classes implements printing to strings that can be used by the
-:py:func:`diofant.utilities.lambdify.lambdify` function.
+:py:func:`sympy.utilities.lambdify.lambdify` function.
 
 .. autoclass:: LambdaPrinter
 
@@ -224,9 +224,9 @@ This classes implements printing to strings that can be used by the
 LatexPrinter
 ------------
 
-.. module:: diofant.printing.latex
+.. module:: sympy.printing.latex
 
-This class implements LaTeX printing. See ``diofant.printing.latex``.
+This class implements LaTeX printing. See ``sympy.printing.latex``.
 
 .. autodata:: accepted_latex_functions
 
@@ -240,9 +240,9 @@ This class implements LaTeX printing. See ``diofant.printing.latex``.
 MathMLPrinter
 -------------
 
-.. module:: diofant.printing.mathml
+.. module:: sympy.printing.mathml
 
-This class is responsible for MathML printing. See ``diofant.printing.mathml``.
+This class is responsible for MathML printing. See ``sympy.printing.mathml``.
 
 More info on mathml content: http://www.w3.org/TR/MathML2/chapter4.html
 
@@ -256,7 +256,7 @@ More info on mathml content: http://www.w3.org/TR/MathML2/chapter4.html
 PythonPrinter
 -------------
 
-.. module:: diofant.printing.python
+.. module:: sympy.printing.python
 
 This class implements Python printing. Usage::
 
@@ -267,7 +267,7 @@ This class implements Python printing. Usage::
 ReprPrinter
 -----------
 
-.. module:: diofant.printing.repr
+.. module:: sympy.printing.repr
 
 This printer generates executable code. This code satisfies the identity
 ``eval(srepr(expr)) == expr``.
@@ -282,7 +282,7 @@ This printer generates executable code. This code satisfies the identity
 StrPrinter
 ----------
 
-.. module:: diofant.printing.str
+.. module:: sympy.printing.str
 
 This module generates readable representations of Diofant expressions.
 
@@ -298,34 +298,34 @@ This module generates readable representations of Diofant expressions.
 Implementation - Helper Classes/Functions
 -----------------------------------------
 
-.. module:: diofant.printing.conventions
+.. module:: sympy.printing.conventions
 
 .. autofunction:: split_super_sub
 
 CodePrinter
 +++++++++++
 
-.. module:: diofant.printing.codeprinter
+.. module:: sympy.printing.codeprinter
 
 This class is a base class for other classes that implement code-printing
 functionality, and additionally lists a number of functions that cannot be
 easily translated to C or Fortran.
 
-.. autoclass:: diofant.printing.codeprinter.CodePrinter
+.. autoclass:: sympy.printing.codeprinter.CodePrinter
 
    .. autoattribute:: CodePrinter.printmethod
 
-.. autoexception:: diofant.printing.codeprinter.AssignmentError
+.. autoexception:: sympy.printing.codeprinter.AssignmentError
 
 Precedence
 ++++++++++
 
-.. automodule:: diofant.printing.precedence
+.. automodule:: sympy.printing.precedence
 
 Pretty-Printing Implementation Helpers
 --------------------------------------
 
-.. module:: diofant.printing.pretty.pretty_symbology
+.. module:: sympy.printing.pretty.pretty_symbology
 
 .. autofunction:: U
 .. autofunction:: pretty_use_unicode
@@ -350,7 +350,7 @@ The following functions are for rendering atoms and symbols.
 .. autofunction:: pretty_symbol
 .. autofunction:: annotated
 
-.. automodule:: diofant.printing.pretty.stringpict
+.. automodule:: sympy.printing.pretty.stringpict
 
 .. autoclass:: stringPict
    :members:
@@ -361,4 +361,4 @@ The following functions are for rendering atoms and symbols.
 dotprint
 --------
 
-.. autofunction:: diofant.printing.dot.dotprint
+.. autofunction:: sympy.printing.dot.dotprint

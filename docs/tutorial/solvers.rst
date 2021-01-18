@@ -10,14 +10,14 @@ This section covers equations solving.
 .. note::
 
     Any expression in input, that not in an
-    :class:`~diofant.core.relational.Eq` is automatically assumed to
+    :class:`~sympy.core.relational.Eq` is automatically assumed to
     be equal to 0 by the solving functions.
 
 Algebraic Equations
 ===================
 
 The main function for solving algebraic equations is
-:func:`~diofant.solvers.solvers.solve`.
+:func:`~sympy.solvers.solvers.solve`.
 
 When solving a single equation, the output is a list of the solutions.
 
@@ -29,7 +29,7 @@ If no solutions are found, an empty list is returned.
     >>> solve(exp(x))
     []
 
-:func:`~diofant.solvers.solvers.solve` can also solve systems of equations.
+:func:`~sympy.solvers.solvers.solve` can also solve systems of equations.
 
     >>> solve([x - y + 2, x + y - 3])
     [{x: 1/2, y: 5/2}]
@@ -44,7 +44,7 @@ Each solution reported only once:
     [{x: 0}, {x: 3}]
 
 To get the solutions of a polynomial including multiplicity use
-:func:`~diofant.polys.polyroots.roots`.
+:func:`~sympy.polys.polyroots.roots`.
 
     >>> roots(x**3 - 6*x**2 + 9*x)
     {0: 1, 3: 2}
@@ -53,9 +53,9 @@ Recurrence Equations
 ====================
 
 To solve recurrence equations, use
-:func:`~diofant.solvers.recurr.rsolve`.  First, create an undefined
+:func:`~sympy.solvers.recurr.rsolve`.  First, create an undefined
 function by passing ``cls=Function`` to the
-:func:`~diofant.core.symbol.symbols` function.
+:func:`~sympy.core.symbol.symbols` function.
 
     >>> f = symbols('f', cls=Function)
 
@@ -64,9 +64,27 @@ We can call ``f(x)``, and it will represent an unknown function application.
 .. note::
 
    From here on in this tutorial we assume that these statements were
+      executed:
+
+         >>> from sympy import *
+         >>> a, b, c, d, t, x, y, z = symbols('a:d t x:z')
+         >>> k, m, n = symbols('k m n', integer=True)
+         >>> f, g, h = symbols('f:h', cls=Function)
+         >>> init_printing(pretty_print=True, use_unicode=True)
+
+   As for algebraic equations, the output is a list of
+      executed:
+
+         >>> from sympy import *
+         >>> a, b, c, d, t, x, y, z = symbols('a:d t x:z')
+         >>> k, m, n = symbols('k m n', integer=True)
+         >>> f, g, h = symbols('f:h', cls=Function)
+         >>> init_printing(pretty_print=True, use_unicode=True)
+
+   As for algebraic equations, the output is a list of
    executed:
 
-      >>> from diofant import *
+      >>> from sympy import *
       >>> a, b, c, d, t, x, y, z = symbols('a:d t x:z')
       >>> k, m, n = symbols('k m n', integer=True)
       >>> f, g, h = symbols('f:h', cls=Function)
@@ -105,8 +123,8 @@ we would use
     f(x) = ℯ ⋅(C₁ + C₂⋅x) + ──────
                               2
 
-:func:`~diofant.solvers.ode.dsolve` can also solve systems of
-equations, like :func:`~diofant.solvers.solvers.solve`.
+:func:`~sympy.solvers.ode.dsolve` can also solve systems of
+equations, like :func:`~sympy.solvers.solvers.solve`.
 
     >>> dsolve([f(x).diff(x) - g(x), g(x).diff(x) - f(x)])
     ⎡        x       -x             x       -x   ⎤

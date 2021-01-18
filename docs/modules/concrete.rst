@@ -79,27 +79,27 @@ hypergeometric:
 
 Concrete Class Reference
 ------------------------
-.. autoclass:: diofant.concrete.summations.Sum
+.. autoclass:: sympy.concrete.summations.Sum
    :members:
 
-.. autoclass:: diofant.concrete.products.Product
+.. autoclass:: sympy.concrete.products.Product
    :members:
 
-.. autoclass:: diofant.concrete.expr_with_limits.ExprWithLimits
+.. autoclass:: sympy.concrete.expr_with_limits.ExprWithLimits
    :members:
 
-.. autoclass:: diofant.concrete.expr_with_intlimits.ExprWithIntLimits
+.. autoclass:: sympy.concrete.expr_with_intlimits.ExprWithIntLimits
    :members:
 
 Concrete Functions Reference
 ----------------------------
 
-.. autofunction:: diofant.concrete.summations.summation
+.. autofunction:: sympy.concrete.summations.summation
 
-.. autofunction:: diofant.concrete.products.product
+.. autofunction:: sympy.concrete.products.product
 
-.. autofunction:: diofant.concrete.gosper.gosper_normal
+.. autofunction:: sympy.concrete.gosper.gosper_normal
 
-.. autofunction:: diofant.concrete.gosper.gosper_term
+.. autofunction:: sympy.concrete.gosper.gosper_term
 
-.. autofunction:: diofant.concrete.gosper.gosper_sum
+.. autofunction:: sympy.concrete.gosper.gosper_sum

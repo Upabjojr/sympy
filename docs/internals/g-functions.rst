@@ -507,4 +507,4 @@ This table is intended to shrink in future, when the algorithm's capabilities
 of deriving new formulae improve. Of course it has to grow whenever a new class
 of special functions is to be dealt with.
 
-.. automodule:: diofant.integrals.meijerint_doc
+.. automodule:: sympy.integrals.meijerint_doc

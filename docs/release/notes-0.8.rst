@@ -7,23 +7,23 @@ Diofant 0.8
 New features
 ============
 
-* MrvAsympt algorithm to find asymptotic expansion, see :func:`~diofant.core.expr.Expr.aseries` method and :pull:`6`.  Thanks to Avichal Dayal.
-* :func:`~diofant.concrete.summations.Sum.findrecur` method to find recurrence relations (with Sister Celine's algorithm), see :pull:`15`.
-* Support for :class:`~diofant.core.power.Pow`/:class:`~diofant.functions.elementary.exponential.log` branch-cuts in limits, see :pull:`140`.
-* Added basic optimization package, see :func:`~diofant.calculus.optimization.minimize` and :pull:`108`.
-* Cartesian product of iterables using Cantor pairing, see :func:`~diofant.utilities.iterables.cantor_product` and :pull:`276`.
-* :class:`~diofant.sets.fancysets.Rationals` set, :pull:`255`.
+* MrvAsympt algorithm to find asymptotic expansion, see :func:`~sympy.core.expr.Expr.aseries` method and :pull:`6`.  Thanks to Avichal Dayal.
+* :func:`~sympy.concrete.summations.Sum.findrecur` method to find recurrence relations (with Sister Celine's algorithm), see :pull:`15`.
+* Support for :class:`~sympy.core.power.Pow`/:class:`~sympy.functions.elementary.exponential.log` branch-cuts in limits, see :pull:`140`.
+* Added basic optimization package, see :func:`~sympy.calculus.optimization.minimize` and :pull:`108`.
+* Cartesian product of iterables using Cantor pairing, see :func:`~sympy.utilities.iterables.cantor_product` and :pull:`276`.
+* :class:`~sympy.sets.fancysets.Rationals` set, :pull:`255`.
 * New simple and robust solver for systems of linear ODEs, see :pull:`286`.  Thanks to Colin B. Macdonald.
 * Added mutable/immutable N-dim arrays, sparse and dense, see :pull:`275`.
-* :func:`~diofant.solvers.ode.dsolve` now support initial conditions for ODEs, see :pull:`307`.  Thanks to Aaron Meurer.
+* :func:`~sympy.solvers.ode.dsolve` now support initial conditions for ODEs, see :pull:`307`.  Thanks to Aaron Meurer.
 
 Major changes
 =============
 
 * Depend on setuptools, see :pull:`44`.
-* :mod:`The Gruntz Algorithm <diofant.series.gruntz>` reimplemented correctly, see :pull:`68`.
+* :mod:`The Gruntz Algorithm <sympy.series.gruntz>` reimplemented correctly, see :pull:`68`.
 * Replaced ``exp(x)`` with ``E**x`` internally, see :pull:`79`.
-* Used :func:`~diofant.printing.repr.srepr` instead of :func:`~diofant.printing.str.sstr` for :meth:`~object.__repr__` printing, see :pull:`39`.
+* Used :func:`~sympy.printing.repr.srepr` instead of :func:`~sympy.printing.str.sstr` for :meth:`~object.__repr__` printing, see :pull:`39`.
 * Major cleanup for series methods, see :pull:`187`.
 * Depend on cachetools to implement caching, see :pull:`72` and :pull:`209`.
 * Assumption system (old) was validated (:pull:`316` and :pull:`334`) and improved:
@@ -53,7 +53,7 @@ Compatibility breaks
 * Removed (new) assumptions submodule, see :pull:`122`.
 * Removed undocumented Symbol.__call__, see :pull:`201`
 * Removed categories and liealgebras submodules, see :pull:`280`.
-* Rename module sympy -> diofant, see :pull:`315`.
+* Rename module sympy -> sympy, see :pull:`315`.
 * Use gmpy2, drop gmpy support, see :pull:`292`.
 * Removed redundant dom properties in polys, see :pull:`308`.
 * Removed manualintegrate function, see :pull:`279`.
@@ -62,13 +62,13 @@ Minor changes
 =============
 
 * Add support for bidirectional limits, see :pull:`10`.
-* Reimplement :class:`~diofant.functions.elementary.trigonometric.cot`, see :pull:`113`.
-* A better implementation of :func:`~diofant.calculus.singularities.singularities`, see :pull:`147`.
+* Reimplement :class:`~sympy.functions.elementary.trigonometric.cot`, see :pull:`113`.
+* A better implementation of :func:`~sympy.calculus.singularities.singularities`, see :pull:`147`.
 * Fix "flip" of arguments in relational expressions, see :pull:`30`.
 * Make Gosper code use new dispersion algorithm, see :pull:`205`.  Thanks to Raoul Bourquin.
 * Consolidate code for solving linear systems, see :pull:`253`.
 * Hacks for automatic symbols and wrapping int's replaced with AST transformers, see :pull:`278` and :pull:`167`.
-* Build correct inhomogeneous solution in :func:`~diofant.solvers.recurr.rsolve_hyper`, see :pull:`298`.
+* Build correct inhomogeneous solution in :func:`~sympy.solvers.recurr.rsolve_hyper`, see :pull:`298`.
 * Evaluate matrix powers for non-diagonalizable matrices, see :pull:`275`.
 * Support non-orthogonal Jordan blocks, see :pull:`275`.
 * Make risch_integrate(x**x, x) work, see :pull:`275`.
@@ -91,7 +91,7 @@ Developer changes
 Issues closed
 =============
 
-See the `release milestone <https://github.com/diofant/diofant/milestone/1?closed=1>`_
+See the `release milestone <https://github.com/sympy/sympy/milestone/1?closed=1>`_
 for complete list of issues and pull requests involved in this release.
 
 These Sympy issues also were addressed:

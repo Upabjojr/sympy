@@ -21,17 +21,17 @@ it will be an approximate result
    2.8284271247461903
 
 This is where symbolic computation first comes in: with a symbolic
-computation system like Diofant, square roots of numbers that are not
+computation system like sympy, square roots of numbers that are not
 perfect squares are left unevaluated by default
 
-   >>> import diofant
-   >>> diofant.sqrt(3)
+   >>> import sympy
+   >>> sympy.sqrt(3)
    sqrt(3)
 
 Furthermore --- and this is where we start to see the real power of
 symbolic computation --- results can be symbolically simplified.
 
-   >>> diofant.sqrt(8)
+   >>> sympy.sqrt(8)
    2*sqrt(2)
 
 Yet we can also approximate this number with any precision
@@ -40,12 +40,176 @@ Yet we can also approximate this number with any precision
    2.8284271247461900976
 
 The above example starts to show how we can manipulate irrational
-numbers exactly using Diofant.  Now we introduce symbols.
+numbers exactly using sympy.  Now we introduce symbols.
+
+Let us define a symbolic expression, representing the mathematical
+expression
+objects symbolically.  This means that the mathematical objects are
+represented exactly, not approximately, and mathematical expressions
+with unevaluated variables are left in symbolic form.
+
+Let's take an example.  Say we wanted to use the built-in Python
+functions to compute square roots.  We might do something like this
+
+   >>> import math
+   >>> math.sqrt(9)
+   3.0
+
+Here we got the exact answer --- 9 is a perfect square --- but usually
+it will be an approximate result
+
+   >>> math.sqrt(8)
+   2.8284271247461903
+
+This is where symbolic computation first comes in: with a symbolic
+computation system like sympy, square roots of numbers that are not
+perfect squares are left unevaluated by default
+
+   >>> import sympy
+   >>> sympy.sqrt(3)
+   sqrt(3)
+
+Furthermore --- and this is where we start to see the real power of
+symbolic computation --- results can be symbolically simplified.
+
+   >>> sympy.sqrt(8)
+   2*sqrt(2)
+
+Yet we can also approximate this number with any precision
+
+   >>> _.evalf(20)
+   2.8284271247461900976
+
+The above example starts to show how we can manipulate irrational
+numbers exactly using sympy.  Now we introduce symbols.
+
+Let us define a symbolic expression, representing the mathematical
+expression
+objects symbolically.  This means that the mathematical objects are
+represented exactly, not approximately, and mathematical expressions
+with unevaluated variables are left in symbolic form.
+
+Let's take an example.  Say we wanted to use the built-in Python
+functions to compute square roots.  We might do something like this
+
+   >>> import math
+   >>> math.sqrt(9)
+   3.0
+
+Here we got the exact answer --- 9 is a perfect square --- but usually
+it will be an approximate result
+
+   >>> math.sqrt(8)
+   2.8284271247461903
+
+This is where symbolic computation first comes in: with a symbolic
+computation system like sympy, square roots of numbers that are not
+perfect squares are left unevaluated by default
+
+   >>> import sympy
+   >>> sympy.sqrt(3)
+   sqrt(3)
+
+Furthermore --- and this is where we start to see the real power of
+symbolic computation --- results can be symbolically simplified.
+
+   >>> sympy.sqrt(8)
+   2*sqrt(2)
+
+Yet we can also approximate this number with any precision
+
+   >>> _.evalf(20)
+   2.8284271247461900976
+
+The above example starts to show how we can manipulate irrational
+numbers exactly using sympy.  Now we introduce symbols.
+
+Let us define a symbolic expression, representing the mathematical
+expression
+objects symbolically.  This means that the mathematical objects are
+represented exactly, not approximately, and mathematical expressions
+with unevaluated variables are left in symbolic form.
+
+Let's take an example.  Say we wanted to use the built-in Python
+functions to compute square roots.  We might do something like this
+
+   >>> import math
+   >>> math.sqrt(9)
+   3.0
+
+Here we got the exact answer --- 9 is a perfect square --- but usually
+it will be an approximate result
+
+   >>> math.sqrt(8)
+   2.8284271247461903
+
+This is where symbolic computation first comes in: with a symbolic
+computation system like sympy, square roots of numbers that are not
+perfect squares are left unevaluated by default
+
+   >>> import sympy
+   >>> sympy.sqrt(3)
+   sqrt(3)
+
+Furthermore --- and this is where we start to see the real power of
+symbolic computation --- results can be symbolically simplified.
+
+   >>> sympy.sqrt(8)
+   2*sqrt(2)
+
+Yet we can also approximate this number with any precision
+
+   >>> _.evalf(20)
+   2.8284271247461900976
+
+The above example starts to show how we can manipulate irrational
+numbers exactly using sympy.  Now we introduce symbols.
+
+Let us define a symbolic expression, representing the mathematical
+expression
+objects symbolically.  This means that the mathematical objects are
+represented exactly, not approximately, and mathematical expressions
+with unevaluated variables are left in symbolic form.
+
+Let's take an example.  Say we wanted to use the built-in Python
+functions to compute square roots.  We might do something like this
+
+   >>> import math
+   >>> math.sqrt(9)
+   3.0
+
+Here we got the exact answer --- 9 is a perfect square --- but usually
+it will be an approximate result
+
+   >>> math.sqrt(8)
+   2.8284271247461903
+
+This is where symbolic computation first comes in: with a symbolic
+computation system like sympy, square roots of numbers that are not
+perfect squares are left unevaluated by default
+
+   >>> import sympy
+   >>> sympy.sqrt(3)
+   sqrt(3)
+
+Furthermore --- and this is where we start to see the real power of
+symbolic computation --- results can be symbolically simplified.
+
+   >>> sympy.sqrt(8)
+   2*sqrt(2)
+
+Yet we can also approximate this number with any precision
+
+   >>> _.evalf(20)
+   2.8284271247461900976
+
+The above example starts to show how we can manipulate irrational
+numbers exactly using sympy.  Now we introduce symbols.
 
 Let us define a symbolic expression, representing the mathematical
 expression `x + 2y`.
 
-   >>> x, y = diofant.symbols('x y')
+   >>> x, y = sympy.symbols('x y')
    >>> expr = x + 2*y
    >>> expr
    x + 2*y
@@ -53,10 +217,10 @@ expression `x + 2y`.
 .. note::
 
    Unlike many symbolic manipulation systems you may have used, in
-   Diofant, symbols are not defined automatically.  To define symbols,
-   we must use :func:`~diofant.core.symbol.symbols`, that takes a
+   sympy, symbols are not defined automatically.  To define symbols,
+   we must use :func:`~sympy.core.symbol.symbols`, that takes a
    string of symbol names separated by spaces or commas, and creates
-   :class:`~diofant.core.symbol.Symbol` instances out of them.
+   :class:`~sympy.core.symbol.Symbol` instances out of them.
 
 Note that we wrote ``x + 2*y``, using Python's mathematical syntax,
 just as we would if ``x`` and ``y`` were ordinary Python variables.
@@ -75,49 +239,69 @@ the ``-x`` automatically canceled one another.  This is similar to how
 
 .. tip::
 
-   Use :func:`~diofant.core.evaluate.evaluate` context or ``evaluate``
+   Use :func:`~sympy.core.evaluate.evaluate` context or ``evaluate``
    flag to prevent automatic evaluation, for example:
 
-       >>> diofant.sqrt(8, evaluate=False)
+       >>> sympy.sqrt(8, evaluate=False)
        sqrt(8)
        >>> _.doit()
        2*sqrt(2)
 
-This isn't always the case in Diofant, however:
+This isn't always the case in sympy, however:
 
    >>> x*expr
    x*(x + 2*y)
 
 Here, we might have expected `x(x + 2y)` to transform into `x^2 +
 2xy`, but instead we see that the expression was left alone.  This is
-a common theme in Diofant.  Aside from obvious simplifications like
+a common theme in sympy.  Aside from obvious simplifications like
 `x - x = 0` and `\sqrt{8} = 2\sqrt{2}`, most simplifications are not
 performed automatically.  This is because we might prefer the factored
 form `x(x + 2y)`, or we might prefer the expanded form `x^2 + 2xy` ---
-both forms are useful in different circumstances.  In Diofant, there
+both forms are useful in different circumstances.  In sympy, there
 are functions to go from one form to the other
 
-   >>> diofant.expand(x*expr)
+   >>> sympy.expand(x*expr)
    x**2 + 2*x*y
-   >>> diofant.factor(_)
+   >>> sympy.factor(_)
    x*(x + 2*y)
 
 The real power of a symbolic computation system (which by the way, are
 also often called computer algebra systems, or just CASs) such as
-Diofant is the ability to do all sorts of computations symbolically:
+sympy is the ability to do all sorts of computations symbolically:
 simplify expressions, compute derivatives, integrals, and limits,
-solve equations, work with matrices, and much more.  Diofant includes
+solve equations, work with matrices, and much more.  sympy includes
 modules for plotting, printing (like 2D pretty printed output of math
 formulas, or `\LaTeX`), code generation, statistics, combinatorics,
 number theory, logic, and more.  Here is a small sampling of the sort
-of symbolic power Diofant is capable of, to whet your appetite.
+of symbolic power sympy is capable of, to whet your appetite.
 
 .. note::
 
    From here on in this tutorial we assume that these statements were
+      executed:
+
+         >>> from sympy import *
+         >>> a, b, c, d, t, x, y, z = symbols('a:d t x:z')
+         >>> init_printing(pretty_print=True, use_unicode=True)
+
+      Last one will make all further examples pretty print with unicode
+      characters.
+
+
+      executed:
+
+         >>> from sympy import *
+         >>> a, b, c, d, t, x, y, z = symbols('a:d t x:z')
+         >>> init_printing(pretty_print=True, use_unicode=True)
+
+      Last one will make all further examples pretty print with unicode
+      characters.
+
+
    executed:
 
-      >>> from diofant import *
+      >>> from sympy import *
       >>> a, b, c, d, t, x, y, z = symbols('a:d t x:z')
       >>> init_printing(pretty_print=True, use_unicode=True)
 

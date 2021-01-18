@@ -62,7 +62,7 @@ All work should be submitted via `Pull Requests (PR)`_.
 
    1. Bugfixes should include regression tests.  Please format
       them accordingly, to include references for fixed
-      issues (e.g. by naming test like ``test_diofantissue_123``
+      issues (e.g. by naming test like ``test_sympyissue_123``
       or adding comment with issue number).
    2. All new functionality should be tested, every new line
       should be covered by tests.  Please use in tests only
@@ -82,7 +82,7 @@ All work should be submitted via `Pull Requests (PR)`_.
 
 7. Please also check for potential flaws in your Python code with::
 
-       pylint diofant
+       pylint sympy
 
 8. If your change affects documentation, please build it by::
 
@@ -110,7 +110,7 @@ a fully qualified reference in the Github format, like
 ``sympy/sympy#123``.  Unqualified references like ``#123`` or ``issue
 123`` --- are reserved for our `Github issues`_.  Functions for
 regression tests should be named like ``test_sympyissue_123`` and
-``test_diofantissue_123``, respectively.
+``test_sympyissue_123``, respectively.
 
 However, in the old Git history, before commit :commit:`cbdd072`,
 please expect that ``#123``, ``issue #123`` or ``issue 123`` --- are
@@ -141,8 +141,8 @@ and publish this release tag::
 .. _SymPy : https://www.sympy.org/
 .. _Semantic Versioning: https://semver.org/
 .. _PEP 440: https://www.python.org/dev/peps/pep-0440/
-.. _GitHub issues: https://github.com/diofant/diofant/issues
-.. _Pull Requests (PR): https://github.com/diofant/diofant/pulls
+.. _GitHub issues: https://github.com/sympy/sympy/issues
+.. _Pull Requests (PR): https://github.com/sympy/sympy/pulls
 .. _PEP 8: https://www.python.org/dev/peps/pep-0008/
 .. _PEP 257: https://www.python.org/dev/peps/pep-0257/
 .. _flake8: http://flake8.rtfd.io/

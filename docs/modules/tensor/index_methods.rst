@@ -2,5 +2,5 @@
 Methods
 =======
 
-.. automodule:: diofant.tensor.index_methods
+.. automodule:: sympy.tensor.index_methods
    :members:

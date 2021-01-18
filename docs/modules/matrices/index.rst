@@ -4,12 +4,12 @@
 Matrices
 ========
 
-.. automodule:: diofant.matrices
+.. automodule:: sympy.matrices
 
 .. class:: Matrix
-    :module: diofant.matrices
+    :module: sympy.matrices
 
-    alias of :class:`~diofant.matrices.dense.MutableMatrix`
+    alias of :class:`~sympy.matrices.dense.MutableMatrix`
 
 .. toctree::
    :caption: Contents

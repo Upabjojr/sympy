@@ -4,7 +4,7 @@
 Utilities
 =========
 
-.. automodule:: diofant.utilities
+.. automodule:: sympy.utilities
 
 .. toctree::
    :caption: Contents

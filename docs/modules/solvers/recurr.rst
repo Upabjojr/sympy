@@ -1,5 +1,5 @@
 Recurrence Equations
 ====================
 
-.. automodule:: diofant.solvers.recurr
+.. automodule:: sympy.solvers.recurr
     :members:

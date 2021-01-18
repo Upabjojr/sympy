@@ -17,7 +17,7 @@ arguments after required arguments of functions.
 Division
 ========
 
-The function :func:`~diofant.polys.polytools.div` provides
+The function :func:`~sympy.polys.polytools.div` provides
 division of polynomials with remainder.
 That is, for polynomials ``f`` and ``g``, it computes ``q`` and ``r``, such
 that `f = g \cdot q + r` and `\deg(r) < q`. For polynomials in one variables

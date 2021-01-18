@@ -2,5 +2,5 @@
 Randomised Testing
 ==================
 
-.. automodule:: diofant.utilities.randtest
+.. automodule:: sympy.utilities.randtest
    :members:

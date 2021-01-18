@@ -1,7 +1,7 @@
 Reference
 =========
 
-.. module:: diofant
+.. module:: sympy
 
 Most of the things are already documented though in this document, that is
 automatically generated using Diofant's docstrings.

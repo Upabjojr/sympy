@@ -3,7 +3,7 @@
 Test Utilities
 ==============
 
-.. module:: diofant.combinatorics.testutil
+.. module:: sympy.combinatorics.testutil
 
 .. autofunction:: _cmp_perm_lists
 

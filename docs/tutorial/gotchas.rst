@@ -22,7 +22,7 @@ literal --- it will create a Python number of type :class:`int` or
 :class:`float`.
 
 Diofant uses its own classes for numbers, for example
-:class:`~diofant.core.numbers.Integer` instead of :class:`int`.  In
+:class:`~sympy.core.numbers.Integer` instead of :class:`int`.  In
 most cases, Python numeric types will be correctly coersed to Diofant
 numbers during expression construction.
 
@@ -30,7 +30,7 @@ numbers during expression construction.
      2
     x  + 3
     >>> type(_ - x**2)
-    <class 'diofant.core.numbers.Integer'>
+    <class 'sympy.core.numbers.Integer'>
 
 But if you use some arithmetic operators between two numerical
 literals, Python will evaluate such expression before Diofant has a
@@ -43,13 +43,13 @@ chance to get to them.
 .. tip::
 
    While working in the IPython console, you could use
-   :class:`~diofant.interactive.session.IntegerDivisionWrapper` AST
+   :class:`~sympy.interactive.session.IntegerDivisionWrapper` AST
    transformer to wrap all integer divisions with
-   :class:`~diofant.core.numbers.Rational` automatically.
+   :class:`~sympy.core.numbers.Rational` automatically.
 
 The universal solution is using correct Diofant numeric class to
 construct numbers explicitly.  For example,
-:class:`~diofant.core.numbers.Rational` in the above example
+:class:`~sympy.core.numbers.Rational` in the above example
 
     >>> x**Rational(3, 2)
      3/2
@@ -72,7 +72,7 @@ In Diofant, ``==`` represents structural equality testing and `(x +
 power and the other is the addition of three terms.
 
 There is a separate class, called
-:class:`~diofant.core.relational.Eq`, which can be used to create a
+:class:`~sympy.core.relational.Eq`, which can be used to create a
 symbolic equation
 
     >>> Eq((x + 1)**2 - x**2, 2*x + 1)
@@ -91,6 +91,6 @@ Naming of Functions
 Diofant uses different names for some mathematical functions than most
 computer algebra systems.  In particular, the inverse trigonometric
 functions use the python names of
-:func:`~diofant.functions.elementary.trigonometric.asin`,
-:func:`~diofant.functions.elementary.trigonometric.acos` and so on
+:func:`~sympy.functions.elementary.trigonometric.asin`,
+:func:`~sympy.functions.elementary.trigonometric.acos` and so on
 instead of ``arcsin`` and ``arccos``.

@@ -24,7 +24,7 @@ Best printer is enabled automatically for interactive session
 (i.e. `\LaTeX` in the IPython notebooks, pretty printer in the IPython
 console or str printer in the Python console).  If you want manually
 configure pretty printing, please use the
-:func:`~diofant.interactive.printing.init_printing` function.
+:func:`~sympy.interactive.printing.init_printing` function.
 
 Lets take this simple expression
 
@@ -64,7 +64,7 @@ built internally.
 =================
 
 A two-dimensional (2D) textual representation of the expression can be
-obtained with :func:`~diofant.printing.pretty.pretty.pretty`.
+obtained with :func:`~sympy.printing.pretty.pretty.pretty`.
 
     >>> pretty(expr)
     '⌠           \n⎮     ___   \n⎮    ╱ 1    \n⎮   ╱  ─  dx\n⎮ ╲╱   x    \n⌡           '
@@ -93,7 +93,7 @@ You can pass ``use_unicode=False`` to use ASCII symbols.
       |
      /
 
-:func:`~diofant.printing.pretty.pretty.pprint` prints the output to
+:func:`~sympy.printing.pretty.pretty.pprint` prints the output to
 the screen.
 
     >>> pprint(expr)
@@ -108,7 +108,7 @@ LaTeX
 =====
 
 To get the `\LaTeX` form of an expression, use
-:func:`~diofant.printing.latex.latex`.
+:func:`~sympy.printing.latex.latex`.
 
     >>> print(latex(expr))
     \int \sqrt{\frac{1}{x}}\, dx
@@ -116,7 +116,7 @@ To get the `\LaTeX` form of an expression, use
 Dot
 ===
 
-:func:`~diofant.printing.dot.dotprint` function prints output to dot
+:func:`~sympy.printing.dot.dotprint` function prints output to dot
 format, which can be rendered with `Graphviz
 <http://www.graphviz.org/>`_:
 

@@ -1,32 +1,32 @@
 ===============================================
-Essential Classes in diofant.vector (doctrings)
+Essential Classes in sympy.vector (doctrings)
 ===============================================
 
 CoordSysCartesian
 =================
 
-.. autoclass:: diofant.vector.coordsysrect.CoordSysCartesian
+.. autoclass:: sympy.vector.coordsysrect.CoordSysCartesian
    :members:
 
-   .. automethod:: diofant.vector.coordsysrect.CoordSysCartesian.__init__
+   .. automethod:: sympy.vector.coordsysrect.CoordSysCartesian.__init__
 
 
 Vector
 ======
 
-.. autoclass:: diofant.vector.vector.Vector
+.. autoclass:: sympy.vector.vector.Vector
    :members:
 
 
 Dyadic
 ======
 
-.. autoclass:: diofant.vector.dyadic.Dyadic
+.. autoclass:: sympy.vector.dyadic.Dyadic
    :members:
 
 
 Del
 ===
 
-.. autoclass:: diofant.vector.deloperator.Del
+.. autoclass:: sympy.vector.deloperator.Del
    :members:

@@ -2,7 +2,7 @@
 Domains
 =======
 
-.. module:: diofant.domains
+.. module:: sympy.domains
 
 Here we document the various implemented ground domains.  There are
 three types: abstract domains, concrete domains, and "implementation
@@ -20,22 +20,22 @@ the integer ring available.
 Abstract Domains
 ****************
 
-.. autoclass:: diofant.domains.domain.Domain
+.. autoclass:: sympy.domains.domain.Domain
    :members:
 
-.. autoclass:: diofant.domains.field.Field
+.. autoclass:: sympy.domains.field.Field
    :members:
 
-.. autoclass:: diofant.domains.ring.Ring
+.. autoclass:: sympy.domains.ring.Ring
    :members:
 
-.. autoclass:: diofant.domains.simpledomain.SimpleDomain
+.. autoclass:: sympy.domains.simpledomain.SimpleDomain
    :members:
 
-.. autoclass:: diofant.domains.compositedomain.CompositeDomain
+.. autoclass:: sympy.domains.compositedomain.CompositeDomain
    :members:
 
-.. autoclass:: diofant.domains.characteristiczero.CharacteristicZero
+.. autoclass:: sympy.domains.characteristiczero.CharacteristicZero
    :members:
 
 Concrete Domains
@@ -62,13 +62,13 @@ Concrete Domains
 .. autoclass:: ComplexAlgebraicField
    :members:
 
-.. autoclass:: diofant.polys.rings.PolynomialRing
+.. autoclass:: sympy.polys.rings.PolynomialRing
    :members:
 
-.. autoclass:: diofant.polys.univar.UnivarPolynomialRing
+.. autoclass:: sympy.polys.univar.UnivarPolynomialRing
    :members:
 
-.. autoclass:: diofant.polys.fields.FractionField
+.. autoclass:: sympy.polys.fields.FractionField
    :members:
 
 .. autoclass:: RealField
@@ -83,20 +83,20 @@ Concrete Domains
 Implementation Domains
 **********************
 
-.. autoclass:: diofant.domains.finitefield.PythonFiniteField
-.. autoclass:: diofant.domains.finitefield.GMPYFiniteField
+.. autoclass:: sympy.domains.finitefield.PythonFiniteField
+.. autoclass:: sympy.domains.finitefield.GMPYFiniteField
 
-.. autoclass:: diofant.domains.integerring.PythonIntegerRing
-.. autoclass:: diofant.domains.integerring.GMPYIntegerRing
+.. autoclass:: sympy.domains.integerring.PythonIntegerRing
+.. autoclass:: sympy.domains.integerring.GMPYIntegerRing
 
-.. autoclass:: diofant.domains.rationalfield.PythonRationalField
-.. autoclass:: diofant.domains.rationalfield.GMPYRationalField
+.. autoclass:: sympy.domains.rationalfield.PythonRationalField
+.. autoclass:: sympy.domains.rationalfield.GMPYRationalField
 
 Domain Elements
 ***************
 
-.. autoclass:: diofant.domains.finitefield.ModularInteger
+.. autoclass:: sympy.domains.finitefield.ModularInteger
    :members:
 
-.. autoclass:: diofant.domains.finitefield.GaloisFieldElement
+.. autoclass:: sympy.domains.finitefield.GaloisFieldElement
    :members:

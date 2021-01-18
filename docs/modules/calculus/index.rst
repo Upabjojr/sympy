@@ -2,16 +2,16 @@
 Calculus
 ========
 
-.. automodule:: diofant.calculus
+.. automodule:: sympy.calculus
 
-.. automodule:: diofant.calculus.euler
+.. automodule:: sympy.calculus.euler
     :members:
 
-.. automodule:: diofant.calculus.singularities
+.. automodule:: sympy.calculus.singularities
     :members:
 
-.. automodule:: diofant.calculus.optimization
+.. automodule:: sympy.calculus.optimization
     :members:
 
-.. automodule:: diofant.calculus.finite_diff
+.. automodule:: sympy.calculus.finite_diff
     :members:

@@ -4,7 +4,7 @@
 Polynomials
 ===========
 
-.. automodule:: diofant.polys
+.. automodule:: sympy.polys
 
 Computations with polynomials are at the core of computer algebra and
 having a fast and robust polynomials manipulation module is a key for
@@ -19,71 +19,71 @@ and multivariate factorization over algebraic number domains.
 Basic polynomial manipulation functions
 =======================================
 
-.. automodule:: diofant.polys.polytools
+.. automodule:: sympy.polys.polytools
     :members:
 
 Extra polynomial manipulation functions
 =======================================
 
-.. automodule:: diofant.polys.polyfuncs
+.. automodule:: sympy.polys.polyfuncs
     :members:
 
 Domain constructors
 ===================
 
-.. automodule:: diofant.polys.constructor
+.. automodule:: sympy.polys.constructor
     :members:
 
 Algebraic number fields
 =======================
 
-.. automodule:: diofant.polys.numberfields
+.. automodule:: sympy.polys.numberfields
     :members:
 
 Monomials encoded as tuples
 ===========================
 
-.. automodule:: diofant.polys.monomials
+.. automodule:: sympy.polys.monomials
     :members:
 
 Orderings of monomials
 ======================
 
-.. automodule:: diofant.polys.orderings
+.. automodule:: sympy.polys.orderings
     :members:
 
 Formal manipulation of roots of polynomials
 ===========================================
 
-.. automodule:: diofant.polys.rootoftools
+.. automodule:: sympy.polys.rootoftools
     :members:
 
 Symbolic root-finding algorithms
 ================================
 
-.. automodule:: diofant.polys.polyroots
+.. automodule:: sympy.polys.polyroots
     :members:
 
 Special polynomials
 ===================
 
-.. automodule:: diofant.polys.specialpolys
+.. automodule:: sympy.polys.specialpolys
     :members:
 
 Orthogonal polynomials
 ======================
 
-.. automodule:: diofant.polys.orthopolys
+.. automodule:: sympy.polys.orthopolys
     :members:
 
 Manipulation of rational functions
 ==================================
 
-.. automodule:: diofant.polys.rationaltools
+.. automodule:: sympy.polys.rationaltools
     :members:
 
 Partial fraction decomposition
 ==============================
 
-.. automodule:: diofant.polys.partfrac
+.. automodule:: sympy.polys.partfrac
     :members:

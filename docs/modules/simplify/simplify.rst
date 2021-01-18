@@ -1,7 +1,7 @@
 Simplify
 ********
 
-.. currentmodule:: diofant.simplify.simplify
+.. currentmodule:: sympy.simplify.simplify
 
 simplify
 --------
@@ -41,7 +41,7 @@ logcombine
 
 Radsimp
 -------
-.. module:: diofant.simplify.radsimp
+.. module:: sympy.simplify.radsimp
 
 radsimp
 ^^^^^^^
@@ -71,7 +71,7 @@ fraction
 
 Ratsimp
 -------
-.. module:: diofant.simplify.ratsimp
+.. module:: sympy.simplify.ratsimp
 
 ratsimp
 ^^^^^^^
@@ -79,7 +79,7 @@ ratsimp
 
 Trigonometric simplification
 ----------------------------
-.. module:: diofant.simplify.trigsimp
+.. module:: sympy.simplify.trigsimp
 
 trigsimp
 ^^^^^^^^
@@ -91,12 +91,12 @@ futrig
 
 fu
 ^^
-.. module:: diofant.simplify.fu
+.. module:: sympy.simplify.fu
 .. autofunction:: fu
 
 Power simplification
 --------------------
-.. module:: diofant.simplify.powsimp
+.. module:: sympy.simplify.powsimp
 
 powsimp
 ^^^^^^^
@@ -108,7 +108,7 @@ powdenest
 
 Combinatorial simplification
 ----------------------------
-.. module:: diofant.simplify.combsimp
+.. module:: sympy.simplify.combsimp
 
 combsimp
 ^^^^^^^^
@@ -116,7 +116,7 @@ combsimp
 
 Square Root Denest
 ------------------
-.. module:: diofant.simplify.sqrtdenest
+.. module:: sympy.simplify.sqrtdenest
 
 sqrtdenest
 ^^^^^^^^^^
@@ -128,7 +128,7 @@ unrad
 
 Common Subexpresion Elimination
 -------------------------------
-.. module:: diofant.simplify.cse_main
+.. module:: sympy.simplify.cse_main
 
 cse
 ^^^
@@ -144,7 +144,7 @@ tree_cse
 
 Hypergeometric Function Expansion
 ---------------------------------
-.. module:: diofant.simplify.hyperexpand
+.. module:: sympy.simplify.hyperexpand
 
 hyperexpand
 ^^^^^^^^^^^
@@ -152,7 +152,7 @@ hyperexpand
 
 Traversal Tools
 ---------------
-.. module:: diofant.simplify.traversaltools
+.. module:: sympy.simplify.traversaltools
 
 use
 ^^^
@@ -160,7 +160,7 @@ use
 
 EPath Tools
 -----------
-.. module:: diofant.simplify.epathtools
+.. module:: sympy.simplify.epathtools
 
 EPath class
 ^^^^^^^^^^^

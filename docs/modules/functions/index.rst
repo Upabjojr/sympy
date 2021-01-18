@@ -3,12 +3,12 @@
 Mathematical Functions
 **********************
 
-.. module:: diofant.functions
+.. module:: sympy.functions
 
 All functions support the methods documented below, inherited from
-:py:class:`diofant.core.function.Function`.
+:py:class:`sympy.core.function.Function`.
 
-.. autoclass:: diofant.core.function.Function
+.. autoclass:: sympy.core.function.Function
    :noindex:
    :members:
 

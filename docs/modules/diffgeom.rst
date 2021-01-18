@@ -1,7 +1,7 @@
 Differential Geometry
 =====================
 
-.. module:: diofant.diffgeom
+.. module:: sympy.diffgeom
 
 Introduction
 ------------

@@ -3,7 +3,7 @@
 Polyhedron
 ==========
 
-.. module:: diofant.combinatorics.polyhedron
+.. module:: sympy.combinatorics.polyhedron
 
 .. autoclass:: Polyhedron
    :members:

@@ -27,7 +27,7 @@ Yet obviously we can simplify above expression if some additional
 mathematical properties on ``x`` are assumed.  This is where
 assumptions system come into play.
 
-Assumptions are set on :class:`~diofant.core.symbol.Symbol` objects
+Assumptions are set on :class:`~sympy.core.symbol.Symbol` objects
 when they are created. For instance, we can create a symbol that is
 assumed to be positive.
 
@@ -40,7 +40,7 @@ And then, certain simplifications will be possible:
 
 The assumptions system additionally has deductive capabilities.  You
 might check assumptions on any expression with ``is_assumption``
-attributes, like :attr:`~diofant.core.expr.Expr.is_positive`.
+attributes, like :attr:`~sympy.core.expr.Expr.is_positive`.
 
     >>> p.is_positive
     True
@@ -64,7 +64,7 @@ Substitution
 ============
 
 One of the most common things you might want to do with a mathematical
-expression is substitution with :meth:`~diofant.core.basic.Basic.subs`
+expression is substitution with :meth:`~sympy.core.basic.Basic.subs`
 method.  It replaces all instances of something in an expression with
 something else.
 
@@ -105,7 +105,7 @@ Numerics
 ========
 
 To evaluate a numerical expression into a floating point number with
-arbitrary precision, use :meth:`~diofant.core.evalf.EvalfMixin.evalf`.
+arbitrary precision, use :meth:`~sympy.core.evalf.EvalfMixin.evalf`.
 By default, 15 digits of precision are used.
 
     >>> expr = sqrt(8)
@@ -123,7 +123,7 @@ Complex numbers are supported:
     0.289025482222236 - 0.0919996683503752⋅ⅈ
 
 If the expression contains symbols or for some other reason cannot be evaluated
-numerically, calling :meth:`~diofant.core.evalf.EvalfMixin.evalf` returns the
+numerically, calling :meth:`~sympy.core.evalf.EvalfMixin.evalf` returns the
 original expression or a partially evaluated expression.
 
     >>> (pi*x**2 + x/3).evalf()
@@ -163,7 +163,7 @@ but this method is slow.
 
 The easiest way to convert an expression to the form that can be numerically
 evaluated with libraries like :mod:`numpy` or the standard library :mod:`math`
-module --- use the :func:`~diofant.utilities.lambdify.lambdify` function.
+module --- use the :func:`~sympy.utilities.lambdify.lambdify` function.
 
     >>> f = lambdify(x, expr, 'math')
     >>> f(0.1)

@@ -1,7 +1,7 @@
 Points
 ------
 
-.. module:: diofant.geometry.point
+.. module:: sympy.geometry.point
 
 .. autoclass:: Point
    :members:

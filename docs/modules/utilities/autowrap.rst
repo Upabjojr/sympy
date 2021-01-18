@@ -6,7 +6,59 @@ The autowrap module works very well in tandem with the Indexed classes of the
 :ref:`tensor_module`.  Here is a simple example that shows how to setup a binary
 routine that calculates a matrix-vector product.
 
->>> from diofant.utilities.autowrap import autowrap
+>>> from sympy.utilities.autowrap import autowrap
+>>> A, x, y = map(IndexedBase, ['A', 'x', 'y'])
+>>> i = Idx('i', m)
+>>> j = Idx('j', n)
+>>> instruction = Eq(y[i], A[i, j]*x[j])
+>>> instruction
+Eq(y[i], x[j]*A[i, j])
+
+Because the code printers treat Indexed objects with repeated indices as a
+summation, the above equality instance will be translated to low-level code for
+a matrix vector product.  This is how you tell Diofant to generate the code,
+compile it and wrap it as a python function:
+
+>>> matvec = autowrap(instruction)                 # doctest: +SKIP
+
+That's it.  Now let's test it with some numpy arrays.  The default wrapper
+backend is f2py.  The wrapper function it provides is set up to accept python
+lists, which it will silently convert to numpy arrays.  So we can test the
+matrix vector product like this:
+
+>>> M = [[0, 1],
+...      [1, 0]]
+>>> matvec(M, [2, 3])                              # doctest: +SKIP
+[ 3.  2.]
+routine that calculates a matrix-vector product.
+
+>>> from sympy.utilities.autowrap import autowrap
+>>> A, x, y = map(IndexedBase, ['A', 'x', 'y'])
+>>> i = Idx('i', m)
+>>> j = Idx('j', n)
+>>> instruction = Eq(y[i], A[i, j]*x[j])
+>>> instruction
+Eq(y[i], x[j]*A[i, j])
+
+Because the code printers treat Indexed objects with repeated indices as a
+summation, the above equality instance will be translated to low-level code for
+a matrix vector product.  This is how you tell Diofant to generate the code,
+compile it and wrap it as a python function:
+
+>>> matvec = autowrap(instruction)                 # doctest: +SKIP
+
+That's it.  Now let's test it with some numpy arrays.  The default wrapper
+backend is f2py.  The wrapper function it provides is set up to accept python
+lists, which it will silently convert to numpy arrays.  So we can test the
+matrix vector product like this:
+
+>>> M = [[0, 1],
+...      [1, 0]]
+>>> matvec(M, [2, 3])                              # doctest: +SKIP
+[ 3.  2.]
+routine that calculates a matrix-vector product.
+
+>>> from sympy.utilities.autowrap import autowrap
 >>> A, x, y = map(IndexedBase, ['A', 'x', 'y'])
 >>> i = Idx('i', m)
 >>> j = Idx('j', n)
@@ -48,5 +100,5 @@ backend-dependent details.
 API Reference
 =============
 
-.. automodule:: diofant.utilities.autowrap
+.. automodule:: sympy.utilities.autowrap
    :members:

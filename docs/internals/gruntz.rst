@@ -1,2 +1,2 @@
-.. automodule:: diofant.series.gruntz
+.. automodule:: sympy.series.gruntz
    :members:

@@ -6,7 +6,7 @@
     >>> init_printing(pretty_print=True, use_unicode=True)
 
 The generic way to do *nontrivial* simplifications of expressions is
-calling :func:`~diofant.simplify.simplify.simplify` function.
+calling :func:`~sympy.simplify.simplify.simplify` function.
 
     >>> simplify(sin(x)**2 + cos(x)**2)
     1
@@ -18,24 +18,24 @@ calling :func:`~diofant.simplify.simplify.simplify` function.
 There are also more directed simplification functions.  These apply
 very specific rules to the input expression and are typically able to
 make guarantees about the output.  For instance, the
-:func:`~diofant.polys.polytools.factor` function, given a polynomial
+:func:`~sympy.polys.polytools.factor` function, given a polynomial
 with rational coefficients in several variables, is guaranteed to
 produce a factorization into irreducible factors.
 
-The :func:`~diofant.simplify.simplify.simplify` function applies
+The :func:`~sympy.simplify.simplify.simplify` function applies
 almost all available in Diofant such specific simplification rules in
 some heuristics sequence to produce the simplest result.
 
 .. tip::
 
    The optional ``measure`` keyword argument for
-   :func:`~diofant.simplify.simplify.simplify` lets the user specify
+   :func:`~sympy.simplify.simplify.simplify` lets the user specify
    the Python function used to determine how "simple" an expression
-   is.  The default is :func:`~diofant.core.function.count_ops`, which
+   is.  The default is :func:`~sympy.core.function.count_ops`, which
    returns the total number of operations in the expression.
 
 That is why it is usually slow.  But more important pitfail is that
-sometimes :func:`~diofant.simplify.simplify.simplify` doesn't
+sometimes :func:`~sympy.simplify.simplify.simplify` doesn't
 "simplify" how you might expect, if, for example, it miss some
 transformation or apply it too early or too late.  Lets look on an
 example
@@ -50,10 +50,10 @@ example
 Obviously, the factored form is more "simple", as it has less
 arithmetic operations.
 
-The function :func:`~diofant.simplify.simplify.simplify` is best when
+The function :func:`~sympy.simplify.simplify.simplify` is best when
 used interactively, when you just want to whittle down an expression
 to a simpler form.  You may then choose to apply specific functions
-once you see what :func:`~diofant.simplify.simplify.simplify` returns,
+once you see what :func:`~sympy.simplify.simplify.simplify` returns,
 to get a more precise result.  It is also useful when you have no idea
 what form an expression will take, and you need a catchall function to
 simplify it.
@@ -61,7 +61,7 @@ simplify it.
 Rational Functions
 ==================
 
-:func:`~diofant.core.function.expand` is one of the most common
+:func:`~sympy.core.function.expand` is one of the most common
 simplification functions in Diofant.  Although it has a lot of scopes,
 for now, we will consider its function in expanding polynomial
 expressions.
@@ -73,22 +73,22 @@ expressions.
      2
     x  - x - 6
 
-Given a polynomial, :func:`~diofant.core.function.expand` will put it
+Given a polynomial, :func:`~sympy.core.function.expand` will put it
 into a canonical form of a sum of monomials with help of more directed
 expansion methods, namely
-:func:`~diofant.core.function.expand_multinomial` and
-:func:`~diofant.core.function.expand_mul`.
+:func:`~sympy.core.function.expand_multinomial` and
+:func:`~sympy.core.function.expand_mul`.
 
-:func:`~diofant.core.function.expand` may not sound like a
+:func:`~sympy.core.function.expand` may not sound like a
 simplification function.  After all, by its very name, it makes
 expressions bigger, not smaller.  Usually this is the case, but often
 an expression will become smaller upon calling
-:func:`~diofant.core.function.expand` on it due to cancellation.
+:func:`~sympy.core.function.expand` on it due to cancellation.
 
     >>> expand((x + 1)*(x - 2) - (x - 1)*x)
     -2
 
-Function :func:`~diofant.polys.polytools.factor` takes a multivariate
+Function :func:`~sympy.polys.polytools.factor` takes a multivariate
 polynomial with rational coefficients and factors it into irreducible
 factors.
 
@@ -99,13 +99,13 @@ factors.
                2
     z⋅(x + 2⋅y)
 
-For polynomials, :func:`~diofant.polys.polytools.factor` is the
-opposite of :func:`~diofant.core.function.expand`.
+For polynomials, :func:`~sympy.polys.polytools.factor` is the
+opposite of :func:`~sympy.core.function.expand`.
 
 .. note::
 
-   The input to :func:`~diofant.polys.polytools.factor` and
-   :func:`~diofant.core.function.expand` need not be polynomials in
+   The input to :func:`~sympy.polys.polytools.factor` and
+   :func:`~sympy.core.function.expand` need not be polynomials in
    the strict sense.  They will intelligently factor or expand any
    kind of expression (though, for example, the factors may not be
    irreducible if the input is no longer a polynomial over the
@@ -118,7 +118,7 @@ opposite of :func:`~diofant.core.function.expand`.
                         2
        (sin(x) + cos(x))
 
-:func:`~diofant.simplify.radsimp.collect` collects common powers of a
+:func:`~sympy.simplify.radsimp.collect` collects common powers of a
 term in an expression.
 
     >>> x*y + x - 3 + 2*x**2 - z*x**2 + x**3
@@ -128,13 +128,13 @@ term in an expression.
      3    2
     x  + x ⋅(-z + 2) + x⋅(y + 1) - 3
 
-:func:`~diofant.simplify.radsimp.collect` is particularly useful in
-conjunction with the :meth:`~diofant.core.expr.Expr.coeff` method.
+:func:`~sympy.simplify.radsimp.collect` is particularly useful in
+conjunction with the :meth:`~sympy.core.expr.Expr.coeff` method.
 
     >>> _.coeff(x, 2)
     -z + 2
 
-:func:`~diofant.polys.polytools.cancel` will take any rational
+:func:`~sympy.polys.polytools.cancel` will take any rational
 function and put it into the standard canonical form, `p/q`, where `p`
 and `q` are expanded polynomials with no common factors.
 
@@ -166,7 +166,7 @@ and `q` are expanded polynomials with no common factors.
 
 .. note::
 
-   Since :func:`~diofant.polys.polytools.factor` will completely
+   Since :func:`~sympy.polys.polytools.factor` will completely
    factorize both the numerator and the denominator of an expression,
    it can also be used to do the same thing:
 
@@ -179,7 +179,7 @@ and `q` are expanded polynomials with no common factors.
    However, it's less efficient if you are only interested in making
    sure that the expression is in canceled form.
 
-:func:`~diofant.polys.partfrac.apart` performs a `partial fraction
+:func:`~sympy.polys.partfrac.apart` performs a `partial fraction
 decomposition
 <https://en.wikipedia.org/wiki/Partial_fraction_decomposition>`_ on a
 rational function.
@@ -200,7 +200,7 @@ Trigonometric Functions
 =======================
 
 To simplify expressions using trigonometric identities, use
-:func:`~diofant.simplify.trigsimp.trigsimp` function.
+:func:`~sympy.simplify.trigsimp.trigsimp` function.
 
     >>> trigsimp(sin(x)**2 + cos(x)**2)
     1
@@ -219,13 +219,13 @@ It also works with hyperbolic functions.
     >>> trigsimp(sinh(x)/tanh(x))
     cosh(x)
 
-Much like :func:`~diofant.simplify.simplify.simplify` function,
-:func:`~diofant.simplify.trigsimp.trigsimp` applies various
+Much like :func:`~sympy.simplify.simplify.simplify` function,
+:func:`~sympy.simplify.trigsimp.trigsimp` applies various
 trigonometric identities to the input expression, and then uses a
 heuristic to return the "best" one.
 
 To expand trigonometric functions, that is, apply the sum or double
-angle identities, use :func:`~diofant.core.function.expand_trig`
+angle identities, use :func:`~sympy.core.function.expand_trig`
 function.
 
     >>> expand_trig(sin(x + y))
@@ -239,7 +239,7 @@ function.
 Powers and Logarithms
 =====================
 
-:func:`~diofant.simplify.powsimp.powdenest` function applies identity
+:func:`~sympy.simplify.powsimp.powdenest` function applies identity
 `(x^a)^b = x^{a b}`, from left to right, if assumptions allow.
 
     >>> a, b = symbols('a b', real=True)
@@ -248,14 +248,14 @@ Powers and Logarithms
      a⋅b
     p
 
-:func:`~diofant.simplify.powsimp.powsimp` function reduces expression
+:func:`~sympy.simplify.powsimp.powsimp` function reduces expression
 by combining powers with similar bases and exponent.
 
    >>> powsimp(z**x*z**y)
      x + y
     z
 
-Again, as for :func:`~diofant.simplify.powsimp.powdenest` above, for
+Again, as for :func:`~sympy.simplify.powsimp.powdenest` above, for
 the identity `x^a y^a = (x y)^a`, that combine bases, we should be
 careful about assumptions.
 
@@ -267,9 +267,9 @@ careful about assumptions.
 In general, this identity doesn't hold.  For example, if `x = y = -1`
 and `a = 1/2`.
 
-:func:`~diofant.core.function.expand_power_exp` and
-:func:`~diofant.core.function.expand_power_base` functions do reverse
-of :func:`~diofant.simplify.powsimp.powsimp`.
+:func:`~sympy.core.function.expand_power_exp` and
+:func:`~sympy.core.function.expand_power_base` functions do reverse
+of :func:`~sympy.simplify.powsimp.powsimp`.
 
     >>> expand_power_exp(x**(y + z))
      y  z
@@ -288,7 +288,7 @@ Neither identity is true for arbitrary complex `x` and `y`, due to the
 branch cut in the complex plane for the complex logarithm.
 
 To apply above identities from left to right, use
-:func:`~diofant.core.function.expand_log`.  As for powers, the
+:func:`~sympy.core.function.expand_log`.  As for powers, the
 identities will not be applied unless they are valid with given set of
 assumptions for symbols.
 
@@ -304,8 +304,8 @@ assumptions for symbols.
     log(x⋅y)
 
 To apply identities from right to left, i.e. do reverse of
-:func:`~diofant.core.function.expand_log`, use
-:func:`~diofant.simplify.simplify.logcombine` function.
+:func:`~sympy.core.function.expand_log`, use
+:func:`~sympy.simplify.simplify.logcombine` function.
 
     >>> logcombine(log(p) + log(q))
     log(p⋅q)
@@ -323,9 +323,9 @@ Diofant implements dozens of :ref:`special functions
 mathematical physics.
 
 To expand special functions in terms of some identities, use
-:func:`~diofant.core.function.expand_func`.  For example the `gamma
+:func:`~sympy.core.function.expand_func`.  For example the `gamma
 function <https://en.wikipedia.org/wiki/Gamma_function>`_
-:class:`~diofant.functions.special.gamma_functions.gamma` can be
+:class:`~sympy.functions.special.gamma_functions.gamma` can be
 expanded as
 
     >>> expand_func(gamma(x + 3))
@@ -333,8 +333,8 @@ expanded as
 
 This method also can help if you would like to rewrite the generalized
 hypergeometric function
-:class:`~diofant.functions.special.hyper.hyper` or the Meijer
-G-function :class:`~diofant.functions.special.hyper.meijerg` in terms
+:class:`~sympy.functions.special.hyper.hyper` or the Meijer
+G-function :class:`~sympy.functions.special.hyper.meijerg` in terms
 of more standard functions.
 
     >>> expand_func(hyper([1, 1], [2], z))
@@ -350,7 +350,7 @@ of more standard functions.
     ╲╱ ℯ
 
 Another type of expand rule is expanding complex valued expressions and putting
-them into a normal form. For this :func:`~diofant.core.function.expand_complex`
+them into a normal form. For this :func:`~sympy.core.function.expand_complex`
 is used.   Note that it will always perform arithmetic expand to obtain the
 desired normal form.
 
@@ -358,16 +358,16 @@ desired normal form.
     ⅈ⋅(re(y) + im(x)) + re(x) - im(y)
 
 The same behavior can be obtained by using
-:meth:`~diofant.core.expr.Expr.as_real_imag` method.
+:meth:`~sympy.core.expr.Expr.as_real_imag` method.
 
     >>> (x + I*y).as_real_imag()
     (re(x) - im(y), re(y) + im(x))
 
 To simplify combinatorial expressions, involving
-:class:`~diofant.functions.combinatorial.factorials.factorial`,
-:class:`~diofant.functions.combinatorial.factorials.binomial` or
-:class:`~diofant.functions.special.gamma_functions.gamma` --- use
-:func:`~diofant.simplify.combsimp.combsimp` function.
+:class:`~sympy.functions.combinatorial.factorials.factorial`,
+:class:`~sympy.functions.combinatorial.factorials.binomial` or
+:class:`~sympy.functions.special.gamma_functions.gamma` --- use
+:func:`~sympy.simplify.combsimp.combsimp` function.
 
     >>> combsimp(factorial(x)/factorial(x - 3))
     x⋅(x - 2)⋅(x - 1)
@@ -386,7 +386,7 @@ CSE
 Before evaluating a large expression, it is often useful to identify common
 subexpressions, collect them and evaluate them at once. This is called common
 subexpression elimination (CSE) and implemented in the
-:func:`~diofant.simplify.cse_main.cse` function.
+:func:`~sympy.simplify.cse_main.cse` function.
 
     >>> cse(sqrt(sin(x)))
     ⎛    ⎡  ________⎤⎞

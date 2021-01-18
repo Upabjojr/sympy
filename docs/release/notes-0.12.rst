@@ -7,42 +7,42 @@ Not Released Yet
 New features
 ============
 
-* Support modular exponentiation of :class:`~diofant.polys.rings.PolyElement`'s, see :pull:`1032`.
-* :func:`~diofant.solvers.inequalities.reduce_inequalities` support solving linear inequalities with Fourier-Motzkin elimination algorithm, see :pull:`1063`.
-* Added :class:`~diofant.domains.FiniteRing` for modular integers, see :pull:`876`.
-* Implemented :meth:`~diofant.polys.fields.FracElement.compose` for functional composition in the fields of fractions, see :pull:`1100`.
+* Support modular exponentiation of :class:`~sympy.polys.rings.PolyElement`'s, see :pull:`1032`.
+* :func:`~sympy.solvers.inequalities.reduce_inequalities` support solving linear inequalities with Fourier-Motzkin elimination algorithm, see :pull:`1063`.
+* Added :class:`~sympy.domains.FiniteRing` for modular integers, see :pull:`876`.
+* Implemented :meth:`~sympy.polys.fields.FracElement.compose` for functional composition in the fields of fractions, see :pull:`1100`.
 
 Major changes
 =============
 
-* Module :mod:`~diofant.polys.sqfreetools` was ported to use sparse polynomial representation, see :pull:`1009`.
-* Module :mod:`~diofant.polys.factortools` was ported to use sparse polynomial representation, see :pull:`1015`, :pull:`1018`, :pull:`1019`, :pull:`1020` and :pull:`1021`.
-* Module :mod:`~diofant.polys.rootisolation` was ported to use sparse polynomial representation, finally the dense representation is used nowhere, see :pull:`1030`, :pull:`1031` and :pull:`1035`.
-* :func:`~diofant.solvers.inequalities.reduce_inequalities` uses :class:`~diofant.sets.fancysets.ExtendedReals` subsets to solve inequalities, see :pull:`1067` and :pull:`1092`.
-* Added new algorithm for factorization of multivariate polynomials over :class:`~diofant.domains.AlgebraicField`'s (uses Hensel lifting), see :pull:`876`.  Thanks to Katja Sophie Hotz.  Thanks to Kalevi Suominen for help with review.
+* Module :mod:`~sympy.polys.sqfreetools` was ported to use sparse polynomial representation, see :pull:`1009`.
+* Module :mod:`~sympy.polys.factortools` was ported to use sparse polynomial representation, see :pull:`1015`, :pull:`1018`, :pull:`1019`, :pull:`1020` and :pull:`1021`.
+* Module :mod:`~sympy.polys.rootisolation` was ported to use sparse polynomial representation, finally the dense representation is used nowhere, see :pull:`1030`, :pull:`1031` and :pull:`1035`.
+* :func:`~sympy.solvers.inequalities.reduce_inequalities` uses :class:`~sympy.sets.fancysets.ExtendedReals` subsets to solve inequalities, see :pull:`1067` and :pull:`1092`.
+* Added new algorithm for factorization of multivariate polynomials over :class:`~sympy.domains.AlgebraicField`'s (uses Hensel lifting), see :pull:`876`.  Thanks to Katja Sophie Hotz.  Thanks to Kalevi Suominen for help with review.
 
 Compatibility breaks
 ====================
 
 * Removed ``vring()`` and ``vfield()`` functions, see :pull:`1016`.
 * Drop support for ``from_list()`` initialization for multivariate polynomials, see :pull:`1035`.
-* Drop ``to_dense()``, ``tail_degrees()``, ``almosteq()`` and ``degree_list()`` methods and ``is_monic``, ``is_primitive`` attributes of :class:`~diofant.polys.rings.PolyElement`, see :pull:`1035`, :pull:`1036` and :pull:`1051`.
-* Drop ``is_monic``, ``is_primitive``, ``zero``, ``one`` and ``unit`` attributes and ``degree_list()`` method of :class:`~diofant.polys.polytools.Poly`, see :pull:`1036`, :pull:`1039` and :pull:`1051`.
+* Drop ``to_dense()``, ``tail_degrees()``, ``almosteq()`` and ``degree_list()`` methods and ``is_monic``, ``is_primitive`` attributes of :class:`~sympy.polys.rings.PolyElement`, see :pull:`1035`, :pull:`1036` and :pull:`1051`.
+* Drop ``is_monic``, ``is_primitive``, ``zero``, ``one`` and ``unit`` attributes and ``degree_list()`` method of :class:`~sympy.polys.polytools.Poly`, see :pull:`1036`, :pull:`1039` and :pull:`1051`.
 * Drop ``sring()``, ``poly_from_expr()``, ``gcd_list()`` and ``lcm_list()`` functions, see :pull:`1037`, :pull:`1057` and :pull:`1086`.
-* Functions and classes of the :mod:`~diofant.polys.polytools` module do not support anymore iterables as polynomial generator, see :pull:`1039`.
+* Functions and classes of the :mod:`~sympy.polys.polytools` module do not support anymore iterables as polynomial generator, see :pull:`1039`.
 * Drop unused functions ``dispersion()``, ``dispersionset()`` and ``degree_list()``, see :pull:`1051` and :pull:`1053`.
-* Drop rich comparison methods from the :class:`~diofant.polys.fields.FracElement`, see :pull:`1101`.
-* :func:`~diofant.polys.polytools.Poly.from_list` support now ascending order of coefficients (i.e., the leading coefficient of univariate polynomial is coming last), see :pull:`1103`.
-* Removed support for 3D geometry in the :mod:`~diofant.geometry` module and ``Point.__getitem__()`` method, see :pull:`1105`.
-* Drop ``coeff()``, ``coeffs()``, ``monoms()``, ``terms()`` and ``deflate()`` methods of :class:`~diofant.polys.rings.PolyElement`, use dictionary indexing, see :pull:`1108`.
+* Drop rich comparison methods from the :class:`~sympy.polys.fields.FracElement`, see :pull:`1101`.
+* :func:`~sympy.polys.polytools.Poly.from_list` support now ascending order of coefficients (i.e., the leading coefficient of univariate polynomial is coming last), see :pull:`1103`.
+* Removed support for 3D geometry in the :mod:`~sympy.geometry` module and ``Point.__getitem__()`` method, see :pull:`1105`.
+* Drop ``coeff()``, ``coeffs()``, ``monoms()``, ``terms()`` and ``deflate()`` methods of :class:`~sympy.polys.rings.PolyElement`, use dictionary indexing, see :pull:`1108`.
 
 Minor changes
 =============
 
-* Special case univariate polynomials with :class:`~diofant.polys.univar.UnivarPolynomialRing` and :class:`~diofant.polys.univar.UnivarPolyElement`, see :pull:`1024`.
-* Implement :attr:`~diofant.domains.finitefield.ModularInteger.is_primitive`, see :pull:`1035`.
-* Add :class:`~diofant.sets.fancysets.ExtendedReals` singleton, see :pull:`1067`.
-* 100% test coverage for :mod:`~diofant.geometry` module, see :pull:`1105`.  Overall test coverage is around 98%.
+* Special case univariate polynomials with :class:`~sympy.polys.univar.UnivarPolynomialRing` and :class:`~sympy.polys.univar.UnivarPolyElement`, see :pull:`1024`.
+* Implement :attr:`~sympy.domains.finitefield.ModularInteger.is_primitive`, see :pull:`1035`.
+* Add :class:`~sympy.sets.fancysets.ExtendedReals` singleton, see :pull:`1067`.
+* 100% test coverage for :mod:`~sympy.geometry` module, see :pull:`1105`.  Overall test coverage is around 98%.
 
 Developer changes
 =================
@@ -54,7 +54,7 @@ Developer changes
 Issues closed
 =============
 
-See the `release milestone <https://github.com/diofant/diofant/milestone/6?closed=1>`_
+See the `release milestone <https://github.com/sympy/sympy/milestone/6?closed=1>`_
 for complete list of issues and pull requests involved in this release.
 
 These Sympy issues also were addressed:

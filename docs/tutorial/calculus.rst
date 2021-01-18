@@ -6,12 +6,12 @@
     >>> init_printing(pretty_print=True, use_unicode=True)
 
 This section covers how to do basic calculus tasks such as derivatives,
-integrals, limits, and series expansions in Diofant.
+integrals, limits, and series expansions in sympy.
 
 Derivatives
 ===========
 
-To take derivatives, use the :func:`~diofant.core.function.diff`
+To take derivatives, use the :func:`~sympy.core.function.diff`
 function.
 
     >>> diff(cos(x))
@@ -21,7 +21,7 @@ function.
        ⎝x ⎠
     2⋅ℯ    ⋅x
 
-:func:`~diofant.core.function.diff` can take multiple derivatives at
+:func:`~sympy.core.function.diff` can take multiple derivatives at
 once.  To take multiple derivatives, pass the variable as many times
 as you wish to differentiate, or pass a number after the variable.
 For example, both of the following find the third derivative of `x^4`.
@@ -47,9 +47,9 @@ derivatives.  For example, each of the following will compute
      x⋅y⋅z  3  2 ⎛ 3  3  3       2  2  2                ⎞
     ℯ     ⋅x ⋅y ⋅⎝x ⋅y ⋅z  + 14⋅x ⋅y ⋅z  + 52⋅x⋅y⋅z + 48⎠
 
-:func:`~diofant.core.function.diff` can also be called as a method
-:meth:`~diofant.core.expr.Expr.diff`.  The two ways of calling
-:func:`~diofant.core.function.diff` are exactly the same, and are
+:func:`~sympy.core.function.diff` can also be called as a method
+:meth:`~sympy.core.expr.Expr.diff`.  The two ways of calling
+:func:`~sympy.core.function.diff` are exactly the same, and are
 provided only for convenience.
 
     >>> expr.diff(x, y, y, z, 4)
@@ -57,8 +57,8 @@ provided only for convenience.
     ℯ     ⋅x ⋅y ⋅⎝x ⋅y ⋅z  + 14⋅x ⋅y ⋅z  + 52⋅x⋅y⋅z + 48⎠
 
 To create an unevaluated derivative, use the
-:class:`~diofant.core.function.Derivative` class.  It has the same
-syntax as :func:`~diofant.core.function.diff`.
+:class:`~sympy.core.function.Derivative` class.  It has the same
+syntax as :func:`~sympy.core.function.diff`.
 
     >>> Derivative(expr, x, y, y, z, 4)
          7
@@ -67,11 +67,11 @@ syntax as :func:`~diofant.core.function.diff`.
       4   2
     ∂z  ∂y  ∂x
 
-Such unevaluated objects also used when Diofant does not know how to compute
+Such unevaluated objects also used when sympy does not know how to compute
 the derivative of an expression.
 
 To evaluate an unevaluated derivative, use the
-:meth:`~diofant.core.basic.Basic.doit` method.
+:meth:`~sympy.core.basic.Basic.doit` method.
 
     >>> _.doit()
      x⋅y⋅z  3  2 ⎛ 3  3  3       2  2  2                ⎞
@@ -80,7 +80,7 @@ To evaluate an unevaluated derivative, use the
 Integrals
 =========
 
-To compute an integral, use the :func:`~diofant.integrals.integrals.integrate`
+To compute an integral, use the :func:`~sympy.integrals.integrals.integrate`
 function.  There are two kinds of integrals, definite and indefinite.  To
 compute an indefinite integral, do
 
@@ -89,7 +89,7 @@ compute an indefinite integral, do
 
 .. note::
 
-    For indefinite integrals, Diofant does not include the constant of
+    For indefinite integrals, sympy does not include the constant of
     integration.
 
 For example, to compute a definite integral
@@ -105,7 +105,7 @@ we would do
 
 .. tip::
 
-    `\infty` in Diofant is ``oo`` (that's the lowercase letter "oh" twice).
+    `\infty` in sympy is ``oo`` (that's the lowercase letter "oh" twice).
 
 As with indefinite integrals, you can pass multiple limit tuples to perform a
 multiple integral.  For example, to compute
@@ -119,9 +119,9 @@ do
     >>> integrate(exp(-x**2 - y**2), (x, -oo, oo), (y, -oo, oo))
     π
 
-If :func:`~diofant.integrals.integrals.integrate` is unable to compute an
+If :func:`~sympy.integrals.integrals.integrate` is unable to compute an
 integral, it returns an unevaluated
-:class:`~diofant.integrals.integrals.Integral` object.
+:class:`~sympy.integrals.integrals.Integral` object.
 
     >>> integrate(x**x)
     ⌠
@@ -131,9 +131,9 @@ integral, it returns an unevaluated
     >>> print(_)
     Integral(x**x, x)
 
-As with :class:`~diofant.core.function.Derivative`, you can create an
+As with :class:`~sympy.core.function.Derivative`, you can create an
 unevaluated integral directly.  To later evaluate this integral, call
-:meth:`~diofant.integrals.integrals.Integral.doit`.
+:meth:`~sympy.integrals.integrals.Integral.doit`.
 
     >>> Integral(log(x)**2)
     ⌠
@@ -144,7 +144,7 @@ unevaluated integral directly.  To later evaluate this integral, call
              2
     x⋅log (x) - 2⋅x⋅log(x) + 2⋅x
 
-:func:`~diofant.integrals.integrals.integrate` uses powerful algorithms that
+:func:`~sympy.integrals.integrals.integrate` uses powerful algorithms that
 are always improving to compute both definite and indefinite integrals,
 including a partial implementation of the `Risch algorithm
 <https://en.wikipedia.org/wiki/Risch_algorithm>`_
@@ -203,15 +203,15 @@ integrals in terms of special functions, especially definite integrals
     ⎩
 
 This last example returned a
-:class:`~diofant.functions.elementary.piecewise.Piecewise` expression because
+:class:`~sympy.functions.elementary.piecewise.Piecewise` expression because
 the integral does not converge unless `\Re(y) > 1.`
 
 Sums and Products
 =================
 
 Much like integrals, there are
-:func:`~diofant.concrete.summations.summation` and
-:func:`~diofant.concrete.products.product` to compute sums and
+:func:`~sympy.concrete.summations.summation` and
+:func:`~sympy.concrete.products.product` to compute sums and
 products respectively.
 
     >>> summation(2**x, (x, 0, y - 1))
@@ -222,8 +222,8 @@ products respectively.
     z
 
 Unevaluated sums and products are represented by
-:class:`~diofant.concrete.summations.Sum` and
-:class:`~diofant.concrete.products.Product` classes.
+:class:`~sympy.concrete.summations.Sum` and
+:class:`~sympy.concrete.products.Product` classes.
 
     >>> Sum(1, (x, 1, z))
      z
@@ -240,8 +240,8 @@ Unevaluated sums and products are represented by
 Limits
 ======
 
-Diofant can compute symbolic limits with the
-:func:`~diofant.series.limits.limit` function.  To compute a directional limit
+sympy can compute symbolic limits with the
+:func:`~sympy.series.limits.limit` function.  To compute a directional limit
 
 .. math::
 
@@ -252,9 +252,9 @@ do
     >>> limit(sin(x)/x, x, 0)
     1
 
-:func:`~diofant.series.limits.limit` should be used instead of
-:meth:`~diofant.core.basic.Basic.subs` whenever the point of evaluation is a
-singularity.  Even though Diofant has objects to represent `\infty`, using them
+:func:`~sympy.series.limits.limit` should be used instead of
+:meth:`~sympy.core.basic.Basic.subs` whenever the point of evaluation is a
+singularity.  Even though sympy has objects to represent `\infty`, using them
 for evaluation is not reliable because they do not keep track of things like
 rate of growth.  Also, things like `\infty - \infty` and
 `\frac{\infty}{\infty}` return `\mathrm{nan}` (not-a-number).  For example
@@ -265,11 +265,11 @@ rate of growth.  Also, things like `\infty - \infty` and
     >>> limit(expr, x, oo)
     0
 
-Like :class:`~diofant.core.function.Derivative` and
-:class:`~diofant.integrals.integrals.Integral`,
-:func:`~diofant.series.limits.limit` has an unevaluated counterpart,
-:class:`~diofant.series.limits.Limit`.  To evaluate it, use
-:meth:`~diofant.series.limits.Limit.doit`.
+Like :class:`~sympy.core.function.Derivative` and
+:class:`~sympy.integrals.integrals.Integral`,
+:func:`~sympy.series.limits.limit` has an unevaluated counterpart,
+:class:`~sympy.series.limits.Limit`.  To evaluate it, use
+:meth:`~sympy.series.limits.Limit.doit`.
 
     >>> Limit((cos(x) - 1)/x, x, 0)
          cos(x) - 1
@@ -279,7 +279,7 @@ Like :class:`~diofant.core.function.Derivative` and
     0
 
 To change side, pass ``'-'`` as a third argument to
-:func:`~diofant.series.limits.limit`.  For example, to compute
+:func:`~sympy.series.limits.limit`.  For example, to compute
 
 .. math::
 
@@ -302,7 +302,7 @@ You can also evaluate bidirectional limit
 Series Expansion
 ================
 
-Diofant can compute asymptotic series expansions of functions around a point.
+sympy can compute asymptotic series expansions of functions around a point.
 
     >>> series(exp(sin(x)), x, 0, 4)
              2
@@ -310,11 +310,11 @@ Diofant can compute asymptotic series expansions of functions around a point.
     1 + x + ── + O⎝x ⎠
             2
 
-The `O\left (x^4\right )` term, an instance of :class:`~diofant.series.order.O`
+The `O\left (x^4\right )` term, an instance of :class:`~sympy.series.order.O`
 at the end represents the Landau order term at `x=0` (not to be confused with
 big O notation used in computer science, which generally represents the Landau
 order term at `x=\infty`).  Order terms can be created and manipulated outside
-of :func:`~diofant.series.series.series`.
+of :func:`~sympy.series.series.series`.
 
     >>> x + x**3 + x**6 + O(x**4)
          3    ⎛ 4⎞
@@ -323,7 +323,7 @@ of :func:`~diofant.series.series.series`.
     O(x)
 
 If you do not want the order term, use the
-:meth:`~diofant.core.expr.Expr.removeO` method.
+:meth:`~sympy.core.expr.Expr.removeO` method.
 
     >>> series(exp(x), x, 0, 3).removeO()
      2
@@ -331,7 +331,7 @@ If you do not want the order term, use the
     ── + x + 1
     2
 
-The :class:`~diofant.series.order.O` notation supports arbitrary limit points:
+The :class:`~sympy.series.order.O` notation supports arbitrary limit points:
 
     >>> series(exp(x - 1), x, x0=1)
            2          3          4          5

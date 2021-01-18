@@ -2,5 +2,5 @@
 Lambdify
 ========
 
-.. automodule:: diofant.utilities.lambdify
+.. automodule:: sympy.utilities.lambdify
    :members:

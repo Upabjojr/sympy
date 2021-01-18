@@ -1,22 +1,36 @@
 .. meta::
     :google-site-verification: MJQX0mr79AK_SDl4JzriJBKrebj_maVDMKFTpsPhGiU
 
-Diofant's documentation
+sympy's documentation
 =======================
 
-`Diofant <https://diofant.readthedocs.io/en/latest/>`_ is a Python
-library for symbolic mathematics.  If you are new to Diofant, start
+`sympy <https://sympy.readthedocs.io/en/latest/>`_ is a Python
+library for symbolic mathematics.  If you are new to sympy, start
 with the :ref:`Tutorial <tutorial>`.
 
-This is the central page for all of Diofant's documentation.
+This is the central page for all of sympy's documentation.
 
 .. note::
 
    Documentation examples assume (unless otherwise clearly stated)
+      that these statements were executed in the beginning of the
+      interactive session:
+
+         >>> from sympy import *
+         >>> a, b, c, d, t, x, y, z = symbols('a:d t x:z')
+         >>> k, m, n = symbols('k m n', integer=True)
+         >>> f, g, h = symbols('f:h', cls=Function)
+      that these statements were executed in the beginning of the
+      interactive session:
+
+         >>> from sympy import *
+         >>> a, b, c, d, t, x, y, z = symbols('a:d t x:z')
+         >>> k, m, n = symbols('k m n', integer=True)
+         >>> f, g, h = symbols('f:h', cls=Function)
    that these statements were executed in the beginning of the
    interactive session:
 
-      >>> from diofant import *
+      >>> from sympy import *
       >>> a, b, c, d, t, x, y, z = symbols('a:d t x:z')
       >>> k, m, n = symbols('k m n', integer=True)
       >>> f, g, h = symbols('f:h', cls=Function)

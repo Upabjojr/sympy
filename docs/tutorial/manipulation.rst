@@ -56,14 +56,14 @@ expression tree
     }
 
 First, let's look at the leaves of this tree.  We got here instances
-of the :class:`~diofant.core.symbol.Symbol` class and the Diofant
+of the :class:`~sympy.core.symbol.Symbol` class and the Diofant
 version of integers, instance of the
-:class:`~diofant.core.numbers.Integer` class, even technically we
+:class:`~sympy.core.numbers.Integer` class, even technically we
 input integer literal ``2``.
 
 What about ``x*y``?  As we might expect, this is the multiplication of
 ``x`` and ``y``.  The Diofant class for multiplication is
-:class:`~diofant.core.mul.Mul`
+:class:`~sympy.core.mul.Mul`
 
     >>> repr(x*y)
     "Mul(Symbol('x'), Symbol('y'))"
@@ -74,7 +74,7 @@ Thus, we could have created the same object by writing
     x⋅y
 
 When we write ``x**2``, this creates a
-:class:`~diofant.core.power.Pow` class instance
+:class:`~sympy.core.power.Pow` class instance
 
     >>> repr(x**2)
     "Pow(Symbol('x'), Integer(2))"
@@ -87,7 +87,7 @@ We could have created the same object by calling
 
 Now we get to our final expression, ``x*y + x**2``.  This is the
 addition of our last two objects.  The Diofant class for addition is
-:class:`~diofant.core.add.Add`, so, as you might expect, to create
+:class:`~sympy.core.add.Add`, so, as you might expect, to create
 this object, we also could use
 
     >>> Add(Pow(x, 2), Mul(x, y))
@@ -96,8 +96,8 @@ this object, we also could use
 
 .. note::
 
-   The arguments of :class:`~diofant.core.add.Add` and the commutative
-   arguments of :class:`~diofant.core.mul.Mul` are stored in an order,
+   The arguments of :class:`~sympy.core.add.Add` and the commutative
+   arguments of :class:`~sympy.core.mul.Mul` are stored in an order,
    which is independent of the order inputted.
 
 There is no subtraction class.  ``x - y`` is represented as
@@ -190,24 +190,24 @@ Walking the Tree
 ================
 
 Let's look at how to dig our way through an expression tree, using a very
-generic interface --- attributes :attr:`~diofant.core.basic.Basic.func` and
-:attr:`~diofant.core.basic.Basic.args`.
+generic interface --- attributes :attr:`~sympy.core.basic.Basic.func` and
+:attr:`~sympy.core.basic.Basic.args`.
 
-The head of the object is encoded in the :attr:`~diofant.core.basic.Basic.func`
+The head of the object is encoded in the :attr:`~sympy.core.basic.Basic.func`
 attribute
 
     >>> expr = 2 + x*y
     >>> expr
     x⋅y + 2
     >>> expr.func
-    <class 'diofant.core.add.Add'>
+    <class 'sympy.core.add.Add'>
 
 The class of an object need not be the same as the one used to create it
 
     >>> Add(x, x)
     2⋅x
     >>> _.func
-    <class 'diofant.core.mul.Mul'>
+    <class 'sympy.core.mul.Mul'>
 
 .. note::
 
@@ -216,20 +216,20 @@ The class of an object need not be the same as the one used to create it
    different class to be returned from the constructor.
 
 The children of a node in the tree are held in the
-:attr:`~diofant.core.basic.Basic.args` attribute
+:attr:`~sympy.core.basic.Basic.args` attribute
 
     >>> expr.args
     (2, x⋅y)
 
 .. note::
 
-   Every expression with non-empty :attr:`~diofant.core.basic.Basic.args` can
+   Every expression with non-empty :attr:`~sympy.core.basic.Basic.args` can
    be reconstructed, using
 
        >>> expr.func(*expr.args)
        x⋅y + 2
 
-Empty :attr:`~diofant.core.basic.Basic.args` signal that
+Empty :attr:`~sympy.core.basic.Basic.args` signal that
 we have hit a leaf of the expression tree
 
     >>> x.args

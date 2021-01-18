@@ -3,15 +3,15 @@
 N-dim array
 ===========
 
-.. automodule:: diofant.tensor.array
+.. automodule:: sympy.tensor.array
 
 Classes
 -------
 
 .. class:: Array
-    :module: diofant.tensor.array
+    :module: sympy.tensor.array
 
-    alias of :class:`~diofant.tensor.array.ImmutableDenseNDimArray`
+    alias of :class:`~sympy.tensor.array.ImmutableDenseNDimArray`
 
 .. autoclass:: ImmutableDenseNDimArray
    :members:

@@ -1,7 +1,7 @@
 Solvers
 =======
 
-.. automodule:: diofant.solvers
+.. automodule:: sympy.solvers
 
 .. toctree::
    :caption: Contents

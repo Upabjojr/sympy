@@ -1,10 +1,10 @@
 Sparse Matrices
 ===============
 
-.. automodule:: diofant.matrices.sparse
+.. automodule:: sympy.matrices.sparse
    :members:
 
 ImmutableSparseMatrix Class Reference
 -------------------------------------
-.. autoclass:: diofant.matrices.immutable.ImmutableSparseMatrix
+.. autoclass:: sympy.matrices.immutable.ImmutableSparseMatrix
    :members:

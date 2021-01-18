@@ -7,10 +7,10 @@ Diofant expressions.  The ``codegen`` function is the user interface to the code
 generation functionality in Diofant.  Some details of the implementation is given
 below for advanced users that may want to use the framework directly.
 
-.. note:: The ``codegen`` callable is not in the diofant namespace automatically,
+.. note:: The ``codegen`` callable is not in the sympy namespace automatically,
    to use it you must first execute
 
-   >>> from diofant.utilities.codegen import codegen  # noqa: F401
+   >>> from sympy.utilities.codegen import codegen  # noqa: F401
 
 Implementation Details
 ======================
@@ -46,5 +46,5 @@ the routine will need and if there should be a return value.
 API Reference
 =============
 
-.. automodule:: diofant.utilities.codegen
+.. automodule:: sympy.utilities.codegen
    :members:

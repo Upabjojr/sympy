@@ -1,7 +1,7 @@
 Curves
 ------
 
-.. module:: diofant.geometry.curve
+.. module:: sympy.geometry.curve
 
 .. autoclass:: Curve
    :members:

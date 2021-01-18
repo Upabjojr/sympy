@@ -3,7 +3,7 @@
 Tensor Canonicalization
 =======================
 
-.. module:: diofant.combinatorics.tensor_can
+.. module:: sympy.combinatorics.tensor_can
 
 .. autofunction:: canonicalize
 

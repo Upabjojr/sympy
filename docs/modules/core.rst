@@ -1,11 +1,11 @@
 Core
 ====
 
-.. automodule:: diofant.core
+.. automodule:: sympy.core
 
 sympify
 -------
-.. module:: diofant.core.sympify
+.. module:: sympy.core.sympify
 
 sympify
 ^^^^^^^
@@ -14,12 +14,12 @@ sympify
 assumptions
 -----------
 
-.. automodule:: diofant.core.assumptions
+.. automodule:: sympy.core.assumptions
     :members:
 
 cache
 -------
-.. module:: diofant.core.cache
+.. module:: sympy.core.cache
 
 cacheit
 ^^^^^^^
@@ -27,27 +27,27 @@ cacheit
 
 basic
 -----
-.. automodule:: diofant.core.basic
+.. automodule:: sympy.core.basic
    :members:
 
 core
 ----
-.. module:: diofant.core.core
+.. module:: sympy.core.core
 
 singleton
 ---------
-.. automodule:: diofant.core.singleton
+.. automodule:: sympy.core.singleton
    :members:
 
 evaluate
 --------
 
-.. automodule:: diofant.core.evaluate
+.. automodule:: sympy.core.evaluate
    :members:
 
 expr
 ----
-.. module:: diofant.core.expr
+.. module:: sympy.core.expr
 
 Expr
 ----
@@ -61,7 +61,7 @@ AtomicExpr
 
 symbol
 ------
-.. module:: diofant.core.symbol
+.. module:: sympy.core.symbol
 
 Symbol
 ^^^^^^
@@ -88,7 +88,7 @@ var
 
 numbers
 -------
-.. module:: diofant.core.numbers
+.. module:: sympy.core.numbers
 
 Number
 ^^^^^^
@@ -217,7 +217,7 @@ GoldenRatio
 
 power
 -----
-.. module:: diofant.core.power
+.. module:: sympy.core.power
 
 Pow
 ^^^
@@ -230,7 +230,7 @@ integer_nthroot
 
 mul
 ---
-.. module:: diofant.core.mul
+.. module:: sympy.core.mul
 
 Mul
 ^^^
@@ -243,7 +243,7 @@ prod
 
 add
 ---
-.. module:: diofant.core.add
+.. module:: sympy.core.add
 
 Add
 ^^^
@@ -252,7 +252,7 @@ Add
 
 mod
 ---
-.. module:: diofant.core.mod
+.. module:: sympy.core.mod
 
 Mod
 ^^^
@@ -261,7 +261,7 @@ Mod
 
 relational
 ----------
-.. module:: diofant.core.relational
+.. module:: sympy.core.relational
 
 Rel
 ^^^
@@ -335,7 +335,7 @@ StrictLessThan
 
 multidimensional
 ----------------
-.. module:: diofant.core.multidimensional
+.. module:: sympy.core.multidimensional
 
 vectorize
 ^^^^^^^^^
@@ -344,7 +344,7 @@ vectorize
 
 function
 --------
-.. module:: diofant.core.function
+.. module:: sympy.core.function
 
 Lambda
 ^^^^^^
@@ -378,6 +378,46 @@ Function
 .. note:: Not all functions are the same
 
    Diofant defines many functions (like ``cos`` and ``factorial``). It also
+      allows the user to create generic functions which act as argument
+      holders. Such functions are created just like symbols:
+
+      >>> f = Function('f')
+      >>> f(2) + f(x)
+      f(2) + f(x)
+
+      If you want to see which functions appear in an expression you can use
+      the atoms method:
+
+      >>> e = (f(x) + cos(x) + 2)
+      >>> e.atoms(Function)
+      {f(x), cos(x)}
+
+      If you just want the function you defined, not Diofant functions, the
+      thing to search for is AppliedUndef:
+
+      >>> from sympy.core.function import AppliedUndef
+      >>> e.atoms(AppliedUndef)
+      {f(x)}
+      allows the user to create generic functions which act as argument
+      holders. Such functions are created just like symbols:
+
+      >>> f = Function('f')
+      >>> f(2) + f(x)
+      f(2) + f(x)
+
+      If you want to see which functions appear in an expression you can use
+      the atoms method:
+
+      >>> e = (f(x) + cos(x) + 2)
+      >>> e.atoms(Function)
+      {f(x), cos(x)}
+
+      If you just want the function you defined, not Diofant functions, the
+      thing to search for is AppliedUndef:
+
+      >>> from sympy.core.function import AppliedUndef
+      >>> e.atoms(AppliedUndef)
+      {f(x)}
    allows the user to create generic functions which act as argument
    holders. Such functions are created just like symbols:
 
@@ -395,7 +435,7 @@ Function
    If you just want the function you defined, not Diofant functions, the
    thing to search for is AppliedUndef:
 
-   >>> from diofant.core.function import AppliedUndef
+   >>> from sympy.core.function import AppliedUndef
    >>> e.atoms(AppliedUndef)
    {f(x)}
 
@@ -455,7 +495,7 @@ nfloat
 
 evalf
 -----
-.. module:: diofant.core.evalf
+.. module:: sympy.core.evalf
 
 .. autoclass:: EvalfMixin
    :members:
@@ -471,7 +511,7 @@ N
 
 containers
 ----------
-.. module:: diofant.core.containers
+.. module:: sympy.core.containers
 
 Tuple
 ^^^^^
@@ -485,12 +525,12 @@ Dict
 
 compatibility
 -------------
-.. automodule:: diofant.core.compatibility
+.. automodule:: sympy.core.compatibility
    :members:
 
 exprtools
 ---------
-.. module:: diofant.core.exprtools
+.. module:: sympy.core.exprtools
 
 gcd_terms
 ^^^^^^^^^

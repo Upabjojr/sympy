@@ -3,7 +3,7 @@
 Permutation Groups
 ==================
 
-.. module:: diofant.combinatorics.perm_groups
+.. module:: sympy.combinatorics.perm_groups
 
 .. autoclass:: PermutationGroup
    :special-members:

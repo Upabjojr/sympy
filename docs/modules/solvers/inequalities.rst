@@ -3,5 +3,5 @@
 Inequality Solvers
 ==================
 
-.. automodule:: diofant.solvers.inequalities
+.. automodule:: sympy.solvers.inequalities
     :members:

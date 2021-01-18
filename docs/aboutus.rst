@@ -44,4 +44,4 @@ and public, without hidden double standards, centered about good,
 proved code and not the project popularity counters.
 
 .. _SymPy : https://www.sympy.org/
-.. _Diofant : https://diofant.readthedocs.io/en/latest/
+.. _Diofant : https://sympy.readthedocs.io/en/latest/

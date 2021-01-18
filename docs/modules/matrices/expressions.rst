@@ -1,7 +1,7 @@
 Matrix Expressions
 ==================
 
-.. module:: diofant.matrices.expressions
+.. module:: sympy.matrices.expressions
 
 The Matrix expression module allows users to write down statements like
 
@@ -51,9 +51,9 @@ Block Matrices
 
 Block matrices allow you to construct larger matrices out of smaller
 sub-blocks. They can work with :class:`MatrixExpr` or
-:class:`~diofant.matrices.immutable.ImmutableMatrix` objects.
+:class:`~sympy.matrices.immutable.ImmutableMatrix` objects.
 
-.. module:: diofant.matrices.expressions.blockmatrix
+.. module:: sympy.matrices.expressions.blockmatrix
 
 .. autoclass:: BlockMatrix
    :members:

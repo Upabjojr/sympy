@@ -4,7 +4,7 @@
 Tensors
 =======
 
-.. automodule:: diofant.tensor
+.. automodule:: sympy.tensor
 
 .. toctree::
     :caption: Contents

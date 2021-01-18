@@ -1,7 +1,7 @@
 Utils
 -----
 
-.. module:: diofant.geometry.util
+.. module:: sympy.geometry.util
 
 .. autofunction:: idiff
 
@@ -13,5 +13,5 @@ Utils
 
 .. autofunction:: centroid
 
-.. automodule:: diofant.geometry.exceptions
+.. automodule:: sympy.geometry.exceptions
     :members:

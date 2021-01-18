@@ -46,8 +46,8 @@ So the displayed precision should not be used as a model of error propagation or
 significance arithmetic; rather, this scheme is employed to ensure stability of
 numerical algorithms.
 
-Function :func:`~diofant.core.evalf.N` (or
-:meth:`~diofant.core.evalf.EvalfMixin.evalf` method) can be used to
+Function :func:`~sympy.core.evalf.N` (or
+:meth:`~sympy.core.evalf.EvalfMixin.evalf` method) can be used to
 change the precision of existing floating-point numbers:
 
     >>> N(3.5)
@@ -56,7 +56,7 @@ change the precision of existing floating-point numbers:
     3.5000
 
 However, you can "increase" precision of the
-:class:`~diofant.core.numbers.Float` number only with it's class
+:class:`~sympy.core.numbers.Float` number only with it's class
 constructor:
 
     >>> Float(3.5, 30)
@@ -393,7 +393,21 @@ should call the ``ufuncify`` function
 
     >>> expr = sin(x)/x
 
-    >>> from diofant.utilities.autowrap import ufuncify
+    >>> from sympy.utilities.autowrap import ufuncify
+    >>> f = ufuncify((x,), expr)
+
+This function `
+
+    >>> expr = sin(x)/x
+
+    >>> from sympy.utilities.autowrap import ufuncify
+    >>> f = ufuncify((x,), expr)
+
+This function `
+
+    >>> expr = sin(x)/x
+
+    >>> from sympy.utilities.autowrap import ufuncify
     >>> f = ufuncify((x,), expr)
 
 This function ``f`` consumes and returns a NumPy array. Generally ``ufuncify``

@@ -16,7 +16,7 @@ import warnings
 
 import sphinx.util.texescape
 
-import diofant
+import sympy
 
 
 # Turns numpydoc's section warnings to exceptions, see numpy/numpydoc#58.
@@ -48,7 +48,7 @@ master_doc = 'index'
 # Project information.
 project = 'Diofant'
 copyright = '2006-2018 SymPy Development Team, 2013-2020 Sergey B Kirpichev'
-version = diofant.__version__
+version = sympy.__version__
 release = version
 
 # The name of default reST role, that is, for text marked up `like this`.
@@ -102,9 +102,9 @@ intersphinx_mapping = {
 # Dictionary of external sites, mapping unique short alias names to a
 # base URL and a prefix.
 extlinks = {
-    'issue': ('https://github.com/diofant/diofant/issues/%s', '#'),
-    'pull': ('https://github.com/diofant/diofant/pull/%s', '#'),
-    'commit': ('https://github.com/diofant/diofant/commit/%s', ''),
+    'issue': ('https://github.com/sympy/sympy/issues/%s', '#'),
+    'pull': ('https://github.com/sympy/sympy/pull/%s', '#'),
+    'commit': ('https://github.com/sympy/sympy/commit/%s', ''),
     'sympyissue': ('https://github.com/sympy/sympy/issues/%s', 'sympy/sympy#'),
     'sympypull': ('https://github.com/sympy/sympy/pull/%s', 'sympy/sympy#'),
 }
@@ -204,13 +204,13 @@ def linkcode_resolve(domain, info):
     else:
         linespec = ''
 
-    fn = os.path.relpath(fn, start=os.path.dirname(diofant.__file__))
+    fn = os.path.relpath(fn, start=os.path.dirname(sympy.__file__))
 
-    blobpath = 'https://github.com/diofant/diofant/blob/'
+    blobpath = 'https://github.com/sympy/sympy/blob/'
     if 'dev' in version:
-        return blobpath + f'master/diofant/{fn}{linespec}'
+        return blobpath + f'master/sympy/{fn}{linespec}'
     else:
-        return blobpath + f'v{version}/diofant/{fn}{linespec}'
+        return blobpath + f'v{version}/sympy/{fn}{linespec}'
 
 
 # monkey-patch sphinx

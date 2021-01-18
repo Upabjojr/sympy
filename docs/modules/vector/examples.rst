@@ -3,7 +3,7 @@ General examples of usage
 =========================
 
 This section details the solution of two basic problems in vector
-math/calculus using the :mod:`diofant.vector` package.
+math/calculus using the :mod:`sympy.vector` package.
 
 Quadrilateral problem
 =====================
@@ -23,7 +23,37 @@ and basic operations on ``Vector``.
 
 Define a coordinate system
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> Sys = CoordSysCartesian('Sys')
+
+Define point O to be Sys' origin. We can do this without
+loss of generality
+
+  >>> O = Sys.origin
+
+Define point A with respect to O
+
+  >>> a1, a2, a3 = symbols('a1 a2 a3')
+  >>> A = O.locate_new('A', a1
+
+Define a coordinate system
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> Sys = CoordSysCartesian('Sys')
+
+Define point O to be Sys' origin. We can do this without
+loss of generality
+
+  >>> O = Sys.origin
+
+Define point A with respect to O
+
+  >>> a1, a2, a3 = symbols('a1 a2 a3')
+  >>> A = O.locate_new('A', a1
+
+Define a coordinate system
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> Sys = CoordSysCartesian('Sys')
 
 Define point O to be Sys' origin. We can do this without
@@ -82,7 +112,17 @@ Solution
 
 Start with a coordinate system
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+
+The scalar field
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+
+The scalar field
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> C = CoordSysCartesian('C')
 
 The scalar field `f` and the measure numbers of the vector field
@@ -115,4 +155,4 @@ simplified versions of the lhs and the rhs, so that the Diofant expressions matc
   True
 
 Thus, the general form of the third product rule mentioned above can be proven
-using :mod:`diofant.vector`.
+using :mod:`sympy.vector`.

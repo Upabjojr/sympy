@@ -2,5 +2,5 @@
 Decorator
 =========
 
-.. automodule:: diofant.utilities.decorator
+.. automodule:: sympy.utilities.decorator
    :members:

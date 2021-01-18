@@ -2,7 +2,7 @@
 Orienter classes (docstrings)
 =============================
 
-.. module:: diofant.vector.orienters
+.. module:: sympy.vector.orienters
 
 Orienter
 ========

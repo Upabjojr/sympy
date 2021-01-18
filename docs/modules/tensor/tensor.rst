@@ -3,7 +3,7 @@
 Tensor
 ======
 
-.. module:: diofant.tensor.tensor
+.. module:: sympy.tensor.tensor
 
 .. autoclass:: _TensorManager
    :members:

@@ -10,7 +10,7 @@ see the `online documentation`_.
 unless stated otherwise.
 
 .. _Python: https://www.python.org/
-.. _online documentation: https://diofant.readthedocs.io/en/latest/
-.. _installation instructions: https://diofant.readthedocs.io/en/latest/install.html#installation
-.. _New BSD License: https://github.com/diofant/diofant/blob/master/LICENSE.rst
-.. _this repository: https://github.com/diofant/diofant/
+.. _online documentation: https://sympy.readthedocs.io/en/latest/
+.. _installation instructions: https://sympy.readthedocs.io/en/latest/install.html#installation
+.. _New BSD License: https://github.com/sympy/sympy/blob/master/LICENSE.rst
+.. _this repository: https://github.com/sympy/sympy/

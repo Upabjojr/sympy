@@ -3,7 +3,7 @@ More about Coordinate Systems
 =============================
 
 We will now look at how we can initialize new coordinate systems in
-:mod:`diofant.vector`, positioned and oriented in user-defined
+:mod:`sympy.vector`, positioned and oriented in user-defined
 ways with respect to already-existing systems.
 
 Locating new systems
@@ -23,7 +23,19 @@ would be `(-3, -4, -5)`.
 
 This can be achieved programmatically as follows -
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> N = CoordSysCartesian('N')
+  >>> M = N.locate_new('M', 3
+
+This can be achieved programmatically as follows -
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> N = CoordSysCartesian('N')
+  >>> M = N.locate_new('M', 3
+
+This can be achieved programmatically as follows -
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> N = CoordSysCartesian('N')
   >>> M = N.locate_new('M', 3*N.i + 4*N.j + 5*N.k)
   >>> M.position_wrt(N)
@@ -42,13 +54,23 @@ system.
 Orienting new systems
 =====================
 
-Similar to 'locating' new systems, :mod:`diofant.vector` also allows for
+Similar to 'locating' new systems, :mod:`sympy.vector` also allows for
 initialization of new ``CoordSysCartesian`` instances that are oriented
 in user-defined ways with respect to existing systems.
 
 Suppose you have a coordinate system `A`.
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> A = CoordSysCartesian('A')
+
+You want to initialize a new coordinate system
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> A = CoordSysCartesian('A')
+
+You want to initialize a new coordinate system
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> A = CoordSysCartesian('A')
 
 You want to initialize a new coordinate system `B`, that is rotated with
@@ -99,7 +121,19 @@ Using Orienter(s) and the orient_new method
 You would first have to initialize an ``AxisOrienter`` instance for
 storing the rotation information.
 
-  >>> from diofant.vector import AxisOrienter
+  >>> from sympy.vector import AxisOrienter
+  >>> axis_orienter = AxisOrienter(theta, A.k)
+
+And then apply it using the
+storing the rotation information.
+
+  >>> from sympy.vector import AxisOrienter
+  >>> axis_orienter = AxisOrienter(theta, A.k)
+
+And then apply it using the
+storing the rotation information.
+
+  >>> from sympy.vector import AxisOrienter
   >>> axis_orienter = AxisOrienter(theta, A.k)
 
 And then apply it using the ``orient_new`` method, to obtain `B`.
@@ -111,11 +145,25 @@ And then apply it using the ``orient_new`` method, to obtain `B`.
 are applied to the new system in the order the ``Orienter`` instances
 appear in the iterable.
 
-  >>> from diofant.vector import BodyOrienter
+  >>> from sympy.vector import BodyOrienter
   >>> body_orienter = BodyOrienter(a, b, c, 'XYZ')
   >>> C = A.orient_new('C', (axis_orienter, body_orienter))
 
-The :mod:`diofant.vector` API provides the following four ``Orienter``
+The
+appear in the iterable.
+
+  >>> from sympy.vector import BodyOrienter
+  >>> body_orienter = BodyOrienter(a, b, c, 'XYZ')
+  >>> C = A.orient_new('C', (axis_orienter, body_orienter))
+
+The
+appear in the iterable.
+
+  >>> from sympy.vector import BodyOrienter
+  >>> body_orienter = BodyOrienter(a, b, c, 'XYZ')
+  >>> C = A.orient_new('C', (axis_orienter, body_orienter))
+
+The :mod:`sympy.vector` API provides the following four ``Orienter``
 classes for orientation purposes-
 
 1. ``AxisOrienter``
@@ -172,7 +220,31 @@ location of the new systems.
   >>> C = A.orient_new_axis('C', a, A.k, location=2*A.j)
   >>> C.position_wrt(A)
   2*A.j
-  >>> from diofant.vector import express
+  >>> from sympy.vector import express
+  >>> express(A.position_wrt(C), C)
+  (-2
+new system's origin is automatically defined to be located at that
+position vector with respect to the parent coordinate system.
+
+Thus, the orientation methods also act as methods to support orientation+
+location of the new systems.
+
+  >>> C = A.orient_new_axis('C', a, A.k, location=2*A.j)
+  >>> C.position_wrt(A)
+  2*A.j
+  >>> from sympy.vector import express
+  >>> express(A.position_wrt(C), C)
+  (-2
+new system's origin is automatically defined to be located at that
+position vector with respect to the parent coordinate system.
+
+Thus, the orientation methods also act as methods to support orientation+
+location of the new systems.
+
+  >>> C = A.orient_new_axis('C', a, A.k, location=2*A.j)
+  >>> C.position_wrt(A)
+  2*A.j
+  >>> from sympy.vector import express
   >>> express(A.position_wrt(C), C)
   (-2*sin(a))*C.i + (-2*cos(a))*C.j
 
@@ -188,12 +260,24 @@ As mentioned earlier, the same vector attains different expressions in
 different coordinate systems. In general, the same is true for scalar
 expressions and dyadic tensors.
 
-:mod:`diofant.vector` supports the expression of vector/scalar quantities
+:mod:`sympy.vector` supports the expression of vector/scalar quantities
 in different coordinate systems using the ``express`` function.
 
 For purposes of this section, assume the following initializations-
 
-  >>> from diofant.vector import CoordSysCartesian, express
+  >>> from sympy.vector import CoordSysCartesian, express
+  >>> N = CoordSysCartesian('N')
+  >>> M = N.orient_new_axis('M', a, N.k)
+
+For purposes of this section, assume the following initializations-
+
+  >>> from sympy.vector import CoordSysCartesian, express
+  >>> N = CoordSysCartesian('N')
+  >>> M = N.orient_new_axis('M', a, N.k)
+
+For purposes of this section, assume the following initializations-
+
+  >>> from sympy.vector import CoordSysCartesian, express
   >>> N = CoordSysCartesian('N')
   >>> M = N.orient_new_axis('M', a, N.k)
 
@@ -229,7 +313,7 @@ the way ``BaseScalar`` instances are expressed in different systems.
 
 ``BaseScalar`` instances, are coordinate 'symbols' meant to denote the
 variables used in the definition of vector/scalar fields in
-:mod:`diofant.vector`.
+:mod:`sympy.vector`.
 
 For example, consider the scalar field
 `\mathbf{{T}_{N}(x, y, z) = x + y + z}` defined in system `N`.

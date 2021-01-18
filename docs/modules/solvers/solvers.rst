@@ -1,12 +1,12 @@
 Algebraic equations
 ===================
 
-.. automodule:: diofant.solvers.solvers
+.. automodule:: sympy.solvers.solvers
     :members:
 
 
 Systems of Polynomial Equations
 -------------------------------
 
-.. automodule:: diofant.solvers.polysys
+.. automodule:: sympy.solvers.polysys
     :members:

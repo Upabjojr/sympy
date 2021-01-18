@@ -1,29 +1,29 @@
 Number Theory
 =============
 
-.. automodule:: diofant.ntheory.generate
+.. automodule:: sympy.ntheory.generate
     :members:
 
-.. automodule:: diofant.ntheory.factor_
+.. automodule:: sympy.ntheory.factor_
     :members:
 
-.. automodule:: diofant.ntheory.modular
+.. automodule:: sympy.ntheory.modular
     :members:
 
-.. automodule:: diofant.ntheory.multinomial
+.. automodule:: sympy.ntheory.multinomial
     :members:
 
-.. automodule:: diofant.ntheory.partitions_
+.. automodule:: sympy.ntheory.partitions_
     :members:
 
-.. automodule:: diofant.ntheory.primetest
+.. automodule:: sympy.ntheory.primetest
     :members:
 
-.. automodule:: diofant.ntheory.residue_ntheory
+.. automodule:: sympy.ntheory.residue_ntheory
     :members:
 
-.. automodule:: diofant.ntheory.continued_fraction
+.. automodule:: sympy.ntheory.continued_fraction
     :members:
 
-.. automodule:: diofant.ntheory.egyptian_fraction
+.. automodule:: sympy.ntheory.egyptian_fraction
     :members:

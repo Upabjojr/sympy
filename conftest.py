@@ -2,7 +2,7 @@ import sys
 
 import pytest
 
-import diofant
+import sympy
 
 
 collect_ignore = ['setup.py']
@@ -11,13 +11,13 @@ try:
     matplotlib.rc('figure', max_open_warning=0)
     del matplotlib
 except ImportError:
-    collect_ignore_glob = ['diofant/plotting/*.py']
+    collect_ignore_glob = ['sympy/plotting/*.py']
 
 
 def pytest_report_header(config):
-    return f"""\nDiofant version: {diofant.__version__}
-cache: {diofant.core.cache.USE_CACHE}
-ground types: {diofant.core.compatibility.GROUND_TYPES}\n"""
+    return f"""\nDiofant version: {sympy.__version__}
+cache: {sympy.core.cache.USE_CACHE}
+ground types: {sympy.core.compatibility.GROUND_TYPES}\n"""
 
 
 def pytest_configure(config):
@@ -33,7 +33,7 @@ def pytest_collection_modifyitems(items):
 
 @pytest.fixture(autouse=True, scope='module')
 def file_clear_cache():
-    diofant.core.cache.clear_cache()
+    sympy.core.cache.clear_cache()
 
 
 @pytest.fixture(autouse=True, scope='session')
@@ -52,9 +52,9 @@ def enable_mpl_agg_backend():
 
 @pytest.fixture(autouse=True)
 def add_np(doctest_namespace):
-    for sym in (diofant.symbols('a:d t x:z') +
-                diofant.symbols('k m n', integer=True) +
-                diofant.symbols('f:h', cls=diofant.Function)):
+    for sym in (sympy.symbols('a:d t x:z') +
+                sympy.symbols('k m n', integer=True) +
+                sympy.symbols('f:h', cls=sympy.Function)):
         doctest_namespace[str(sym)] = sym
-    for name in dir(diofant):
-        doctest_namespace[name] = getattr(diofant, name)
+    for name in dir(sympy):
+        doctest_namespace[name] = getattr(sympy, name)

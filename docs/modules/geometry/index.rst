@@ -2,7 +2,7 @@
 Geometry
 ========
 
-.. module:: diofant.geometry
+.. module:: sympy.geometry
 
 Introduction
 ------------

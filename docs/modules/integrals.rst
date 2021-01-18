@@ -1,11 +1,11 @@
 Integrals
 =========
 
-.. module:: diofant.integrals
+.. module:: sympy.integrals
 
 The ``integrals`` module in Diofant implements methods to calculate definite and indefinite integrals of expressions.
 
-Principal method in this module is :func:`~diofant.integrals.integrals.integrate`
+Principal method in this module is :func:`~sympy.integrals.integrals.integrate`
 
   - ``integrate(f, x)`` returns the indefinite integral `\int f\,dx`
   - ``integrate(f, (x, a, b))`` returns the definite integral `\int_{a}^{b} f\,dx`
@@ -53,7 +53,7 @@ even a few nonelementary integrals (in particular, some integrals involving the 
 Integral Transforms
 -------------------
 
-.. module:: diofant.integrals.transforms
+.. module:: sympy.integrals.transforms
 
 Diofant has special support for definite integrals, and integral transforms.
 
@@ -84,63 +84,63 @@ Details are described :ref:`here <meijerg-label>`.
 API reference
 -------------
 
-.. autofunction:: diofant.integrals.integrals.integrate
-.. autofunction:: diofant.integrals.integrals.line_integrate
-.. autofunction:: diofant.integrals.deltafunctions.deltaintegrate
-.. autofunction:: diofant.integrals.rationaltools.ratint
-.. autofunction:: diofant.integrals.rationaltools.ratint_logpart
-.. autofunction:: diofant.integrals.rationaltools.ratint_ratpart
-.. autofunction:: diofant.integrals.heurisch.components
-.. autofunction:: diofant.integrals.heurisch.heurisch
-.. autofunction:: diofant.integrals.heurisch.heurisch_wrapper
-.. autofunction:: diofant.integrals.trigonometry.trigintegrate
+.. autofunction:: sympy.integrals.integrals.integrate
+.. autofunction:: sympy.integrals.integrals.line_integrate
+.. autofunction:: sympy.integrals.deltafunctions.deltaintegrate
+.. autofunction:: sympy.integrals.rationaltools.ratint
+.. autofunction:: sympy.integrals.rationaltools.ratint_logpart
+.. autofunction:: sympy.integrals.rationaltools.ratint_ratpart
+.. autofunction:: sympy.integrals.heurisch.components
+.. autofunction:: sympy.integrals.heurisch.heurisch
+.. autofunction:: sympy.integrals.heurisch.heurisch_wrapper
+.. autofunction:: sympy.integrals.trigonometry.trigintegrate
 
 The class `Integral` represents an unevaluated integral and has some methods that help in the integration of an expression.
 
-.. autoclass:: diofant.integrals.integrals.Integral
+.. autoclass:: sympy.integrals.integrals.Integral
    :members:
 
    .. data:: is_commutative
 
       Returns whether all the free symbols in the integral are commutative.
 
-.. autoclass:: diofant.integrals.transforms.IntegralTransform
+.. autoclass:: sympy.integrals.transforms.IntegralTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.MellinTransform
+.. autoclass:: sympy.integrals.transforms.MellinTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.InverseMellinTransform
+.. autoclass:: sympy.integrals.transforms.InverseMellinTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.LaplaceTransform
+.. autoclass:: sympy.integrals.transforms.LaplaceTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.InverseLaplaceTransform
+.. autoclass:: sympy.integrals.transforms.InverseLaplaceTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.FourierTransform
+.. autoclass:: sympy.integrals.transforms.FourierTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.InverseFourierTransform
+.. autoclass:: sympy.integrals.transforms.InverseFourierTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.SineTransform
+.. autoclass:: sympy.integrals.transforms.SineTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.InverseSineTransform
+.. autoclass:: sympy.integrals.transforms.InverseSineTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.CosineTransform
+.. autoclass:: sympy.integrals.transforms.CosineTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.InverseCosineTransform
+.. autoclass:: sympy.integrals.transforms.InverseCosineTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.HankelTransform
+.. autoclass:: sympy.integrals.transforms.HankelTransform
    :members:
 
-.. autoclass:: diofant.integrals.transforms.InverseHankelTransform
+.. autoclass:: sympy.integrals.transforms.InverseHankelTransform
    :members:
 
 Numeric Integrals
@@ -149,7 +149,7 @@ Numeric Integrals
 Diofant has functions to calculate points and weights for Gaussian quadrature of
 any order and any precision:
 
-.. module:: diofant.integrals.quadrature
+.. module:: sympy.integrals.quadrature
 
 .. autofunction:: gauss_legendre
 

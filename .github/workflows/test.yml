@@ -42,7 +42,7 @@ jobs:
         flake8
         pylint diofant
     - name: Run type checks with mypy
-      run: mypy diofant/domains/ diofant/polys/ diofant/tests/domains/ diofant/tests/polys/
+      run: mypy sympy/domains/ sympy/polys/ sympy/tests/domains/ sympy/tests/polys/
     - name: Tests
       if: matrix.coverage == false
       env:
@@ -51,7 +51,7 @@ jobs:
     - name: Coverage tests
       if: matrix.coverage
       env:
-        PYTEST_ADDOPTS: --cov diofant --cov-append -m "not slow and not xfail" --ignore docs
+        PYTEST_ADDOPTS: --cov sympy --cov-append -m "not slow and not xfail" --ignore docs
       run: |
         pytest
         pip uninstall -y gmpy2
@@ -95,9 +95,9 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        external_repository: diofant/diofant.github.io
+        external_repository: sympy/sympy.github.io
         publish_branch: master
-        publish_dir: diofant.github.io-master
+        publish_dir: sympy.github.io-master
     - name: Publish on Github Releases
       uses: softprops/action-gh-release@v1
       if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') && matrix.coverage
@@ -110,7 +110,7 @@ jobs:
         draft: true
         prerelease: true
         name: "Diofant ${{ steps.release.outputs.version }}"
-        body: "See [release notes](https://diofant.readthedocs.io/\
+        body: "See [release notes](https://sympy.readthedocs.io/\
                en/latest/release/notes-${{ steps.release.outputs.short_version }}.html)."
     - name: Publish package on PyPI
       if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') && matrix.coverage

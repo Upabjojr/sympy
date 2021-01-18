@@ -1,7 +1,7 @@
 Plotting
 ========
 
-.. module:: diofant.plotting.plot
+.. module:: sympy.plotting.plot
 
 Introduction
 ------------
@@ -41,13 +41,13 @@ Plotting Function Reference
 
 .. autofunction:: plot3d_parametric_surface
 
-.. currentmodule:: diofant.plotting.plot_implicit
+.. currentmodule:: sympy.plotting.plot_implicit
 .. autofunction:: plot_implicit
 
 Series Classes
 --------------
 
-.. currentmodule:: diofant.plotting.plot
+.. currentmodule:: sympy.plotting.plot
 
 .. autoclass:: BaseSeries
    :members:
@@ -76,6 +76,6 @@ Series Classes
 .. autoclass:: ParametricSurfaceSeries
    :members:
 
-.. currentmodule:: diofant.plotting.plot_implicit
+.. currentmodule:: sympy.plotting.plot_implicit
 .. autoclass:: ImplicitSeries
    :members:

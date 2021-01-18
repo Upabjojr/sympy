@@ -1,8 +1,8 @@
 Utilities for solving
 =====================
 
-.. automodule:: diofant.solvers.utils
+.. automodule:: sympy.solvers.utils
     :members:
 
-.. automodule:: diofant.solvers.deutils
+.. automodule:: sympy.solvers.deutils
     :members:

@@ -2,13 +2,13 @@
 Scalar and Vector Field Functionality
 =====================================
 
-Implementation in diofant.vector
+Implementation in sympy.vector
 ================================
 
 Scalar and vector fields
 ------------------------
 
-In :mod:`diofant.vector`, every ``CoordSysCartesian`` instance is assigned basis
+In :mod:`sympy.vector`, every ``CoordSysCartesian`` instance is assigned basis
 vectors corresponding to the `X`, `Y` and
 `Z` axes. These can be accessed using the properties
 named ``i``, ``j`` and ``k`` respectively. Hence, to define a vector
@@ -16,7 +16,15 @@ named ``i``, ``j`` and ``k`` respectively. Hence, to define a vector
 `3\mathbf{\hat{i}} + 4\mathbf{\hat{j}} + 5\mathbf{\hat{k}}` with
 respect to a given frame `\mathbf{R}`, you would do
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> R = CoordSysCartesian('R')
+  >>> v = 3
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> R = CoordSysCartesian('R')
+  >>> v = 3
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> R = CoordSysCartesian('R')
   >>> v = 3*R.i + 4*R.j + 5*R.k
 
@@ -36,7 +44,15 @@ and ``R.z`` expressions respectively.
 Therefore, to generate the expression for the aforementioned electric
 potential field `2{x}^{2}y`, you would have to do
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> R = CoordSysCartesian('R')
+  >>> electric_potential = 2
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> R = CoordSysCartesian('R')
+  >>> electric_potential = 2
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> R = CoordSysCartesian('R')
   >>> electric_potential = 2*R.x**2*R.y
   >>> electric_potential
@@ -51,7 +67,15 @@ for any math/calculus functionality. Hence, to differentiate the above
 electric potential with respect to `x` (i.e. ``R.x``), you would
 use the ``diff`` method.
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> R = CoordSysCartesian('R')
+  >>> electric_potential = 2
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> R = CoordSysCartesian('R')
+  >>> electric_potential = 2
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> R = CoordSysCartesian('R')
   >>> electric_potential = 2*R.x**2*R.y
   >>> diff(electric_potential, R.x)
@@ -65,7 +89,15 @@ constant.
 Like scalar fields, vector fields that vary with position can also be
 constructed using ``BaseScalar`` s in the measure-number expressions.
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> R = CoordSysCartesian('R')
+  >>> v = R.x**2
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> R = CoordSysCartesian('R')
+  >>> v = R.x**2
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> R = CoordSysCartesian('R')
   >>> v = R.x**2*R.i + 2*R.x*R.z*R.k
 
@@ -82,7 +114,7 @@ Essentially, `\mathbf{\nabla}` is not technically an 'operator',
 but a convenient mathematical notation to denote any one of the
 aforementioned field operations.
 
-In :mod:`diofant.vector`, `\mathbf{\nabla}` has been implemented
+In :mod:`sympy.vector`, `\mathbf{\nabla}` has been implemented
 as the ``delop`` property of the ``CoordSysCartesian`` class.
 Hence, assuming ``C`` is a coordinate system, the
 `\mathbf{\nabla}` operator corresponding to the vector
@@ -91,7 +123,15 @@ would be accessible as ``C.delop``.
 
 Given below is an example of usage of the ``delop`` object.
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> gradient_field = C.delop(C.x
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> gradient_field = C.delop(C.x
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> C = CoordSysCartesian('C')
   >>> gradient_field = C.delop(C.x*C.y*C.z)
   >>> gradient_field
@@ -103,14 +143,14 @@ routine.
   >>> gradient_field.doit()
   C.y*C.z*C.i + C.x*C.z*C.j + C.x*C.y*C.k
 
-Usage of the `\mathbf{\nabla}` notation in :mod:`diofant.vector`
+Usage of the `\mathbf{\nabla}` notation in :mod:`sympy.vector`
 has been described in greater detail in the subsequent subsections.
 
 Field operators and related functions
 =====================================
 
 Here we describe some basic field-related functionality implemented in
-:mod:`diofant.vector`.
+:mod:`sympy.vector`.
 
 Curl
 ----
@@ -131,21 +171,39 @@ denoted by `\nabla \times \mathbf{F}` is given by:
 
 where `F_x` denotes the `X` component of vector `\mathbf{F}`.
 
-Computing the curl of a vector field in :mod:`diofant.vector` can be
+Computing the curl of a vector field in :mod:`sympy.vector` can be
 accomplished in two ways.
 
 One, by using the ``delop`` property
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> C.delop.cross(C.x
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> C.delop.cross(C.x
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> C = CoordSysCartesian('C')
   >>> C.delop.cross(C.x*C.y*C.z*C.i).doit()
   C.x*C.y*C.j + (-C.x*C.z)*C.k
   >>> (C.delop ^ C.x*C.y*C.z*C.i).doit()
   C.x*C.y*C.j + (-C.x*C.z)*C.k
 
+  Or by using the dedicated function
+
+    >>> from sympy.vector import curl
+    >>> curl(C.x
+
+  Or by using the dedicated function
+
+    >>> from sympy.vector import curl
+    >>> curl(C.x
+
 Or by using the dedicated function
 
-  >>> from diofant.vector import curl
+  >>> from sympy.vector import curl
   >>> curl(C.x*C.y*C.z*C.i, C)
   C.x*C.y*C.j + (-C.x*C.z)*C.k
 
@@ -168,21 +226,39 @@ denoted by `\nabla\cdot\mathbf{F}` is given by:
 where `U`, `V` and `W` denote the `X`, `Y` and
 `Z` components of `\mathbf{F}` respectively.
 
-Computing the divergence of a vector field in :mod:`diofant.vector` can be
+Computing the divergence of a vector field in :mod:`sympy.vector` can be
 accomplished in two ways.
 
 One, by using the ``delop`` property
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> C.delop.dot(C.x
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> C.delop.dot(C.x
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> C = CoordSysCartesian('C')
   >>> C.delop.dot(C.x*C.y*C.z*(C.i + C.j + C.k)).doit()
   C.x*C.y + C.x*C.z + C.y*C.z
   >>> (C.delop & C.x*C.y*C.z*(C.i + C.j + C.k)).doit()
   C.x*C.y + C.x*C.z + C.y*C.z
 
+  Or by using the dedicated function
+
+    >>> from sympy.vector import divergence
+    >>> divergence(C.x
+
+  Or by using the dedicated function
+
+    >>> from sympy.vector import divergence
+    >>> divergence(C.x
+
 Or by using the dedicated function
 
-  >>> from diofant.vector import divergence
+  >>> from sympy.vector import divergence
   >>> divergence(C.x*C.y*C.z*(C.i + C.j + C.k), C)
   C.x*C.y + C.x*C.z + C.y*C.z
 
@@ -201,21 +277,39 @@ denoted by `\nabla f` is given by -
 \frac{\partial f}{\partial y}  \mathbf{\hat{j}} +
 \frac{\partial f}{\partial z} \mathbf{\hat{k}}`
 
-Computing the divergence of a vector field in :mod:`diofant.vector` can be
+Computing the divergence of a vector field in :mod:`sympy.vector` can be
 accomplished in two ways.
 
 One, by using the ``delop`` property
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> C.delop.gradient(C.x
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> C.delop.gradient(C.x
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> C = CoordSysCartesian('C')
   >>> C.delop.gradient(C.x*C.y*C.z).doit()
   C.y*C.z*C.i + C.x*C.z*C.j + C.x*C.y*C.k
   >>> C.delop(C.x*C.y*C.z).doit()
   C.y*C.z*C.i + C.x*C.z*C.j + C.x*C.y*C.k
 
+  Or by using the dedicated function
+
+    >>> from sympy.vector import gradient
+    >>> gradient(C.x
+
+  Or by using the dedicated function
+
+    >>> from sympy.vector import gradient
+    >>> gradient(C.x
+
 Or by using the dedicated function
 
-  >>> from diofant.vector import gradient
+  >>> from sympy.vector import gradient
   >>> gradient(C.x*C.y*C.z, C)
   C.y*C.z*C.i + C.x*C.z*C.j + C.x*C.y*C.k
 
@@ -224,7 +318,7 @@ Directional Derivative
 
 Apart from the above three common applications of `\mathbf{\nabla}`,
 it is also possible to compute the directional derivative of a field wrt
-a ``Vector`` in :mod:`diofant.vector`.
+a ``Vector`` in :mod:`sympy.vector`.
 
 By definition, the directional derivative of a field `\mathbf{F}`
 along a vector `v` at point `x` represents the instantaneous
@@ -233,10 +327,20 @@ velocity `v`. It is represented mathematically as:
 `(\vec v \cdot \nabla) \, \mathbf{F}(x)`.
 
 Directional derivatives of vector and scalar fields can be computed in
-:mod:`diofant.vector` using the ``delop`` property of
+:mod:`sympy.vector` using the ``delop`` property of
 ``CoordSysCartesian``.
 
-  >>> from diofant.vector import CoordSysCartesian
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> vel = C.i + C.j + C.k
+  >>> scalar_field = C.x
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> C = CoordSysCartesian('C')
+  >>> vel = C.i + C.j + C.k
+  >>> scalar_field = C.x
+
+  >>> from sympy.vector import CoordSysCartesian
   >>> C = CoordSysCartesian('C')
   >>> vel = C.i + C.j + C.k
   >>> scalar_field = C.x*C.y*C.z
@@ -259,10 +363,18 @@ curl of a conservative field is always zero.
 In physics, conservative fields represent forces in physical systems where
 energy is conserved.
 
-To check if a vector field is conservative in :mod:`diofant.vector`, the
+To check if a vector field is conservative in :mod:`sympy.vector`, the
 ``is_conservative`` function can be used.
 
-  >>> from diofant.vector import CoordSysCartesian, is_conservative
+  >>> from sympy.vector import CoordSysCartesian, is_conservative
+  >>> R = CoordSysCartesian('R')
+  >>> field = R.y
+
+  >>> from sympy.vector import CoordSysCartesian, is_conservative
+  >>> R = CoordSysCartesian('R')
+  >>> field = R.y
+
+  >>> from sympy.vector import CoordSysCartesian, is_conservative
   >>> R = CoordSysCartesian('R')
   >>> field = R.y*R.z*R.i + R.x*R.z*R.j + R.x*R.y*R.k
   >>> is_conservative(field)
@@ -273,10 +385,18 @@ To check if a vector field is conservative in :mod:`diofant.vector`, the
 A solenoidal field, on the other hand, is a vector field whose divergence
 is zero at all points in space.
 
-To check if a vector field is solenoidal in :mod:`diofant.vector`, the
+To check if a vector field is solenoidal in :mod:`sympy.vector`, the
 ``is_solenoidal`` function can be used.
 
-  >>> from diofant.vector import CoordSysCartesian, is_solenoidal
+  >>> from sympy.vector import CoordSysCartesian, is_solenoidal
+  >>> R = CoordSysCartesian('R')
+  >>> field = R.y
+
+  >>> from sympy.vector import CoordSysCartesian, is_solenoidal
+  >>> R = CoordSysCartesian('R')
+  >>> field = R.y
+
+  >>> from sympy.vector import CoordSysCartesian, is_solenoidal
   >>> R = CoordSysCartesian('R')
   >>> field = R.y*R.z*R.i + R.x*R.z*R.j + R.x*R.y*R.k
   >>> is_solenoidal(field)
@@ -291,13 +411,29 @@ We have previously mentioned that every conservative field can be defined as
 the gradient of some scalar field. This scalar field is also called the 'scalar
 potential field' corresponding to the aforementioned conservative field.
 
-The ``scalar_potential`` function in :mod:`diofant.vector` calculates the
+The ``scalar_potential`` function in :mod:`sympy.vector` calculates the
 scalar potential field corresponding to a given conservative vector field in
 3D space - minus the extra constant of integration, of course.
 
 Example of usage -
 
-  >>> from diofant.vector import CoordSysCartesian, scalar_potential
+  >>> from sympy.vector import CoordSysCartesian, scalar_potential
+  >>> R = CoordSysCartesian('R')
+  >>> conservative_field = 4
+scalar potential field corresponding to a given conservative vector field in
+3D space - minus the extra constant of integration, of course.
+
+Example of usage -
+
+  >>> from sympy.vector import CoordSysCartesian, scalar_potential
+  >>> R = CoordSysCartesian('R')
+  >>> conservative_field = 4
+scalar potential field corresponding to a given conservative vector field in
+3D space - minus the extra constant of integration, of course.
+
+Example of usage -
+
+  >>> from sympy.vector import CoordSysCartesian, scalar_potential
   >>> R = CoordSysCartesian('R')
   >>> conservative_field = 4*R.x*R.y*R.z*R.i + 2*R.x**2*R.z*R.j + 2*R.x**2*R.y*R.k
   >>> scalar_potential(conservative_field, R)
@@ -312,10 +448,30 @@ between the values of its scalar potential function at two points in space.
 This is useful in calculating a line integral with respect to a conservative
 function, since it depends only on the endpoints of the path.
 
-This computation is performed as follows in :mod:`diofant.vector`.
+This computation is performed as follows in :mod:`sympy.vector`.
 
-  >>> from diofant.vector import CoordSysCartesian
-  >>> from diofant.vector import scalar_potential_difference
+  >>> from sympy.vector import CoordSysCartesian
+  >>> from sympy.vector import scalar_potential_difference
+  >>> R = CoordSysCartesian('R')
+  >>> P = R.origin.locate_new('P', 1
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> from sympy.vector import scalar_potential_difference
+  >>> R = CoordSysCartesian('R')
+  >>> P = R.origin.locate_new('P', 1
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> from sympy.vector import scalar_potential_difference
+  >>> R = CoordSysCartesian('R')
+  >>> P = R.origin.locate_new('P', 1
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> from sympy.vector import scalar_potential_difference
+  >>> R = CoordSysCartesian('R')
+  >>> P = R.origin.locate_new('P', 1
+
+  >>> from sympy.vector import CoordSysCartesian
+  >>> from sympy.vector import scalar_potential_difference
   >>> R = CoordSysCartesian('R')
   >>> P = R.origin.locate_new('P', 1*R.i + 2*R.j + 3*R.k)
   >>> vectfield = 4*R.x*R.y*R.i + 2*R.x**2*R.j

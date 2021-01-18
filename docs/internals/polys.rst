@@ -18,7 +18,7 @@ Thus the polynomial manipulation algorithms (both
 complicated ones like factoring, and simpler ones like addition or
 multiplication) have to rely on other code to manipulate the coefficients.
 In the polynomial manipulation module, such code is encapsulated in so-called
-:mod:`~diofant.domains`.  A domain is basically a factory object: it takes various
+:mod:`~sympy.domains`.  A domain is basically a factory object: it takes various
 representations of data, and converts them into objects with unified interface.
 Every object created by a domain has to implement the arithmetic operations
 `+`, `-` and `\times`. Other operations are accessed through the domain, e.g.
@@ -31,7 +31,7 @@ Dense representations quickly require infeasible amounts of storage and
 computation time if the number of variables increases. For this reason,
 there is code to manipulate polynomials in a *sparse* representation.
 
-.. currentmodule:: diofant.polys.rings
+.. currentmodule:: sympy.polys.rings
 
 Sparse polynomials are represented as dictionaries.
 
@@ -40,7 +40,7 @@ Sparse polynomials are represented as dictionaries.
 .. autoclass:: PolyElement
    :members:
 
-.. currentmodule:: diofant.polys.univar
+.. currentmodule:: sympy.polys.univar
 
 .. autoclass:: UnivarPolyElement
    :members:
@@ -50,7 +50,7 @@ Polynomial factorization algorithms
 
 Many variants of Euclid's algorithm:
 
-.. module:: diofant.polys.euclidtools
+.. module:: sympy.polys.euclidtools
 
 Classical remainder sequence
 ----------------------------
@@ -274,7 +274,7 @@ including the last one which is the resultant if this does not vanish.
 
 Polynomial factorization in characteristic zero:
 
-.. automodule:: diofant.polys.factortools
+.. automodule:: sympy.polys.factortools
     :members:
 
 Gröbner basis algorithms
@@ -286,41 +286,41 @@ performance-sensitive. We present here various low-level implementations of
 Gröbner basis computation algorithms; please see the previous section of the
 manual for usage.
 
-.. automodule:: diofant.polys.groebnertools
+.. automodule:: sympy.polys.groebnertools
     :members:
 
 Algebraic number fields
 =======================
 
-.. currentmodule:: diofant.polys.numberfields
+.. currentmodule:: sympy.polys.numberfields
 .. autofunction:: minpoly_groebner
 
 Factorization over algebraic number fields
 ==========================================
 
-.. automodule:: diofant.polys.factorization_alg_field
+.. automodule:: sympy.polys.factorization_alg_field
     :members:
     :private-members:
 
 Modular GCD
 ===========
 
-.. automodule:: diofant.polys.modulargcd
+.. automodule:: sympy.polys.modulargcd
     :members:
     :private-members:
 
 Heuristic GCD
 =============
 
-.. automethod:: diofant.polys.euclidtools._GCD._zz_heu_gcd
+.. automethod:: sympy.polys.euclidtools._GCD._zz_heu_gcd
 
 Further tools
 =============
 
-.. automodule:: diofant.polys.rootisolation
+.. automodule:: sympy.polys.rootisolation
     :members:
 
-.. automodule:: diofant.polys.sqfreetools
+.. automodule:: sympy.polys.sqfreetools
     :members:
 
 Undocumented
@@ -329,15 +329,15 @@ Undocumented
 Many parts of the polys module are still undocumented, and even where there is
 documentation it is scarce. Please contribute!
 
-.. automodule:: diofant.polys.polyoptions
+.. automodule:: sympy.polys.polyoptions
     :members:
 
-.. automodule:: diofant.polys.polyconfig
+.. automodule:: sympy.polys.polyconfig
     :members:
 
-.. automodule:: diofant.polys.polyerrors
+.. automodule:: sympy.polys.polyerrors
     :members:
 
-.. currentmodule:: diofant.polys.fields
+.. currentmodule:: sympy.polys.fields
 .. autoclass:: FracElement
     :members:

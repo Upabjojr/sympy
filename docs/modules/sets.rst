@@ -1,7 +1,7 @@
 Sets
 ====
 
-.. automodule:: diofant.sets.sets
+.. automodule:: sympy.sets.sets
 
 .. autoclass:: Set
    :members:
@@ -44,7 +44,7 @@ Singleton Sets
 Special Sets
 ^^^^^^^^^^^^
 
-.. automodule:: diofant.sets.fancysets
+.. automodule:: sympy.sets.fancysets
 
 .. autoclass:: Naturals
    :members:

@@ -3,7 +3,7 @@
 Permutations
 ============
 
-.. module:: diofant.combinatorics.permutations
+.. module:: sympy.combinatorics.permutations
 
 .. autoclass:: Permutation
    :members:
@@ -18,12 +18,12 @@ Permutations
 Generators
 ----------
 
-.. module:: diofant.combinatorics.generators
+.. module:: sympy.combinatorics.generators
 
-.. automethod:: diofant.combinatorics.generators.symmetric
+.. automethod:: sympy.combinatorics.generators.symmetric
 
-.. automethod:: diofant.combinatorics.generators.cyclic
+.. automethod:: sympy.combinatorics.generators.cyclic
 
-.. automethod:: diofant.combinatorics.generators.alternating
+.. automethod:: sympy.combinatorics.generators.alternating
 
-.. automethod:: diofant.combinatorics.generators.dihedral
+.. automethod:: sympy.combinatorics.generators.dihedral

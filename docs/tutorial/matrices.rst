@@ -6,7 +6,7 @@
     >>> init_printing(pretty_print=True, use_unicode=True)
 
 To make a matrix in Diofant, use the
-:class:`~diofant.matrices.Matrix` object.  A matrix is
+:class:`~sympy.matrices.Matrix` object.  A matrix is
 constructed by providing a list of row vectors that make up the
 matrix.
 
@@ -29,7 +29,7 @@ A list of elements is considered to be a column vector.
 One important thing to note about Diofant matrices is that, unlike
 every other object in Diofant, they are mutable.  This means that they
 can be modified in place, as we will see below.  Use
-:class:`~diofant.matrices.immutable.ImmutableMatrix` in places that
+:class:`~sympy.matrices.immutable.ImmutableMatrix` in places that
 require immutability, such as inside other Diofant expressions or as
 keys to dictionaries.
 
@@ -38,7 +38,7 @@ Indexing
 
 Diofant matrices support subscription of matrix elements with pair of
 integers or :class:`slice` instances.  In last case, new
-:class:`~diofant.matrices.Matrix` instances will be returned.
+:class:`~sympy.matrices.Matrix` instances will be returned.
 
     >>> M = Matrix([[1, 2, 3], [4, 5, 6]])
     >>> M[0, 1]
@@ -75,7 +75,7 @@ Reshape and Rearrange
 =====================
 
 To get the shape of a matrix use
-:attr:`~diofant.matrices.matrices.MatrixBase.shape` property
+:attr:`~sympy.matrices.matrices.MatrixBase.shape` property
 
     >>> M = Matrix([[1, 2, 3], [-2, 0, 4]])
     >>> M
@@ -97,8 +97,8 @@ To delete a row or column, use :keyword:`del`
     [2  3]
 
 To insert rows or columns, use methods
-:meth:`~diofant.matrices.matrices.MatrixBase.row_insert` or
-:meth:`~diofant.matrices.matrices.MatrixBase.col_insert`.
+:meth:`~sympy.matrices.matrices.MatrixBase.row_insert` or
+:meth:`~sympy.matrices.matrices.MatrixBase.col_insert`.
 
     >>> M
     [2  3]
@@ -119,8 +119,8 @@ To insert rows or columns, use methods
    place**.  In general, as a rule, such methods will return ``None``.
 
 To swap two given rows or columns, use methods
-:meth:`~diofant.matrices.dense.MutableDenseMatrix.row_swap` or
-:meth:`~diofant.matrices.dense.MutableDenseMatrix.col_swap`.
+:meth:`~sympy.matrices.dense.MutableDenseMatrix.row_swap` or
+:meth:`~sympy.matrices.dense.MutableDenseMatrix.col_swap`.
 
     >>> M.row_swap(0, 1)
     >>> M
@@ -134,7 +134,7 @@ To swap two given rows or columns, use methods
     ⎣1   3  2⎦
 
 To take the transpose of a Matrix, use
-:attr:`~diofant.matrices.matrices.MatrixBase.T` property.
+:attr:`~sympy.matrices.matrices.MatrixBase.T` property.
 
     >>> M.T
     ⎡-2  1⎤
@@ -180,7 +180,7 @@ Special Matrices
 =================
 
 Several constructors exist for creating common matrices.  To create an
-identity matrix, use :func:`~diofant.matrices.dense.eye` function.
+identity matrix, use :func:`~sympy.matrices.dense.eye` function.
 
     >>> eye(3)
     ⎡1  0  0⎤
@@ -198,14 +198,14 @@ identity matrix, use :func:`~diofant.matrices.dense.eye` function.
     ⎣0  0  0  1⎦
 
 To create a matrix of all zeros, use
-:func:`~diofant.matrices.dense.zeros` function.
+:func:`~sympy.matrices.dense.zeros` function.
 
     >>> zeros(2, 3)
     ⎡0  0  0⎤
     ⎢       ⎥
     ⎣0  0  0⎦
 
-Similarly, function :func:`~diofant.matrices.dense.ones` creates a
+Similarly, function :func:`~sympy.matrices.dense.ones` creates a
 matrix of ones.
 
     >>> ones(3, 2)
@@ -216,7 +216,7 @@ matrix of ones.
     ⎣1  1⎦
 
 To create diagonal matrices, use function
-:func:`~diofant.matrices.dense.diag`.  Its arguments can be either
+:func:`~sympy.matrices.dense.diag`.  Its arguments can be either
 numbers or matrices.  A number is interpreted as a `1\times 1`
 matrix. The matrices are stacked diagonally.
 
@@ -243,7 +243,7 @@ Advanced Methods
 ================
 
 To compute the determinant of a matrix, use
-:meth:`~diofant.matrices.matrices.MatrixBase.det` method.
+:meth:`~sympy.matrices.matrices.MatrixBase.det` method.
 
     >>> Matrix([[1, 0, 1], [2, -1, 3], [4, 3, 2]])
     ⎡1  0   1⎤
@@ -255,7 +255,7 @@ To compute the determinant of a matrix, use
     -1
 
 To put a matrix into reduced row echelon form, use method
-:meth:`~diofant.matrices.matrices.MatrixBase.rref`.  It returns a
+:meth:`~sympy.matrices.matrices.MatrixBase.rref`.  It returns a
 tuple of two elements.  The first is the reduced row echelon form, and
 the second is a list of indices of the pivot columns.
 
@@ -273,7 +273,7 @@ the second is a list of indices of the pivot columns.
     ⎝⎣0  0   0    0 ⎦        ⎠
 
 To find the nullspace of a matrix, use method
-:meth:`~diofant.matrices.matrices.MatrixBase.nullspace`.  It returns a
+:meth:`~sympy.matrices.matrices.MatrixBase.nullspace`.  It returns a
 list of column vectors that span the nullspace of the matrix.
 
     >>> Matrix([[1, 2, 3, 0, 0], [4, 10, 0, 0, 1]])
@@ -292,9 +292,9 @@ list of column vectors that span the nullspace of the matrix.
     ⎣⎣ 0 ⎦  ⎣0⎦  ⎣ 1  ⎦⎦
 
 To find the eigenvalues of a matrix, use method
-:meth:`~diofant.matrices.matrices.MatrixBase.eigenvals`.  It returns a
+:meth:`~sympy.matrices.matrices.MatrixBase.eigenvals`.  It returns a
 dictionary of roots including its multiplicity (similar to the output
-of :func:`~diofant.polys.polyroots.roots` function).
+of :func:`~sympy.polys.polyroots.roots` function).
 
     >>> M = Matrix([[3, -2, 4, -2], [5, +3, -3, -2],
     ...             [5, -2, 2, -2], [5, -2, -3, +3]])
@@ -325,7 +325,7 @@ Matrices can have symbolic elements.
     ⎩                                          ⎭
 
 To find the eigenvectors of a matrix, use method
-:meth:`~diofant.matrices.matrices.MatrixBase.eigenvects`.
+:meth:`~sympy.matrices.matrices.MatrixBase.eigenvects`.
 
     >>> M.eigenvects()
     ⎡⎛       ⎡⎡0⎤⎤⎞  ⎛      ⎡⎡1⎤⎤⎞  ⎛      ⎡⎡1⎤  ⎡0 ⎤⎤⎞⎤
@@ -342,7 +342,7 @@ algebraic and geometric multiplicities are the same for all the
 eigenvalues, ``M`` is diagonalizable.
 
 To diagonalize a matrix, use method
-:meth:`~diofant.matrices.matrices.MatrixBase.diagonalize`.  It returns
+:meth:`~sympy.matrices.matrices.MatrixBase.diagonalize`.  It returns
 a tuple `(P, D)`, where `D` is diagonal and `M = PDP^{-1}`.
 
     >>> M.diagonalize()
@@ -357,8 +357,8 @@ a tuple `(P, D)`, where `D` is diagonal and `M = PDP^{-1}`.
     True
 
 If all you want is the characteristic polynomial, use method
-:meth:`~diofant.matrices.matrices.MatrixBase.charpoly`.  This is more
-efficient than :meth:`~diofant.matrices.matrices.MatrixBase.eigenvals`
+:meth:`~sympy.matrices.matrices.MatrixBase.charpoly`.  This is more
+efficient than :meth:`~sympy.matrices.matrices.MatrixBase.eigenvals`
 method, because sometimes symbolic roots can be expensive to
 calculate.
 
@@ -370,7 +370,7 @@ calculate.
 
 To compute Jordan canonical form `J` for matrix `M` and its similarity
 transformation `P` (i.e. such that `J = P M P^{-1}`), use method
-:meth:`~diofant.matrices.matrices.MatrixBase.jordan_form`.
+:meth:`~sympy.matrices.matrices.MatrixBase.jordan_form`.
 
     >>> Matrix([[-2, 4], [1, 3]]).jordan_form()
     ⎛⎡      ____              ⎤  ⎡    -4            -4      ⎤⎞

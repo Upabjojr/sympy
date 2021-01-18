@@ -1,10 +1,10 @@
 Interactive
 ===========
 
-.. automodule:: diofant.interactive
+.. automodule:: sympy.interactive
 
-.. automodule:: diofant.interactive.printing
+.. automodule:: sympy.interactive.printing
     :members:
 
-.. automodule:: diofant.interactive.session
+.. automodule:: sympy.interactive.session
     :members:
