@@ -111,7 +111,7 @@ class DenseNDimArray(NDimArray):
         [[1, 2], [3, 4], [5, 6]]
 
         """
-        new_total_size = functools.reduce(lambda x,y: x*y, newshape)
+        new_total_size = functools.reduce(lambda x, y: x*y, newshape, 1)
         if new_total_size != self._loop_size:
             raise ValueError("Invalid reshape parameters " + newshape)
 

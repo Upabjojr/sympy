@@ -102,6 +102,11 @@ def test_reshape():
     assert array.rank() == 3
     assert len(array) == 50
 
+    singleelem = ImmutableDenseNDimArray([3])
+    scalar = singleelem.reshape()
+    assert scalar.shape == ()
+    assert list(scalar) == [3]
+
 
 def test_getitem():
     for ArrayType in [ImmutableDenseNDimArray, ImmutableSparseNDimArray]:

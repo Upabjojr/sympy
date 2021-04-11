@@ -3,7 +3,8 @@ from typing import Tuple
 from functools import reduce, singledispatch
 from itertools import accumulate
 
-from sympy import S, Trace, MatrixExpr, Transpose, DiagMatrix, Mul, ZeroMatrix
+from sympy import S, Trace, MatrixExpr, Transpose, DiagMatrix, Mul, ZeroMatrix, diagonalize_vector, diag, DiagonalOf, \
+    DiagonalMatrix
 from sympy.combinatorics.permutations import _af_invert, Permutation
 from sympy.matrices.common import MatrixCommon
 from sympy.matrices.expressions.applyfunc import ElementwiseApplyFunction
@@ -210,6 +211,7 @@ def _(expr: ArrayTensorProduct):
     cumul = list(accumulate([0] + [get_rank(arg) for arg in expr.args]))
     pending = None
     prev_i = None
+    removed_maybe = []
     for i, arg in enumerate(expr.args):
         current_range = list(range(cumul[i], cumul[i+1]))
         if isinstance(arg, OneArray):
@@ -238,11 +240,13 @@ def _(expr: ArrayTensorProduct):
                 pending = k
                 prev_i = i
                 newargs.append(arg)
+            removed_maybe = current_range[:]
         elif arg.shape == (1, 1):
             arg, _ = _remove_trivial_dims(arg)
             # Matrix is equivalent to scalar:
             if len(newargs) == 0:
                 newargs.append(arg)
+                removed_maybe = current_range[:]
             elif 1 in get_shape(newargs[-1]):
                 if newargs[-1].shape[1] == 1:
                     newargs[-1] = newargs[-1]*arg
@@ -251,32 +255,48 @@ def _(expr: ArrayTensorProduct):
                 removed.extend(current_range)
             else:
                 newargs.append(arg)
+            pending = 1
         elif 1 in arg.shape:
             k = [i for i in arg.shape if i != 1][0]
             if pending is None:
                 pending = k
                 prev_i = i
                 newargs.append(arg)
+                removed_maybe = current_range[:]
             elif pending == k:
                 prev = newargs[-1]
                 if prev.is_Identity:
-                    removed.extend([cumul[prev_i], cumul[prev_i]+1])
+                    removed.extend(removed_maybe)
                     newargs[-1] = arg
                     prev_i = i
+                    removed_maybe = [cumul[i], cumul[i] + 1]
                     continue
                 if prev.shape[0] == 1:
-                    d1 = cumul[prev_i]
+                    d1 = removed_maybe[0]
                     prev = _a2m_transpose(prev)
                 else:
-                    d1 = cumul[prev_i] + 1
+                    d1 = removed_maybe[1]
                 if arg.shape[1] == 1:
                     d2 = cumul[i] + 1
+                    dother = cumul[i]
                     arg = _a2m_transpose(arg)
                 else:
                     d2 = cumul[i]
+                    dother = cumul[i] + 1
                 newargs[-1] = prev*arg
                 pending = None
                 removed.extend([d1, d2])
+                removed_maybe = [removed_maybe[0], dother]
+            elif pending == 1:
+                removed.extend(removed_maybe)
+                if arg.shape[1] == 1:
+                    arg = Transpose(arg).doit()
+                    removed_maybe = [current_range[1]]
+                else:
+                    removed_maybe = [current_range[0]]
+                newargs[-1] *= arg
+                pending = k
+                prev_i = i
             else:
                 newargs.append(arg)
                 pending = k
@@ -311,29 +331,101 @@ def _(expr: PermuteDims):
     return newexpr, sorted(premoved)
 
 
+def _helper_remove_contractions_with_identity_matrix(expr: ArrayContraction):
+    subexpr = expr.expr
+    if not isinstance(subexpr, ArrayTensorProduct):
+        return expr
+    contraction_indices = [list(i) for i in expr.contraction_indices]
+    args = list(subexpr.args)
+    contraction_indices_set = {j for i in contraction_indices for j in i}
+    cumulative = list(accumulate([0] + [get_rank(arg) for arg in args]))
+    removed = []
+    for i, arg in enumerate(args):
+        from sympy import Identity
+        if not isinstance(arg, Identity):
+            continue
+        in1 = cumulative[i]
+        in2 = in1 + 1
+        if in1 in contraction_indices_set and in2 in contraction_indices_set:
+            raise NotImplementedError("this case should have been handled by _matrix2array( )")
+        if in2 in contraction_indices_set:
+            in1, in2 = in2, in1
+        for j in contraction_indices:
+            if in1 in j:
+                if len(j) > 1:
+                    args[i] = None
+                j.remove(in1)
+                removed.append(in1)
+                if len(j) == 1:
+                    removed.append(j.pop(0))
+                break
+
+    contraction_indices = [i for i in contraction_indices if i]
+    shifts = list(accumulate([1 if arg is None else 0 for i, arg in enumerate(args) for j in range(2 if arg is None else get_rank(arg))]))
+    new_contraction_indices = [tuple(j - shifts[j] for j in i) for i in contraction_indices]
+    newargs = [arg for arg in args if arg]
+    return ArrayContraction(ArrayTensorProduct(*newargs), *new_contraction_indices), removed
+
+
 @_remove_trivial_dims.register(ArrayContraction)
 def _(expr: ArrayContraction):
-    newexpr, removed = _remove_trivial_dims(expr.expr)
-    new_contraction_indices = [tuple(j for j in i if j not in removed) for i in expr.contraction_indices]
-    # Remove possible empty tuples "()":
+    # Remove trivial dimensions from subexpression
+    # - dimensions may have been contracted, so "removed" should be later stripped of contracted dims
+    # - removed dimensions should be shifted according to the contraction indices
+    #   - should we rather use ArrayContraction._push_indices_up?
+
+    newexpr1, removed = _helper_remove_contractions_with_identity_matrix(expr)
+    if not isinstance(newexpr1, ArrayContraction):
+        return newexpr1, removed
+
+    newexpr, removed2 = _remove_trivial_dims(newexpr1.expr)
+    new_contraction_indices1 = [tuple(j for j in i if j not in removed2) for i in newexpr1.contraction_indices]
+    removed2 = ArrayContraction._push_indices_up(new_contraction_indices1, removed2)
+    shift = list(accumulate([0 if i in removed else 1 for i in range(get_rank(newexpr1.expr))]))
+    removed2 = [e + shift[i] for i, e in enumerate(removed2)]
+    removed.extend(removed2)
+    removed.sort()
+
+    non_removed = [i for i in range(get_rank(expr.expr)) if i not in removed]
+    new_contraction_indices = [tuple(j for j in i if j not in removed) for i in new_contraction_indices1]
     new_contraction_indices = [i for i in new_contraction_indices if i]
+    remap = {e: i for i, e in enumerate(non_removed)}
+    new_contraction_indices = [tuple(remap[j] for j in i) for i in new_contraction_indices if i]
+
+    if not isinstance(newexpr, ArrayContraction):
+        # return newexpr, removed
+        return ArrayContraction(newexpr, *new_contraction_indices), removed
+
+    # Some inner expressions have been contracted, deal with them:
+    # Remove possible empty tuples "()":
+    contraction_indices_set = {j for i in expr.contraction_indices for j in i}
+    removed = [i for i in removed if i not in contraction_indices_set]
+    removed = ArrayContraction._push_indices_up(expr.contraction_indices, removed)
     return ArrayContraction(newexpr, *new_contraction_indices), removed
 
 
 @_remove_trivial_dims.register(ArrayDiagonal)
 def _(expr: ArrayDiagonal):
+    # - "removed" dimensions could be the diagonalized ones.
     newexpr, removed = _remove_trivial_dims(expr.expr)
+    non_removed = [i for i in range(get_rank(expr.expr)) if i not in removed]
     new_diag_indices = [tuple(j for j in i if j not in removed) for i in expr.diagonal_indices]
+    remap = {e: i for i, e in enumerate(non_removed)}
+    new_diag_indices = [tuple(remap[j] for j in i) for i in new_diag_indices if i]
+    if new_diag_indices == [(0, 1)] and isinstance(newexpr, MatrixExpr):
+        return DiagonalMatrix(newexpr), removed
     return ArrayDiagonal(newexpr, *new_diag_indices), removed
 
 
 @_remove_trivial_dims.register(ElementwiseApplyFunction)
 def _(expr: ElementwiseApplyFunction):
     subexpr, removed = _remove_trivial_dims(expr.expr)
-    if subexpr.shape == (1, 1):
+    # TODO: cannot do this...
+    if subexpr.shape == (1, 1) and False:
         # TODO: move this to ElementwiseApplyFunction
+        subexpr._eval_is_commutative()
         return expr.function(subexpr), removed + [0, 1]
-    return ElementwiseApplyFunction(expr.function, subexpr)
+    return ElementwiseApplyFunction(expr.function, subexpr), removed
 
 
 @_remove_trivial_dims.register(ArrayElementwiseApplyFunc)
@@ -449,7 +541,7 @@ def _array_diag2contr_diagmatrix(expr: ArrayDiagonal):
             pos1_in2 = 1 - pos1_inner
             pos2_in2 = 1 - pos2_inner
             if arg1.shape[pos1_in2] == 1:
-                darg1 = DiagMatrix(arg1)
+                darg1 = DiagMatrix(arg1).doit()
                 args.append(darg1)
                 contr_indices.append(((pos2_outer, pos2_inner), (len(args)-1, pos1_inner)))
                 total_rank += 1
@@ -457,7 +549,7 @@ def _array_diag2contr_diagmatrix(expr: ArrayDiagonal):
                 args[pos1_outer] = OneArray(arg1.shape[pos1_in2])
                 replaced[pos1_outer] = True
             elif arg2.shape[pos2_in2] == 1:
-                darg2 = DiagMatrix(arg2)
+                darg2 = DiagMatrix(arg2).doit()
                 args.append(darg2)
                 contr_indices.append(((pos1_outer, pos1_inner), (len(args)-1, pos2_inner)))
                 total_rank += 1

@@ -100,6 +100,11 @@ def test_reshape():
     assert array.rank() == 3
     assert len(array) == 50
 
+    singleelem = MutableDenseNDimArray([3])
+    scalar = singleelem.reshape()
+    assert scalar.shape == ()
+    assert list(scalar) == [3]
+
 
 def test_iterator():
     array = MutableDenseNDimArray(range(4), (2, 2))

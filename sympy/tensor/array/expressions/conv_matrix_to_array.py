@@ -56,11 +56,12 @@ def convert_matrix_to_array(expr: MatrixExpr) -> Basic:
         else:
             return expr
     elif isinstance(expr, HadamardProduct):
-        tp = ArrayTensorProduct.fromiter(expr.args)
+        tp = ArrayTensorProduct.fromiter([convert_matrix_to_array(arg) for arg in expr.args])
         diag = [[2*i for i in range(len(expr.args))], [2*i+1 for i in range(len(expr.args))]]
         return ArrayDiagonal(tp, *diag)
     elif isinstance(expr, HadamardPower):
         base, exp = expr.args
+        base = convert_matrix_to_array(base)
         return convert_matrix_to_array(HadamardProduct.fromiter(base for i in range(exp)))
     else:
         return expr
