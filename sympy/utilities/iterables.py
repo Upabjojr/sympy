@@ -1119,6 +1119,27 @@ def strongly_connected_components(G):
     Gmap = {vi: [] for vi in V}
     for v1, v2 in E:
         Gmap[v1].append(v2)
+    return _strongly_connected_components(V, Gmap)
+
+
+def _strongly_connected_components(V, Gmap):
+    """More efficient internal routine for strongly_connected_components"""
+    #
+    # Here V is an iterable of vertices and Gmap is a dict mapping each vertex
+    # to a list of neighbours e.g.:
+    #
+    #   V = [0, 1, 2, 3]
+    #   Gmap = {0: [2, 3], 1: [0]}
+    #
+    # For a large graph these data structures can often be created more
+    # efficiently then those expected by strongly_connected_components() which
+    # in this case would be
+    #
+    #   V = [0, 1, 2, 3]
+    #   Gmap = [(0, 2), (0, 3), (1, 0)]
+    #
+    # XXX: Maybe this should be the recommended function to use instead...
+    #
 
     # Non-recursive Tarjan's algorithm:
     lowlink = {}
@@ -1770,14 +1791,6 @@ def partitions(n, m=None, k=None, size=False):
         m = n
     else:
         m = min(m, n)
-
-    if n == 0:
-        if size:
-            yield 1, {0: 1}
-        else:
-            yield {0: 1}
-        return
-
     k = min(k or n, n)
 
     n, m, k = as_int(n), as_int(m), as_int(k)

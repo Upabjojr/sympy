@@ -1256,10 +1256,23 @@ def test_issue_17898():
     f_ = lambdify([x], sympy.LambertW(x,-1), modules='scipy')
     assert f_(0.1) == mpmath.lambertw(0.1, -1)
 
+def test_issue_13167_21411():
+    if not numpy:
+        skip("numpy not installed")
+    f1 = lambdify(x, sympy.Heaviside(x))
+    f2 = lambdify(x, sympy.Heaviside(x, 1))
+    res1 = f1([-1, 0, 1])
+    res2 = f2([-1, 0, 1])
+    assert Abs(res1[0]).n() < 1e-15        # First functionality: only one argument passed
+    assert Abs(res1[1] - 1/2).n() < 1e-15
+    assert Abs(res1[2] - 1).n() < 1e-15
+    assert Abs(res2[0]).n() < 1e-15        # Second functionality: two arguments passed
+    assert Abs(res2[1] - 1).n() < 1e-15
+    assert Abs(res2[2] - 1).n() < 1e-15
+
 def test_single_e():
     f = lambdify(x, E)
     assert f(23) == exp(1.0)
-
 
 def test_issue_16536():
     if not scipy:
@@ -1393,3 +1406,93 @@ def test_cupy_dotproduct():
         f3(1, 2, 3) == \
         f4(1, 2, 3) == \
         cupy.array([14])
+
+
+def test_lambdify_cse():
+    def dummy_cse(exprs):
+        return (), exprs
+
+    def minmem(exprs):
+        from sympy.simplify.cse_main import cse_release_variables, cse
+        return cse(exprs, postprocess=cse_release_variables)
+
+    class Case:
+        def __init__(self, *, args, exprs, num_args, requires_numpy=False):
+            self.args = args
+            self.exprs = exprs
+            self.num_args = num_args
+            subs_dict = dict(zip(self.args, self.num_args))
+            self.ref = [e.subs(subs_dict).evalf() for e in exprs]
+            self.requires_numpy = requires_numpy
+
+        def lambdify(self, *, cse):
+            return lambdify(self.args, self.exprs, cse=cse)
+
+        def assertAllClose(self, result, *, abstol=1e-15, reltol=1e-15):
+            if self.requires_numpy:
+                assert all(numpy.allclose(result[i], numpy.asarray(r, dtype=float),
+                                          rtol=reltol, atol=abstol)
+                           for i, r in enumerate(self.ref))
+                return
+
+            for i, r in enumerate(self.ref):
+                abs_err = abs(result[i] - r)
+                if r == 0:
+                    assert abs_err < abstol
+                else:
+                    assert abs_err/abs(r) < reltol
+
+    cases = [
+        Case(
+            args=(x, y, z),
+            exprs=[
+             x + y + z,
+             x + y - z,
+             2*x + 2*y - z,
+             (x+y)**2 + (y+z)**2,
+            ],
+            num_args=(2., 3., 4.)
+        ),
+        Case(
+            args=(x, y, z),
+            exprs=[
+            x + sympy.Heaviside(x),
+            y + sympy.Heaviside(x),
+            z + sympy.Heaviside(x, 1),
+            z/sympy.Heaviside(x, 1)
+            ],
+            num_args=(0., 3., 4.)
+        ),
+        Case(
+            args=(x, y, z),
+            exprs=[
+            x + sinc(y),
+            y + sinc(y),
+            z - sinc(y)
+            ],
+            num_args=(0.1, 0.2, 0.3)
+        ),
+        Case(
+            args=(x, y, z),
+            exprs=[
+                Matrix([[x, x*y], [sin(z) + 4, x**z]]),
+                x*y+sin(z)-x**z,
+                Matrix([x*x, sin(z), x**z])
+            ],
+            num_args=(1.,2.,3.),
+            requires_numpy=True
+        ),
+        Case(
+            args=(x, y),
+            exprs=[(x + y - 1)**2, x, x + y,
+            (x + y)/(2*x + 1) + (x + y - 1)**2, (2*x + 1)**(x + y)],
+            num_args=(1,2)
+        )
+    ]
+    for case in cases:
+        if not numpy and case.requires_numpy:
+            continue
+        for cse in [False, True, minmem, dummy_cse]:
+            f = case.lambdify(cse=cse)
+            result = f(*case.num_args)
+            case.assertAllClose(result)

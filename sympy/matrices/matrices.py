@@ -51,7 +51,9 @@ from .decompositions import (
     _LUdecomposition, _LUdecomposition_Simple, _LUdecompositionFF,
     _singular_value_decomposition, _QRdecomposition, _upper_hessenberg_decomposition)
 
-from .graph import _connected_components, _connected_components_decomposition
+from .graph import (
+    _connected_components, _connected_components_decomposition,
+    _strongly_connected_components, _strongly_connected_components_decomposition)
 
 from .solvers import (
     _diagonal_solve, _lower_triangular_solve, _upper_triangular_solve,
@@ -780,12 +782,15 @@ class MatrixBase(MatrixDeprecated,
 
     @property
     def kind(self):
-        elem_kinds = set(e.kind for e in self._mat)
+        elem_kinds = set(e.kind for e in self.flat())
         if len(elem_kinds) == 1:
             elemkind, = elem_kinds
         else:
             elemkind = UndefinedKind
         return MatrixKind(elemkind)
+
+    def flat(self):
+        return [self[i, j] for i in range(self.rows) for j in range(self.cols)]
 
     def __array__(self, dtype=object):
         from .dense import matrix2numpy
@@ -968,11 +973,11 @@ class MatrixBase(MatrixDeprecated,
 
             # Matrix(Matrix(...))
             elif isinstance(args[0], MatrixBase):
-                return args[0].rows, args[0].cols, args[0]._mat
+                return args[0].rows, args[0].cols, args[0].flat()
 
             # Matrix(MatrixSymbol('X', 2, 2))
             elif isinstance(args[0], Basic) and args[0].is_Matrix:
-                return args[0].rows, args[0].cols, args[0].as_explicit()._mat
+                return args[0].rows, args[0].cols, args[0].as_explicit().flat()
 
             elif isinstance(args[0], mp.matrix):
                 M = args[0]
@@ -1002,7 +1007,7 @@ class MatrixBase(MatrixDeprecated,
                                 isinstance(x, MatrixSymbol) and \
                                 all(_.is_Integer for _ in x.shape):
                             return x.as_explicit()
-                        return x
+                        return cls._sympify(x)
                     dat = do(dat)
 
                 if dat == [] or dat == [[]]:
@@ -1237,7 +1242,7 @@ class MatrixBase(MatrixDeprecated,
         [3, 4]])
 
         """
-        return self._new(self.rows, self.cols, self._mat)
+        return self._new(self.rows, self.cols, self.flat())
 
     def cross(self, b):
         r"""
@@ -2205,6 +2210,12 @@ class MatrixBase(MatrixDeprecated,
     def connected_components_decomposition(self):
         return _connected_components_decomposition(self)
 
+    def strongly_connected_components(self):
+        return _strongly_connected_components(self)
+
+    def strongly_connected_components_decomposition(self, lower=True):
+        return _strongly_connected_components_decomposition(self, lower=lower)
+
     rank_decomposition.__doc__     = _rank_decomposition.__doc__
     cholesky.__doc__               = _cholesky.__doc__
     LDLdecomposition.__doc__       = _LDLdecomposition.__doc__
@@ -2241,6 +2252,10 @@ class MatrixBase(MatrixDeprecated,
     connected_components.__doc__   = _connected_components.__doc__
     connected_components_decomposition.__doc__ = \
         _connected_components_decomposition.__doc__
+    strongly_connected_components.__doc__   = \
+        _strongly_connected_components.__doc__
+    strongly_connected_components_decomposition.__doc__ = \
+        _strongly_connected_components_decomposition.__doc__
 
 
 @deprecated(

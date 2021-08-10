@@ -380,10 +380,14 @@ class PolyRing(DefaultPrinting, IPolys):
                 return reduce(add, list(map(_rebuild, expr.args)))
             elif expr.is_Mul:
                 return reduce(mul, list(map(_rebuild, expr.args)))
-            elif expr.is_Pow and expr.exp.is_Integer and expr.exp >= 0:
-                return _rebuild(expr.base)**int(expr.exp)
             else:
-                return self.ground_new(domain.convert(expr))
+                # XXX: Use as_base_exp() to handle Pow(x, n) and also exp(n)
+                # XXX: E can be a generator e.g. sring([exp(2)]) -> ZZ[E]
+                base, exp = expr.as_base_exp()
+                if exp.is_Integer and exp > 1:
+                    return _rebuild(base)**int(exp)
+                else:
+                    return self.ground_new(domain.convert(expr))
 
         return _rebuild(sympify(expr))
 
@@ -1209,10 +1213,10 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         return p
 
     def _pow_multinomial(self, n):
-        multinomials = list(multinomial_coefficients(len(self), n).items())
+        multinomials = multinomial_coefficients(len(self), n).items()
         monomial_mulpow = self.ring.monomial_mulpow
         zero_monom = self.ring.zero_monom
-        terms = list(self.iterterms())
+        terms = self.items()
         zero = self.ring.domain.zero
         poly = self.ring.zero
 
@@ -1232,7 +1236,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
             if coeff:
                 poly[monom] = coeff
-            else:
+            elif monom in poly:
                 del poly[monom]
 
         return poly

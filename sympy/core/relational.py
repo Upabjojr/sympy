@@ -961,7 +961,7 @@ class GreaterThan(_Greater):
        method to determine that a chained inequality is being built.
        Chained comparison operators are evaluated pairwise, using "and"
        logic (see
-       http://docs.python.org/2/reference/expressions.html#notin). This
+       http://docs.python.org/reference/expressions.html#not-in). This
        is done in an efficient way, so that each object being compared
        is only evaluated once and the comparison can short-circuit. For
        example, ``1 > 2 > 3`` is evaluated by Python as ``(1 > 2) and (2
@@ -1410,7 +1410,7 @@ def is_eq(lhs, rhs, assumptions=None):
         # Compare e.g. zoo with 1+I*oo by comparing args
         arglhs = arg(lhs)
         argrhs = arg(rhs)
-        # Guard against Eq(nan, nan) -> Falsesymp
+        # Guard against Eq(nan, nan) -> False
         if not (arglhs == S.NaN and argrhs == S.NaN):
             return fuzzy_bool(is_eq(arglhs, argrhs, assumptions))
 
