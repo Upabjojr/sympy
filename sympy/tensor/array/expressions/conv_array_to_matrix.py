@@ -206,11 +206,17 @@ def _(expr: ArrayTensorProduct):
     # matrices, with trivial dimensions (i.e. dim=1) dropped.
     # That is, add contractions over trivial dimensions:
 
+    # [x, y] dim (k, 1, k, 1) ==> x*y.T
+    # [x, I, y] dim (k, 1, k, k, k, 1) ==> x*y.T
+    # [x, I1, y] dim (k, 1, 1, 1, k, 1) ==> x*y.T
+    # OneMatrix?
+    # More complex combinations?
+
     removed = []
     newargs = []
     cumul = list(accumulate([0] + [get_rank(arg) for arg in expr.args]))
     pending = None
-    prev_i = None
+    prev_i = None  # remove prev_i ?
     removed_maybe = []
     for i, arg in enumerate(expr.args):
         current_range = list(range(cumul[i], cumul[i+1]))
@@ -218,6 +224,7 @@ def _(expr: ArrayTensorProduct):
             removed.extend(current_range)
             continue
         if not isinstance(arg, (MatrixExpr, MatrixCommon)):
+            # TODO: maybe "rarg" could contain an expression that can be further simplified:
             rarg, rem = _remove_trivial_dims(arg)
             removed.extend(rem)
             newargs.append(rarg)
