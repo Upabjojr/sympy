@@ -646,12 +646,22 @@ Basic._constructor_postprocessor_mapping[MatrixExpr] = {
 
 
 def _matrix_derivative(expr, x):
+    from sympy.tensor.array.expressions.conv_matrix_to_array import convert_matrix_to_array
+    from sympy.tensor.array.expressions.arrayexpr_derivatives import array_derive
+    from sympy.tensor.array.expressions.conv_array_to_matrix import convert_array_to_matrix
+    from sympy.tensor.array.expressions.array_expressions import _ArrayExpr
+    arr = convert_matrix_to_array(expr)
+    darr = array_derive(arr, x)
+    dres = convert_array_to_matrix(darr)
     from sympy.tensor.array.array_derivatives import ArrayDerivative
+    from ...tensor.array.expressions.array_expressions import _CodegenArrayAbstract
+    if isinstance(dres, (_ArrayExpr, _CodegenArrayAbstract)):
+        return ArrayDerivative(expr, x)
+    return dres
     lines = expr._eval_derivative_matrix_lines(x)
 
     parts = [i.build() for i in lines]
 
-    from sympy.tensor.array.expressions.conv_array_to_matrix import convert_array_to_matrix
 
     parts = [[convert_array_to_matrix(j) for j in i] for i in parts]
 
