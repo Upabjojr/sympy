@@ -302,10 +302,7 @@ def _(expr: PermuteDims):
     p = expr.permutation.array_form
     pinv = _af_invert(expr.permutation.array_form)
     shift = list(accumulate([1 if i in subremoved else 0 for i in range(len(p))]))
-    try:
-        premoved = [pinv[i] for i in subremoved]
-    except IndexError:
-        print("")
+    premoved = [pinv[i] for i in subremoved]
     p2 = [e - shift[e] for i, e in enumerate(p) if e not in subremoved]
     # TODO: check if subremoved should be permuted as well...
     newexpr = PermuteDims(subexpr, p2)
@@ -317,6 +314,7 @@ def _(expr: PermuteDims):
 @_remove_trivial_dims.register(ArrayContraction)
 def _(expr: ArrayContraction):
     newexpr, removed = _remove_trivial_dims(expr.expr)
+    shifts = list(accumulate([1 if i in removed else 0 for i in range(get_rank(expr.expr))]))
     new_contraction_indices = [tuple(j for j in i if j not in removed) for i in expr.contraction_indices]
     # Remove possible empty tuples "()":
     new_contraction_indices = [i for i in new_contraction_indices if i]
@@ -325,16 +323,33 @@ def _(expr: ArrayContraction):
     # Shift removed:
     removed = ArrayContraction._push_indices_up(expr.contraction_indices, removed)
     return ArrayContraction(newexpr, *new_contraction_indices), removed
+    new_contraction_indices = [i for i in new_contraction_indices if len(i) > 0]
+    contraction_indices_flat = [j for i in expr.contraction_indices for j in i]
+    removed = [i for i in removed if i not in contraction_indices_flat]
+    new_contraction_indices = [tuple(j - shifts[j] for j in i) for i in new_contraction_indices]
+    # Shift removed:
+    removed = ArrayContraction._push_indices_up(expr.contraction_indices, removed)
+    return ArrayContraction(newexpr, *new_contraction_indices), list(removed)
 
 
 @_remove_trivial_dims.register(ArrayDiagonal)
 def _(expr: ArrayDiagonal):
     newexpr, removed = _remove_trivial_dims(expr.expr)
+    shifts = list(accumulate([0] + [1 if i in removed else 0 for i in range(get_rank(expr.expr))]))
     new_diag_indices = [tuple(j for j in i if j not in removed) for i in expr.diagonal_indices]
     new_diag_indices = [i for i in new_diag_indices if i]
     # new_diag_indices = ArrayContraction._push_indices_up(expr.diagonal_indices, new_diag_indices)
     # TODO: not correct if removed index is diagonal:
-    removed = ArrayContraction._push_indices_up(expr.diagonal_indices, removed)
+    # removed = ArrayContraction._push_indices_up(expr.diagonal_indices, removed)
+    new_diag_indices = [i for i in new_diag_indices if len(i) > 0]
+    new_diag_indices = [tuple(j - shifts[j] for j in i) for i in new_diag_indices]
+    rank = get_rank(expr.expr)
+    removed = ArrayDiagonal._push_indices_up(expr.diagonal_indices, removed, rank)
+    if None in removed:
+        print("")
+    removed = sorted({i for i in removed})
+    # TODO: verify if this operation causes the axes to permute:
+    new_diag_indices = [i for i in new_diag_indices if len(i) > 1]
     return ArrayDiagonal(newexpr, *new_diag_indices), removed
 
 

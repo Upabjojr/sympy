@@ -346,10 +346,10 @@ def test_derivatives_matrix_norms():
     assert expr.diff(x) == x*(x.T*x)**Rational(-1, 2)
 
     expr = (c.T*a*x.T*b)**S.Half
-    assert expr.diff(x) == b/(2*sqrt(c.T*a*x.T*b))*c.T*a
+    assert expr.diff(x) == b/(2*sqrt(b.T*x*a.T*c))*c.T*a
 
     expr = (c.T*a*x.T*b)**Rational(1, 3)
-    assert expr.diff(x) == b*(c.T*a*x.T*b)**Rational(-2, 3)*c.T*a/3
+    assert expr.diff(x) == b*(b.T*x*a.T*c)**Rational(-2, 3)*c.T*a/3
 
     expr = (a.T*X*b)**S.Half
     assert expr.diff(X) == a/(2*sqrt(a.T*X*b))*b.T
