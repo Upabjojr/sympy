@@ -317,12 +317,6 @@ def _(expr: ArrayContraction):
     shifts = list(accumulate([1 if i in removed else 0 for i in range(get_rank(expr.expr))]))
     new_contraction_indices = [tuple(j for j in i if j not in removed) for i in expr.contraction_indices]
     # Remove possible empty tuples "()":
-    new_contraction_indices = [i for i in new_contraction_indices if i]
-    contraction_indices_flat = [j for i in expr.contraction_indices for j in i]
-    removed = [i for i in removed if i not in contraction_indices_flat]
-    # Shift removed:
-    removed = ArrayContraction._push_indices_up(expr.contraction_indices, removed)
-    return ArrayContraction(newexpr, *new_contraction_indices), removed
     new_contraction_indices = [i for i in new_contraction_indices if len(i) > 0]
     contraction_indices_flat = [j for i in expr.contraction_indices for j in i]
     removed = [i for i in removed if i not in contraction_indices_flat]
@@ -337,18 +331,12 @@ def _(expr: ArrayDiagonal):
     newexpr, removed = _remove_trivial_dims(expr.expr)
     shifts = list(accumulate([0] + [1 if i in removed else 0 for i in range(get_rank(expr.expr))]))
     new_diag_indices = [tuple(j for j in i if j not in removed) for i in expr.diagonal_indices]
-    new_diag_indices = [i for i in new_diag_indices if i]
-    # new_diag_indices = ArrayContraction._push_indices_up(expr.diagonal_indices, new_diag_indices)
-    # TODO: not correct if removed index is diagonal:
-    # removed = ArrayContraction._push_indices_up(expr.diagonal_indices, removed)
-    new_diag_indices = [i for i in new_diag_indices if len(i) > 0]
     new_diag_indices = [tuple(j - shifts[j] for j in i) for i in new_diag_indices]
     rank = get_rank(expr.expr)
     removed = ArrayDiagonal._push_indices_up(expr.diagonal_indices, removed, rank)
-    if None in removed:
-        print("")
     removed = sorted({i for i in removed})
-    # TODO: verify if this operation causes the axes to permute:
+    # If there are single axes to diagonalize remaining, it means that their
+    # corresponding dimension has been removed, they no longer need diagonalization:
     new_diag_indices = [i for i in new_diag_indices if len(i) > 1]
     return ArrayDiagonal(newexpr, *new_diag_indices), removed
 
