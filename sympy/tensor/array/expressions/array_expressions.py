@@ -2,11 +2,11 @@ import operator
 from functools import reduce
 import itertools
 from itertools import accumulate
-from typing import Optional, List
+from typing import Optional, List, Dict
 
 from sympy import Expr, ImmutableDenseNDimArray, S, Symbol, Integer, ZeroMatrix, Basic, tensorproduct, Add, permutedims, \
     Tuple, tensordiagonal, Lambda, Dummy, Function, MatrixExpr, NDimArray, Indexed, IndexedBase, default_sort_key, \
-    tensorcontraction, diagonalize_vector
+    tensorcontraction, diagonalize_vector, Mul
 from sympy.matrices.expressions.matexpr import MatrixElement
 from sympy.tensor.array.expressions.utils import _apply_recursively_over_nested_lists, _sort_contraction_indices, \
     _get_mapping_from_subranks, _build_push_indices_up_func_transformation, _get_contraction_links, \
@@ -898,6 +898,24 @@ class ArrayContraction(_CodegenArrayAbstract):
     def split_multiple_contractions(self):
         """
         Recognize multiple contractions and attempt at rewriting them as paired-contractions.
+
+        This allows some contractions involving more than two indices to be
+        rewritten as multiple contractions involving two indices, thus allowing
+        the expression to be rewritten as a matrix multiplication line.
+
+        Examples:
+
+        * `A_ij b_j0 C_jk` ===> `A*DiagMatrix(b)*C`
+
+        Care for:
+        - matrix being diagonalized (i.e. `A_ii`)
+        - vectors being diagonalized (i.e. `a_i0`)
+
+        Multiple contractions can be split into matrix multiplications if
+        not more than two arguments are non-diagonals or non-vectors.
+        Vectors get diagonalized while diagonal matrices remain diagonal.
+        The non-diagonal matrices can be at the beginning or at the end
+        of the final matrix multiplication line.
         """
         from sympy import ask, Q
 
@@ -955,6 +973,9 @@ class ArrayContraction(_CodegenArrayAbstract):
                 else:
                     vectors.append((arg, rel_ind))
             if len(not_vectors) > 2:
+                # If more than two arguments in the multiple contraction are
+                # non-vectors and non-diagonal matrices, we cannot find a way
+                # to split this contraction into a matrix multiplication line:
                 continue
             # Three cases to handle:
             # - zero non-vectors
@@ -1270,9 +1291,27 @@ class ArrayContraction(_CodegenArrayAbstract):
 
 
 class _ArgE:
-    def __init__(self, element):
+    """
+    The ``_ArgE`` object contains references to the array expression
+    (``.element``) and a list containing the information about index
+    contractions (``.indices``).
+
+    Index contractions are numbered and contracted indices show the number of
+    the contraction. Uncontracted indices have ``None`` value.
+
+    For example:
+    ``_ArgE(M, [None, 3])``
+    This object means that expression ``M`` is part of an array contraction
+    and has two indices, the first is not contracted (value ``None``),
+    the second index is contracted to the 4th (i.e. number ``3``) group of the
+    array contraction object.
+    """
+    def __init__(self, element, indices: Optional[List[Optional[int]]] = None):
         self.element = element
-        self.indices: List[Optional[int]] = [None for i in range(get_rank(element))]
+        if indices is None:
+            self.indices: List[Optional[int]] = [None for i in range(get_rank(element))]
+        else:
+            self.indices: List[Optional[int]] = indices
 
     def __str__(self):
         return "_ArgE(%s, %s)" % (self.element, self.indices)
@@ -1281,25 +1320,46 @@ class _ArgE:
 
 
 class _IndPos:
-    def __init__(self, arg: int, ind: int):
+    """
+    Index position, requiring two integers in the constructor:
+
+    - arg: the position of the argument in the tensor product,
+    - rel: the relative position of the index inside the argument.
+    """
+    def __init__(self, arg: int, rel: int):
         self.arg = arg
-        self.ind = ind
+        self.rel = rel
 
     def __str__(self):
-        return "_IndPos(%i, %i)" % (self.arg, self.ind)
+        return "_IndPos(%i, %i)" % (self.arg, self.rel)
 
     __repr__ = __str__
 
     def __iter__(self):
-        yield from [self.arg, self.ind]
+        yield from [self.arg, self.rel]
 
 
 class _EditArrayContraction:
     """
     Utility class to help manipulate array contraction objects.
+
+    This class takes as input an ``ArrayContraction`` object and turns it into
+    an editable object.
+
+    The field ``args_with_ind`` of this class is a list of ``_ArgE`` objects
+    which can be used to easily edit the contraction structure of the
+    expression.
+
+    Once editing is finished, the ``ArrayContraction`` object may be recreated
+    by calling the ``.to_array_contraction()`` method.
     """
 
-    def __init__(self, array_contraction: ArrayContraction):
+    def __init__(self, array_contraction: Optional[ArrayContraction]):
+        if array_contraction is None:
+            self.args_with_ind: List[_ArgE] = []
+            self.number_of_contraction_indices: int = 0
+            self._track_permutation: Optional[List[int]] = None
+            return
         expr = array_contraction.expr
         if isinstance(expr, ArrayTensorProduct):
             args = list(expr.args)
@@ -1309,10 +1369,11 @@ class _EditArrayContraction:
         mapping = _get_mapping_from_subranks(array_contraction.subranks)
         for i, contraction_tuple in enumerate(array_contraction.contraction_indices):
             for j in contraction_tuple:
-                arg_pos, ind_pos = mapping[j]
-                args_with_ind[arg_pos].indices[ind_pos] = i
+                arg_pos, rel_pos = mapping[j]
+                args_with_ind[arg_pos].indices[rel_pos] = i
         self.args_with_ind: List[_ArgE] = args_with_ind
         self.number_of_contraction_indices: int = len(array_contraction.contraction_indices)
+        self._track_permutation: Optional[List[int]] = None
 
     def insert_after(self, arg: _ArgE, new_arg: _ArgE):
         pos = self.args_with_ind.index(arg)
@@ -1322,10 +1383,39 @@ class _EditArrayContraction:
         self.number_of_contraction_indices += 1
         return self.number_of_contraction_indices - 1
 
+    def refresh_indices(self):
+        updates: Dict[int, int] = {}
+        for arg_with_ind in self.args_with_ind:
+            updates.update({i: -1 for i in arg_with_ind.indices if i is not None})
+        for i, e in enumerate(sorted(updates)):
+            updates[e] = i
+        self.number_of_contraction_indices: int = len(updates)
+        for arg_with_ind in self.args_with_ind:
+            arg_with_ind.indices = [updates.get(i, None) for i in arg_with_ind.indices]
+
+    def merge_scalars(self):
+        scalars = []
+        for arg_with_ind in self.args_with_ind:
+            if len(arg_with_ind.indices) == 0:
+                scalars.append(arg_with_ind)
+        for i in scalars:
+            self.args_with_ind.remove(i)
+        scalar = Mul.fromiter([i.element for i in scalars])
+        if len(self.args_with_ind) == 0:
+            self.args_with_ind.append(_ArgE(scalar))
+        else:
+            from sympy.tensor.array.expressions.conv_array_to_matrix import _a2m_tensor_product
+            self.args_with_ind[0].element = _a2m_tensor_product(scalar, self.args_with_ind[0].element)
+
     def to_array_contraction(self):
+        self.merge_scalars()
         args = [arg.element for arg in self.args_with_ind]
         contraction_indices = self.get_contraction_indices()
-        return ArrayContraction(ArrayTensorProduct(*args), *contraction_indices)
+        expr = ArrayContraction(ArrayTensorProduct(*args), *contraction_indices)
+        if self._track_permutation is not None:
+            permutation = _af_invert([j for i in self._track_permutation for j in i])
+            expr = PermuteDims(expr, permutation)
+        return expr
 
     def get_contraction_indices(self) -> List[List[int]]:
         contraction_indices: List[List[int]] = [[] for i in range(self.number_of_contraction_indices)]
@@ -1338,6 +1428,8 @@ class _EditArrayContraction:
         return contraction_indices
 
     def get_mapping_for_index(self, ind) -> List[_IndPos]:
+        if ind >= self.number_of_contraction_indices:
+            raise ValueError("index value exceeding the index range")
         positions: List[_IndPos] = []
         for i, arg_with_ind in enumerate(self.args_with_ind):
             for j, arg_ind in enumerate(arg_with_ind.indices):
@@ -1352,6 +1444,34 @@ class _EditArrayContraction:
                 if ind is not None:
                     contraction_indices[ind].append(_IndPos(i, j))
         return contraction_indices
+
+    def count_args_with_index(self, index: int) -> int:
+        """
+        Count the number of arguments that have the given index.
+        """
+        counter: int = 0
+        for arg_with_ind in self.args_with_ind:
+            if index in arg_with_ind.indices:
+                counter += 1
+        return counter
+
+    def track_permutation_start(self):
+        self._track_permutation = []
+        counter: int = 0
+        for arg_with_ind in self.args_with_ind:
+            perm = []
+            for i in arg_with_ind.indices:
+                if i is not None:
+                    continue
+                perm.append(counter)
+                counter += 1
+            self._track_permutation.append(perm)
+
+    def track_permutation_merge(self, destination: _ArgE, from_element: _ArgE):
+        index_destination = self.args_with_ind.index(destination)
+        index_element = self.args_with_ind.index(from_element)
+        self._track_permutation[index_destination].extend(self._track_permutation[index_element])
+        self._track_permutation.pop(index_element)
 
 
 def get_rank(expr):
