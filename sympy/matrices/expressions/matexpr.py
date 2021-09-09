@@ -672,7 +672,8 @@ def _matrix_derivative(expr, x):
     from sympy.tensor.array.array_derivatives import ArrayDerivative
     from ...tensor.array.expressions.array_expressions import _CodegenArrayAbstract
     if isinstance(dres, (_ArrayExpr, _CodegenArrayAbstract)):
-        return ArrayDerivative(expr, x)
+        pass
+        # return ArrayDerivative(expr, x)
     return dres
     lines = expr._eval_derivative_matrix_lines(x)
 

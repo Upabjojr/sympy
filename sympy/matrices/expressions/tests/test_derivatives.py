@@ -340,7 +340,7 @@ def test_derivatives_matrix_norms():
     assert expr[0, 0].diff(x[m, 0]).doit() == y[m, 0]
 
     expr = (x.T*y)**S.Half
-    assert expr.diff(x) == y/(2*sqrt(y.T*x))
+    assert expr.diff(x) == y/(2*sqrt(x.T*y))
 
     expr = (x.T*x)**S.Half
     assert expr.diff(x) == x*(x.T*x)**Rational(-1, 2)
