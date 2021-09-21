@@ -318,9 +318,10 @@ class sign(Function):
     _singularities = True
 
     def doit(self, **hints):
-        if self.args[0].is_zero is False:
+        s = super().doit()
+        if s == self and self.args[0].is_zero is False:
             return self.args[0] / Abs(self.args[0])
-        return self
+        return s
 
     @classmethod
     def eval(cls, arg):
@@ -1216,7 +1217,6 @@ class principal_branch(Function):
 
     @classmethod
     def eval(self, x, period):
-        from sympy import oo, exp_polar, I, Mul, polar_lift, Symbol
         if isinstance(x, polar_lift):
             return principal_branch(x.args[0], period)
         if period == oo:
@@ -1267,7 +1267,6 @@ class principal_branch(Function):
             return exp_polar(arg*I)*abs(c)
 
     def _eval_evalf(self, prec):
-        from sympy import exp, pi, I
         z, period = self.args
         p = periodic_argument(z, period)._eval_evalf(prec)
         if abs(p) > pi or p == -pi:

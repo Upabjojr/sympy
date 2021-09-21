@@ -307,6 +307,7 @@ class OctaveCodePrinter(CodePrinter):
         return '{' + ', '.join(self._print(a) for a in expr) + '}'
     _print_tuple = _print_list
     _print_Tuple = _print_list
+    _print_List = _print_list
 
 
     def _print_BooleanTrue(self, expr):
@@ -406,7 +407,6 @@ class OctaveCodePrinter(CodePrinter):
             shape = [shape[0]]
         s = ", ".join(self._print(n) for n in shape)
         return "eye(" + s + ")"
-
 
     def _print_lowergamma(self, expr):
         # Octave implements regularized incomplete gamma function

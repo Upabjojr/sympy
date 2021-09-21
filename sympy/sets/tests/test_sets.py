@@ -1098,7 +1098,6 @@ def test_Interval_free_symbols():
 
 
 def test_image_interval():
-    from sympy.core.numbers import Rational
     x = Symbol('x', real=True)
     a = Symbol('a', real=True)
     assert imageset(x, 2*x, Interval(-2, 1)) == Interval(-4, 2)
@@ -1612,6 +1611,23 @@ def test_issue_19378():
     assert Eq(c, b).simplify() is S.true
     assert Eq(a, c).simplify() is S.false
     assert Eq({1}, {x}).simplify() == Eq({1}, {x})
+
+def test_intersection_symbolic():
+    n = Symbol('n')
+    # These should not throw an error
+    assert isinstance(Intersection(Range(n), Range(100)), Intersection)
+    assert isinstance(Intersection(Range(n), Interval(1, 100)), Intersection)
+    assert isinstance(Intersection(Range(100), Interval(1, n)), Intersection)
+
+
+@XFAIL
+def test_intersection_symbolic_failing():
+    n = Symbol('n', integer=True, positive=True)
+    assert Intersection(Range(10, n), Range(4, 500, 5)) == Intersection(
+        Range(14, n), Range(14, 500, 5))
+    assert Intersection(Interval(10, n), Range(4, 500, 5)) == Intersection(
+        Interval(14, n), Range(14, 500, 5))
+
 
 def test_issue_20379():
     #https://github.com/sympy/sympy/issues/20379

@@ -23,6 +23,7 @@ from sympy.parsing.latex import parse_latex
 x, y, z = symbols('x y z')
 p = IndexedBase("p")
 
+
 def test_PythonCodePrinter():
     prntr = PythonCodePrinter()
 
@@ -30,6 +31,8 @@ def test_PythonCodePrinter():
 
     assert prntr.doprint(x**y) == 'x**y'
     assert prntr.doprint(Mod(x, 2)) == 'x % 2'
+    assert prntr.doprint(-Mod(x, y)) == '-(x % y)'
+    assert prntr.doprint(Mod(-x, y)) == '(-x) % y'
     assert prntr.doprint(And(x, y)) == 'x and y'
     assert prntr.doprint(Or(x, y)) == 'x or y'
     assert not prntr.module_imports
@@ -51,6 +54,9 @@ def test_PythonCodePrinter():
     assert prntr.doprint(sign(x)) == '(0.0 if x == 0 else math.copysign(1, x))'
     assert prntr.doprint(p[0, 1]) == 'p[0, 1]'
     assert prntr.doprint(KroneckerDelta(x,y)) == '(1 if x == y else 0)'
+
+    assert prntr.doprint((2,3)) == "(2, 3)"
+    assert prntr.doprint([2,3]) == "[2, 3]"
 
 
 def test_PythonCodePrinter_standard():
@@ -166,6 +172,7 @@ def test_pycode_reserved_words():
     raises(ValueError, lambda: pycode(s1 + s2, error_on_reserved=True))
     py_str = pycode(s1 + s2)
     assert py_str in ('else_ + if_', 'if_ + else_')
+
 
 def test_issue_20762():
     antlr4 = import_module("antlr4")
