@@ -9,6 +9,7 @@ from sympy import (MatrixSymbol, Inverse, symbols, Determinant, Trace,
                    HadamardProduct, HadamardPower, KroneckerDelta, Sum,
                    Rational)
 from sympy import MatAdd, Identity, MatMul, ZeroMatrix
+from sympy.combinatorics import Permutation
 
 from sympy.tensor.array.array_derivatives import ArrayDerivative
 from sympy.matrices.expressions import hadamard_power
@@ -75,8 +76,8 @@ def test_matrix_derivative_by_scalar():
 
 def test_matrix_derivative_non_matrix_result():
     # This is a 4-dimensional array:
-    assert A.diff(A) == ArrayDerivative(A, A)
-    assert A.T.diff(A) == ArrayDerivative(A.T, A)
+    assert A.diff(A) == PermuteDims(ArrayTensorProduct(A, A), Permutation(3)(1, 2))
+    assert A.T.diff(A) == PermuteDims(ArrayTensorProduct(A, A.T), Permutation(3)(1, 2))
     assert (2*A).diff(A) == ArrayDerivative(2*A, A)
     assert MatAdd(A, A).diff(A) == ArrayDerivative(MatAdd(A, A), A)
     assert (A + B).diff(A) == ArrayDerivative(A + B, A)  # TODO: `B` can be removed.
@@ -162,7 +163,8 @@ def test_matrix_derivative_vectors_and_scalars():
 def test_matrix_derivatives_of_traces():
 
     expr = Trace(A)*A
-    assert expr.diff(A) == ArrayDerivative(Trace(A)*A, A)
+    I = Identity(k)
+    assert expr.diff(A) == ArrayAdd(ArrayTensorProduct(I, A), PermuteDims(ArrayTensorProduct(Trace(A)*I, I), Permutation(3)(1, 2)))
     assert expr[i, j].diff(A[m, n]).doit() == (
         KDelta(i, m)*KDelta(j, n)*Trace(A) +
         KDelta(m, n)*A[i, j]
@@ -307,7 +309,7 @@ def test_matrix_derivatives_of_traces():
 
 def test_derivatives_of_complicated_matrix_expr():
     expr = a.T*(A*X*(X.T*B + X*A) + B.T*X.T*(a*b.T*(X*D*X.T + X*(X.T*B + A*X)*D*B - X.T*C.T*A)*B + B*(X*D.T + B*A*X*A.T - 3*X*D))*B + 42*X*B*X.T*A.T*(X + X.T))*b
-    result = (B*(B*A*X*A.T - 3*X*D + X*D.T) + a*b.T*(X*(A*X + X.T*B)*D*B + X*D*X.T - X.T*C.T*A)*B)*B*b*a.T*B.T + B**2*b*a.T*B.T*X.T*a*b.T*X*D + 42*A*X*B.T*X.T*a*b.T + B*D*B**3*b*a.T*B.T*X.T*a*b.T*X + B*b*a.T*A*X + 42*a*b.T*(X + X.T)*A*X*B.T + b*a.T*X*B*a*b.T*B.T**2*X*D.T + b*a.T*X*B*a*b.T*B.T**3*D.T*(B.T*X + X.T*A.T) + 42*b*a.T*X*B*X.T*A.T + 42*A.T*(X + X.T)*b*a.T*X*B + A.T*B.T**2*X*B*a*b.T*B.T*A + A.T*a*b.T*(A.T*X.T + B.T*X) + A.T*X.T*b*a.T*X*B*a*b.T*B.T**3*D.T + B.T*X*B*a*b.T*B.T*D - 3*B.T*X*B*a*b.T*B.T*D.T - C.T*A*B**2*b*a.T*B.T*X.T*a*b.T + X.T*A.T*a*b.T*A.T
+    result = (B*(B*A*X*A.T - 3*X*D + X*D.T) + a*b.T*(X*(A*X + X.T*B)*D*B + X*D*X.T - X.T*C.T*A)*B)*B*b*a.T*B.T + B**2*b*a.T*B.T*X.T*a*b.T*X*D + 42*A*X*B.T*X.T*a*b.T + B*D*B**3*b*a.T*B.T*X.T*a*b.T*X + B*b*a.T*A*X + a*b.T*(42*X + 42*X.T)*A*X*B.T + b*a.T*X*B*a*b.T*B.T**2*X*D.T + b*a.T*X*B*a*b.T*B.T**3*D.T*(B.T*X + X.T*A.T) + 42*b*a.T*X*B*X.T*A.T + A.T*(42*X + 42*X.T)*b*a.T*X*B + A.T*B.T**2*X*B*a*b.T*B.T*A + A.T*a*b.T*(A.T*X.T + B.T*X) + A.T*X.T*b*a.T*X*B*a*b.T*B.T**3*D.T + B.T*X*B*a*b.T*B.T*D - 3*B.T*X*B*a*b.T*B.T*D.T - C.T*A*B**2*b*a.T*B.T*X.T*a*b.T + X.T*A.T*a*b.T*A.T
     assert expr.diff(X) == result
 
 
@@ -350,7 +352,7 @@ def test_derivatives_matrix_norms():
     assert expr.diff(x) == x*(x.T*x)**Rational(-1, 2)
 
     expr = (c.T*a*x.T*b)**S.Half
-    assert expr.diff(x) == b/(2*sqrt(b.T*x*a.T*c))*c.T*a
+    assert expr.diff(x) == (1/2)*b*a.T*c/sqrt(c.T*a*x.T*b)
 
     expr = (c.T*a*x.T*b)**Rational(1, 3)
     assert expr.diff(x) == b*(b.T*x*a.T*c)**Rational(-2, 3)*c.T*a/3
