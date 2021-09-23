@@ -9,8 +9,10 @@ from sympy import (MatrixSymbol, Inverse, symbols, Determinant, Trace,
                    HadamardProduct, HadamardPower, KroneckerDelta, Sum,
                    Rational)
 from sympy import MatAdd, Identity, MatMul, ZeroMatrix
+
 from sympy.tensor.array.array_derivatives import ArrayDerivative
 from sympy.matrices.expressions import hadamard_power
+from sympy.tensor.array.expressions.array_expressions import ArrayAdd, ArrayTensorProduct, PermuteDims
 
 k = symbols("k")
 i, j = symbols("i j")
@@ -324,7 +326,9 @@ def test_mixed_deriv_mixed_expressions():
 
     expr = Trace(A)*A
     # TODO: this is not yet supported:
-    assert expr.diff(A) == ArrayDerivative(expr, A)
+    I = Identity(k)
+    assert expr.diff(A) == ArrayAdd(ArrayTensorProduct(I, A), PermuteDims(ArrayTensorProduct(Trace(A)*I, I), Permutation(3)(1, 2)))
+    # TODO: .as_explicit() not working with: ArrayAdd(ArrayTensorProduct(I, A), PermuteDims(ArrayTensorProduct(Trace(A) * I, I), Permutation(3)(1, 2)))
 
     expr = Trace(Trace(A)*A)
     assert expr.diff(A) == (2*Trace(A))*Identity(k)
