@@ -352,10 +352,10 @@ def test_derivatives_matrix_norms():
     assert expr.diff(x) == x*(x.T*x)**Rational(-1, 2)
 
     expr = (c.T*a*x.T*b)**S.Half
-    assert expr.diff(x) == (1/2)*b*a.T*c/sqrt(c.T*a*x.T*b)
+    assert expr.diff(x) == b*a.T*c/sqrt(c.T*a*x.T*b)/2
 
     expr = (c.T*a*x.T*b)**Rational(1, 3)
-    assert expr.diff(x) == b*(b.T*x*a.T*c)**Rational(-2, 3)*c.T*a/3
+    assert expr.diff(x) == b*a.T*c*(c.T*a*x.T*b)**Rational(-2, 3)/3
 
     expr = (a.T*X*b)**S.Half
     assert expr.diff(X) == a/(2*sqrt(a.T*X*b))*b.T
@@ -418,7 +418,7 @@ def test_derivatives_elementwise_applyfunc():
 
     expr = a.T*A*X.applyfunc(sin)*B*b
     assert expr.diff(X).dummy_eq(
-        DiagMatrix(A.T*a)*X.applyfunc(cos)*DiagMatrix(B*b))
+        HadamardProduct(A.T * a * b.T * B.T, X.applyfunc(cos)))
 
     expr = a.T * (A*X.applyfunc(sin)*B).applyfunc(log) * b
     # TODO: wrong
@@ -437,7 +437,7 @@ def test_derivatives_of_hadamard_expressions():
     assert expr.diff(x) == DiagMatrix(hadamard_product(b, a))
 
     expr = a.T*hadamard_product(A, X, B)*b
-    assert expr.diff(X) == DiagMatrix(a)*hadamard_product(B, A)*DiagMatrix(b)
+    assert expr.diff(X) == HadamardProduct(a*b.T, A, B)
 
     # Hadamard Power
 
