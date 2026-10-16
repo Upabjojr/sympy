@@ -1,0 +1,54 @@
+digraph power {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
+  edge [fontname="Helvetica", fontsize=9]
+
+  subgraph cluster_rules {
+    label="superscript: what can be the base of a power"; style="rounded,dashed"; fontsize=12
+    sup  [label="superscript\n_power_base CARET (_expression_power | ' | *)\n_power_base CARET {\\circ} -> degree", fillcolor="#fff2cc"]
+    base [label="_power_base\ngroup_round_parentheses | _argument_power_base", fillcolor="#d9f2d9"]
+    abase [label="_argument_power_base\n_expression_core | [ ] | \\{ \\} | fraction | binomial\n| delimited_function | matrix", fillcolor="#d9f2d9"]
+    df [label="?delimited_function\nf(x) | f^{-1}(x) | |x| | floor | ceil | \\sqrt | x! | \\overline{z}\n| \\max \\min | bra | ket | inner product | determinant\n| \\sin( ) | \\sin^n( ) | \\operatorname{f}( ) | \\exp( ) | \\ln( ) | \\log_b( )\n(a function whose argument is in parentheses)", fillcolor="#d9f2d9"]
+    asup [label="?argument_superscript\n_argument_power_base CARET ...  -> superscript | degree\n(the first factor of an argument:\nno parentheses as the base)", fillcolor="#d9f2d9"]
+    old [label="before: superscript: _expression_func CARET ...\n_expression_func includes every function, bare argument included,\nso \\sin x^2 also parsed as (\\sin x)^2", shape=note, fillcolor="#f8d7da"]
+    sup -> base -> abase -> df
+    asup -> abase
+    sup -> old [style=invis]
+  }
+
+  subgraph cluster_1 {
+    label="\\sin x^2"; style="rounded"; bgcolor="#f7fff7"; fontsize=12
+    a0 [label="trigonometric_function", fillcolor="#ffffff"]
+    a1 [label="\\sin", fillcolor="#ffffff"]
+    a2 [label="superscript\n(argument_superscript as _argument_head)", fillcolor="#ffffff"]
+    a3 [label="x", fillcolor="#ffffff"]
+    a4 [label="2", fillcolor="#ffffff"]
+    ar [label="sin(x**2)\nthe only reading", shape=note, fillcolor="#d9f2d9"]
+    a0 -> {a1 a2}; a2 -> {a3 a4}; a0 -> ar [style=dashed]
+  }
+  subgraph cluster_2 {
+    label="\\sin(x)^2"; style="rounded"; bgcolor="#f7f7ff"; fontsize=12
+    b0 [label="superscript", fillcolor="#ffffff"]
+    b1 [label="trigonometric_function\n(delimited_function)", fillcolor="#ffffff"]
+    b2 [label="\\sin", fillcolor="#ffffff"]
+    b3 [label="( x )", fillcolor="#ffffff"]
+    b4 [label="2", fillcolor="#ffffff"]
+    br [label="sin(x)**2\nthe only reading", shape=note, fillcolor="#d9f2d9"]
+    b0 -> {b1 b4}; b1 -> {b2 b3}; b0 -> br [style=dashed]
+  }
+  subgraph cluster_3 {
+    label="\\sin 2(x+1)^2"; style="rounded"; bgcolor="#fffbf0"; fontsize=12
+    c0 [label="trigonometric_function", fillcolor="#ffffff"]
+    c1 [label="\\sin", fillcolor="#ffffff"]
+    c2 [label="adjacent_expressions", fillcolor="#ffffff"]
+    c3 [label="2  (_numeric head)", fillcolor="#ffffff"]
+    c4 [label="superscript\n(an _argument_factor: parentheses allowed)", fillcolor="#ffffff"]
+    c5 [label="( x+1 )", fillcolor="#ffffff"]
+    c6 [label="2", fillcolor="#ffffff"]
+    cr [label="sin(2*(x+1)**2)\nthe only reading", shape=note, fillcolor="#d9f2d9"]
+    c0 -> {c1 c2}; c2 -> {c3 c4}; c4 -> {c5 c6}; c0 -> cr [style=dashed]
+  }
+  df -> a0 [style=invis]
+  df -> b0 [style=invis]
+  df -> c0 [style=invis]
+}

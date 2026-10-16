@@ -1,0 +1,30 @@
+digraph layers {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
+  edge [fontname="Helvetica", fontsize=9]
+
+  latex_string [label="latex_string"]
+  relation       [label="_relation\neq | ne | lt | lte | gt | gte"]
+  relation_chain [label="relation_chain\na < b \\le c", fillcolor="#d9f2d9"]
+  membership     [label="membership\nx \\in \\mathbb{R}", fillcolor="#d9f2d9"]
+  expression [label="_expression\nadd | sub | _expression_mul\n(unary_sign: a + -b)", fillcolor="#fff2cc"]
+  mul   [label="_expression_mul\nmul | div | adjacent_expressions\n| summation | product\n| _expression_power"]
+  power [label="_expression_power\nsuperscript | power_with_subscript (x^2_1)\n| matrix_prime | symbol_prime\n| _expression_func", fillcolor="#fff2cc"]
+  func  [label="_expression_func\n_expression_core | ( ) | [ ] | \\{ \\}\n| fraction | binomial | _function\n| _integral | limit | matrix", fillcolor="#fff2cc"]
+  core  [label="_expression_core\nsymbols | numbers | \\pi | \\mathrm{e} | \\infty\n| { ... }", fillcolor="#fff2cc"]
+  function [label="_function\nfunction_applied  f(x)\n| inverse_function_applied  f^{-1}(x)\n| _builtin_function", fillcolor="#fff2cc"]
+  builtin  [label="_builtin_function\n_bare_function | abs | floor | ceil\n| square_root | factorial | conjugate\n| max | min | bra | ket | inner_product"]
+  bare     [label="_bare_function\ntrigonometric_function | trigonometric_function_power\n| named_function  \\operatorname{..}\n| exponential | function_power  \\ln^2 x | log\n| determinant | trace | adjugate", fillcolor="#fff2cc"]
+  argument [label="function_argument\n(see the next diagram)", fillcolor="#fff2cc", style="rounded,filled,dashed"]
+
+  latex_string -> {relation relation_chain membership expression}
+  expression -> mul -> power -> func
+  func -> {core function}
+  function -> builtin -> bare -> argument
+
+  legend [shape=plaintext, label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+    <tr><td align="left" colspan="3">An arrow means "is made of". Lower layers bind tighter.</td></tr>
+    <tr><td align="left" colspan="3">Rules named _like_this are inlined by Lark: they never appear in a parse tree.</td></tr>
+    <tr><td bgcolor="#f0f0f0">unchanged</td><td bgcolor="#fff2cc">changed in this PR</td><td bgcolor="#d9f2d9">new in this PR</td></tr></table>>]
+  {rank=same; latex_string; legend}
+}

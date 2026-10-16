@@ -1,0 +1,41 @@
+digraph readings_of_sin_xyz {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
+  edge [fontname="Helvetica", fontsize=9]
+
+  subgraph cluster_a {
+    label="\\sin xyz, reading 1: the function of everything"; style="rounded"; bgcolor="#f7f7ff"; fontsize=12
+    t1 [label="trigonometric_function", fillcolor="#ffffff"]
+    t1f [label="FUNC_TRIG  \\sin", fillcolor="#ffffff"]
+    t1a [label="adjacent_expressions", fillcolor="#ffffff"]
+    t1x [label="SYMBOL  x", fillcolor="#ffffff"]
+    t1b [label="adjacent_expressions", fillcolor="#ffffff"]
+    t1y [label="SYMBOL  y", fillcolor="#ffffff"]
+    t1z [label="SYMBOL  z", fillcolor="#ffffff"]
+    r1 [label="sin(x*y*z)", shape=note, fillcolor="#d9f2d9"]
+    t1 -> {t1f t1a}
+    t1a -> {t1x t1b}
+    t1b -> {t1y t1z}
+    t1 -> r1 [style=dashed, label="transform"]
+  }
+
+  subgraph cluster_b {
+    label="\\sin xyz, reading 2: the function of the first factor"; style="rounded"; bgcolor="#f7fff7"; fontsize=12
+    t2 [label="trigonometric_function", fillcolor="#ffffff"]
+    t2f [label="FUNC_TRIG  \\sin", fillcolor="#ffffff"]
+    t2a [label="factors_after_argument", fillcolor="#d9f2d9"]
+    t2x [label="SYMBOL  x", fillcolor="#ffffff"]
+    t2b [label="adjacent_expressions", fillcolor="#ffffff"]
+    t2y [label="SYMBOL  y", fillcolor="#ffffff"]
+    t2z [label="SYMBOL  z", fillcolor="#ffffff"]
+    r2 [label="_FactorsAfterArgument(x, y*z)\n_apply(sin, ...) = sin(x)*y*z", shape=note, fillcolor="#d9f2d9"]
+    t2 -> {t2f t2a}
+    t2a -> {t2x t2b}
+    t2b -> {t2y t2z}
+    t2 -> r2 [style=dashed, label="transform"]
+  }
+
+  amb [label="_ambig", fillcolor="#ffffff", shape=ellipse]
+  amb -> t1
+  amb -> t2
+}

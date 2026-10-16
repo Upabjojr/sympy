@@ -1,0 +1,22 @@
+digraph readings {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
+  edge [fontname="Helvetica", fontsize=10]
+
+  input [label="\\cos ab + \\sin xy", fillcolor="#ffffff"]
+  tree [label="parse tree: an _ambig node at each of the two sites\n[\\cos ab]  and  [\\sin xy]\n(same kind: adjacent_expressions vs factors_after_argument)"]
+  collapse [label="CollapseAmbiguities: 2 x 2 = 4 trees"]
+
+  c1 [label="cos(a*b) + sin(x*y)", fillcolor="#d9f2d9"]
+  c2 [label="cos(a*b) + sin(x)*y", fillcolor="#f8d7da"]
+  c3 [label="cos(a)*b + sin(x*y)", fillcolor="#f8d7da"]
+  c4 [label="cos(a)*b + sin(x)*y", fillcolor="#d9f2d9"]
+
+  parallel [label="_parallel_readings\nfor every site: the span, the shape of its node, the rules it is read with\nsites read with the same set of rules are of the same kind\nkeep the trees making the same choice at every site of a kind\n(fall back to all the trees when none does)", fillcolor="#d9f2d9"]
+  result [label="parse_latex_lark_all\n[sin(x*y) + cos(a*b), b*cos(a) + y*sin(x)]", fillcolor="#d9f2d9"]
+
+  input -> tree -> collapse
+  collapse -> {c1 c2 c3 c4}
+  {c1 c2 c3 c4} -> parallel
+  parallel -> result [label="2 readings, not 4"]
+}

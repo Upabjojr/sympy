@@ -1,0 +1,25 @@
+digraph argument {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
+  edge [fontname="Helvetica", fontsize=9]
+
+  subgraph cluster_rules {
+    label="function_argument: what a function command applies to"; style="rounded,dashed"; fontsize=12
+    fa [label="?function_argument", fillcolor="#fff2cc"]
+    a1 [label="_argument_head\n\\sin x", fillcolor="#fff2cc"]
+    a2 [label="group_round_parentheses\n\\sin(x)   the argument ends at )"]
+    a3 [label="_argument_head argument_factors\n-> adjacent_expressions\n\\sin xyz = sin(x*y*z)", fillcolor="#fff2cc"]
+    a4 [label="(_unnumbered_head | argument_superscript | group_round_parentheses) argument_factors\n-> factors_after_argument\n\\sin xyz = sin(x)*y*z,  \\sin(x) y = sin(x)*y", fillcolor="#d9f2d9"]
+    a5 [label="_bare_function\n\\sin \\cos x = sin(cos(x))"]
+    a6 [label="ADD | SUB function_argument\n\\sin -x"]
+    fa -> {a1 a2 a3 a4 a5 a6}
+
+    head [label="_argument_head\n_numeric | _unnumbered_head | argument_superscript\n(a number is never the first factor of\nfactors_after_argument: \\sin 2x = sin(2*x) only)", fillcolor="#d9f2d9"]
+    unnumbered [label="_unnumbered_head\nsymbol | \\mathit{..} | { } | [ ] | \\{ \\} | fraction | binomial\n| f(x) | integral | limit | sum | prod | matrix | x' | A'\n| \\sqrt{..} | |x| | floor | ceil | x! | \\overline{z}\n| \\min \\max | bra | ket | inner product", fillcolor="#fff2cc"]
+    factors [label="?argument_factors\n_argument_factor (argument_factors)\n_argument_factor: _numeric | _unnumbered_head\n| group_round_parentheses | superscript", fillcolor="#fff2cc"]
+    a1 -> head
+    a3 -> {head factors}
+    a4 -> {unnumbered factors}
+    head -> unnumbered
+  }
+}

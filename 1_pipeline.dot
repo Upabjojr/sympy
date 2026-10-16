@@ -1,0 +1,38 @@
+digraph pipeline {
+  rankdir=TB
+  fontname="Helvetica"
+  node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
+  edge [fontname="Helvetica", fontsize=10]
+
+  input  [label="LaTeX string\n\\sin xy", fillcolor="#ffffff"]
+  lexer  [label="Lark lexer\nterminals of latex.lark\n(control words end with _WORD_END)", fillcolor="#fff2cc"]
+  earley [label="Earley parser\nambiguity=\"explicit\""]
+  tree   [label="parse tree\n(an _ambig node where\nthe input has several readings)"]
+  err    [label="LaTeXParsingError\n\"Unknown command \\foo\"\n\"Unexpected character ')' at position 2\"\n\"Unexpected end of input\"", shape=note, fillcolor="#f8d7da"]
+
+  subgraph cluster_one {
+    label="parse_latex_lark(s, locals=None)"; style="rounded,dashed"; fontsize=12
+    transform [label="TransformToSymPyExpr.transform\n1. mark \\frac{d..}{d..} as leibniz_fraction\n2. build the expression bottom-up\n(with_locals(locals) replaces constants and functions)", fillcolor="#fff2cc"]
+    expr   [label="expression\nsin(x*y)"]
+    ambig  [label="Tree('_ambig', [sin(x*y), y*sin(x)])\nduplicate readings removed", fillcolor="#d9f2d9"]
+  }
+
+  subgraph cluster_all {
+    label="parse_latex_lark_all(s, locals=None)   (new)"; style="rounded,dashed"; bgcolor="#eef7ee"; fontsize=12
+    collapse [label="CollapseAmbiguities\none tree per combination of choices"]
+    parallel [label="_parallel_readings\nkeep the trees choosing the same way\nat every site of the same kind", fillcolor="#d9f2d9"]
+    each     [label="transform each tree\n(same transformer)", fillcolor="#d9f2d9"]
+    list     [label="[sin(x*y), y*sin(x)]", fillcolor="#d9f2d9"]
+  }
+
+  legend [shape=plaintext, label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#f0f0f0">unchanged</td><td bgcolor="#fff2cc">changed in this PR</td><td bgcolor="#d9f2d9">new in this PR</td></tr></table>>]
+
+  input -> lexer -> earley -> tree
+  earley -> err [label="UnexpectedInput\n(_parse wraps it)", style=dashed, color="#a94442", fontcolor="#a94442"]
+  tree -> transform
+  transform -> expr  [label="one reading"]
+  transform -> ambig [label="several readings"]
+  tree -> collapse -> parallel -> each -> list
+  {rank=same; input; legend}
+}

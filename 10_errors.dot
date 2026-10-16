@@ -1,0 +1,38 @@
+digraph errors {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
+  edge [fontname="Helvetica", fontsize=10]
+
+  subgraph cluster_parse {
+    label="LarkLaTeXParser._parse: every lark UnexpectedInput becomes a LaTeXParsingError"; style="rounded,dashed"; fontsize=12
+    lark [label="lark raises UnexpectedInput\n(UnexpectedEOF, UnexpectedCharacters, UnexpectedToken)"]
+    q0 [label="UnexpectedEOF?", shape=diamond, fillcolor="#fff2cc"]
+    q1 [label="does the input at the error\nposition start with \\name?", shape=diamond, fillcolor="#fff2cc"]
+    q2 [label="is name one of the control words\nof the grammar (_commands)?", shape=diamond, fillcolor="#fff2cc"]
+    m1 [label="\"Unexpected end of input\"\n\\frac{1}{", shape=note, fillcolor="#f8d7da"]
+    m2 [label="\"Unknown command \\foo\"\n\\foo,  \\sinx", shape=note, fillcolor="#f8d7da"]
+    m3 [label="\"Unexpected \\to at position 2\"\nx \\to y", shape=note, fillcolor="#f8d7da"]
+    m4 [label="\"Unexpected character ')' at position 2\"\nx )", shape=note, fillcolor="#f8d7da"]
+    lark -> q0
+    q0 -> m1 [label="yes"]
+    q0 -> q1 [label="no"]
+    q1 -> q2 [label="yes"]
+    q1 -> m4 [label="no"]
+    q2 -> m3 [label="yes"]
+    q2 -> m2 [label="no"]
+  }
+
+  subgraph cluster_transform {
+    label="LarkLaTeXParser._transform: errors found while building the expression"; style="rounded,dashed"; fontsize=12
+    visit [label="lark VisitError\n(wraps any exception raised in the transformer)"]
+    q [label="orig_exc is a\nLaTeXParsingError?", shape=diamond, fillcolor="#fff2cc"]
+    own [label="raise the LaTeXParsingError itself\n\"Cannot take determinant of non-matrix.\"\n\"A derivative must be applied to an expression.\"\n\"\\operatorname{sin} takes one argument.\"\n\"Unknown number set \\mathbb{X}.\"", shape=note, fillcolor="#f8d7da"]
+    other [label="re-raised unchanged:\na bug, or SymPy refusing the expression\n(e.g. a power of a non-square matrix)", shape=note]
+    visit -> q
+    q -> own [label="yes"]
+    q -> other [label="no"]
+  }
+
+  out [label="LaTeXParsingError raised ... from <the lark error>\nthe lark traceback stays chained, nothing is silenced", fillcolor="#d9f2d9"]
+  {m1 m2 m3 m4 own} -> out
+}

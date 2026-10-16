@@ -1,0 +1,36 @@
+digraph delimited {
+  rankdir=LR
+  node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
+  edge [fontname="Helvetica", fontsize=10]
+
+  title [shape=plaintext, label=<<b>adjacent_expressions: an implicit product, "first factor" then "what may follow"</b>>]
+
+  sym  [label="a symbol, a number,\na constant, x^2_1", fillcolor="#fff2cc"]
+  del  [label="_delimited: an expression whose end is marked\n( ) [ ] { } \\{ \\}   \\sqrt{x}   |x|   \\lfloor x \\rfloor   \\lceil x \\rceil\nx!   \\binom{n}{k}   matrix   f(x)   f^{-1}(x)   \\overline{z}\n\\min(..) \\max(..)   \\langle x|   |x\\rangle   \\langle x|y\\rangle   \\mathit{abc}", fillcolor="#d9f2d9"]
+  frac [label="fraction, superscript"]
+  bare [label="a bare function\n\\sin x,  \\ln x,  \\operatorname{f} x\n(the argument has no marked end)", fillcolor="#fff2cc"]
+
+  any  [label="_expression_mul\nany product", fillcolor="#f0f0f0"]
+  funcs [label="adjacent_functions\nonly more bare functions\n\\sin x \\cos y = sin(x)*cos(y)"]
+  inside [label="the factors after the argument are\ndecided inside function_argument\n(both readings, previous diagram)", fillcolor="#d9f2d9", style="rounded,filled,dashed"]
+
+  sym -> any
+  del -> any
+  frac -> any
+  bare -> funcs
+  bare -> inside [style=dashed]
+
+  examples [shape=plaintext, label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#e8e8e8"><b>input</b></td><td bgcolor="#e8e8e8"><b>readings</b></td></tr>
+    <tr><td align="left">f(x)g(x)</td><td align="left">f(x)*g(x),  f*g*x**2  (f (x) g (x))</td></tr>
+    <tr><td align="left">\sqrt{x} y</td><td align="left">sqrt(x)*y</td></tr>
+    <tr><td align="left">|x| y</td><td align="left">Abs(x)*y</td></tr>
+    <tr><td align="left">|x\rangle\langle y|</td><td align="left">|x&gt;&lt;y|  (OuterProduct)</td></tr>
+    <tr><td align="left">\min(x, y) z</td><td align="left">z*Min(x, y)</td></tr>
+    <tr><td align="left">\sin x \cos y</td><td align="left">sin(x)*cos(y)</td></tr>
+    <tr><td align="left">\sin x y</td><td align="left">sin(x*y),  y*sin(x)</td></tr>
+    <tr><td align="left">\sin(x) y</td><td align="left">y*sin(x)</td></tr>
+    </table>>]
+  any -> examples [style=invis]
+  {rank=source; title}
+}

@@ -1,0 +1,32 @@
+digraph operatorname {
+  rankdir=TB
+  node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
+  edge [fontname="Helvetica", fontsize=10]
+
+  tok [label="FUNC_OPERATORNAME\n/\\\\operatorname\\s*\\{\\s*[a-zA-Z]+\\s*\\}/\none terminal, so \\operatorname{erf} x\nis a bare function like \\sin x", fillcolor="#d9f2d9"]
+  rule [label="named_function\nFUNC_OPERATORNAME function_argument\n| FUNC_OPERATORNAME ^ n function_argument\n| FUNC_OPERATORNAME ( expr, expr, ... )", fillcolor="#d9f2d9"]
+  name [label="_named_function(name)", fillcolor="#d9f2d9"]
+
+  q1 [label="\\operatorname{name} in locals?", shape=diamond, fillcolor="#fff2cc"]
+  q2 [label="name in _named_functions?\nexp ln log min max sqrt abs sign sgn\nRe Im arg erf erfc sinc", shape=diamond, fillcolor="#fff2cc"]
+  q3 [label="\\name a trigonometric or\nhyperbolic command?", shape=diamond, fillcolor="#fff2cc"]
+  q4 [label="lg, det, tr/trace, adj/adjugate?", shape=diamond, fillcolor="#fff2cc"]
+  r1 [label="the object given in locals\n(what is called with the arguments)", fillcolor="#d9f2d9"]
+  r2 [label="the SymPy function"]
+  r3 [label="the same function as the command\n(\\operatorname{sin}^{-1} x is asin(x))"]
+  r4 [label="log base 10, or the\nmatrix function (det, trace, adjugate)"]
+  r5 [label="sympy.Function(name)\nan undefined function"]
+
+  tok -> rule -> name -> q1
+  q1 -> r1 [label="yes"]
+  q1 -> q2 [label="no"]
+  q2 -> r2 [label="yes"]
+  q2 -> q3 [label="no"]
+  q3 -> r3 [label="yes"]
+  q3 -> q4 [label="no"]
+  q4 -> r4 [label="yes"]
+  q4 -> r5 [label="no"]
+
+  same [label="the same lookup serves the other commands:\n_function(command) checks locals first, then the\ntrigonometric and exponential tables, so\nlocals={r\"\\sin\": f} and locals={r\"\\pi\": Symbol(\"pi\")}\nreplace a builtin reading everywhere", fillcolor="#fff2cc"]
+  name -> same [style=dashed]
+}
