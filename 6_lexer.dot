@@ -18,13 +18,13 @@ digraph lexer {
   table [shape=plaintext, label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
     <tr><td bgcolor="#e8e8e8"><b>input</b></td><td bgcolor="#e8e8e8"><b>before</b></td><td bgcolor="#e8e8e8"><b>now</b></td></tr>
     <tr><td align="left">\sin x</td><td align="left">FUNC_SIN, SYMBOL</td><td align="left">FUNC_SIN, SYMBOL</td></tr>
-    <tr><td align="left">\sinx</td><td align="left">FUNC_SIN, SYMBOL: sin(x)</td><td align="left">LaTeXParsingError: Unknown command \sinx</td></tr>
+    <tr><td align="left">\sinx</td><td align="left">rejected by a regex pre-scan of the string<br/>in doparse, before parsing</td><td align="left">no terminal matches: the lexer stops,<br/>LaTeXParsingError: Unknown command \sinx</td></tr>
     <tr><td align="left">\left(</td><td align="left">LTE needed a hand-written lookahead<br/>(it once lexed \le + ft)</td><td align="left">%ignore ("\\left" | "\\right") _WORD_END</td></tr>
     <tr><td align="left">\tanh</td><td align="left">one FUNC_TRIG terminal, longest match</td><td align="left">same, and \tan never matches inside \tanh</td></tr>
-    <tr><td align="left">\foo</td><td align="left">lark UnexpectedCharacters</td><td align="left">LaTeXParsingError: Unknown command \foo</td></tr>
+    <tr><td align="left">\foo</td><td align="left">same pre-scan</td><td align="left">LaTeXParsingError: Unknown command \foo</td></tr>
     </table>>]
 
-  commands [shape=box, style="rounded,filled", fillcolor="#d9f2d9", label="LarkLaTeXParser._commands\nreads every \\name out of the terminals' regexps:\nthe set of control words is defined by the grammar file,\nso a custom grammar_file brings its own commands\nand its own error messages"]
+  commands [shape=box, style="rounded,filled", fillcolor="#d9f2d9", label="LarkLaTeXParser._commands\nreads every \\name out of the terminals' regexps,\nnow only to word the error message:\nthe lexer itself rejects an unknown command,\nwith the builtin grammar or a custom grammar_file"]
   acc -> commands [style=dashed]
   rej -> table [style=invis]
 }
