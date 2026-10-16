@@ -3,7 +3,7 @@ digraph delimited {
   node [shape=box, style="rounded,filled", fillcolor="#f0f0f0", fontname="Helvetica", fontsize=11]
   edge [fontname="Helvetica", fontsize=10]
 
-  title [shape=plaintext, label=<<b>adjacent_expressions: an implicit product, "first factor" then "what may follow"</b>>]
+  label=<<b>adjacent_expressions: an implicit product, "first factor" then "what may follow"</b>>; labelloc=t; fontname="Helvetica"
 
   sym  [label="a symbol, a number,\na constant, x^2_1", fillcolor="#fff2cc"]
   del  [label="_delimited: an expression whose end is marked\n( ) [ ] { } \\{ \\}   \\sqrt{x}   |x|   \\lfloor x \\rfloor   \\lceil x \\rceil\nx!   \\binom{n}{k}   matrix   f(x)   f^{-1}(x)   \\overline{z}\n\\min(..) \\max(..)   \\langle x|   |x\\rangle   \\langle x|y\\rangle   \\mathit{abc}", fillcolor="#d9f2d9"]
@@ -32,5 +32,4 @@ digraph delimited {
     <tr><td align="left">\sin(x) y</td><td align="left">y*sin(x)</td></tr>
     </table>>]
   any -> examples [style=invis]
-  {rank=source; title}
 }
