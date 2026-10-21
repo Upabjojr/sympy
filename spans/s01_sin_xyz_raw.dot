@@ -1,0 +1,42 @@
+digraph G {
+  graph [fontname="DejaVu Sans", fontsize=12, labelloc=t, nodesep=0.15, ranksep=0.35, compound=true];
+  node [fontname="DejaVu Sans", fontsize=10];
+  edge [arrowhead=none, color="#777777"];
+  label=<<b>The tree Lark returns for \sin xyz: the _ambig node holds both readings of the same span</b>>;
+  subgraph cluster_c0 {
+    label=<<font face="DejaVu Sans Mono">parse tree of \sin xyz   (before CollapseAmbiguities)</font>>; labeljust=l; style="rounded"; color="#bbbbbb"; margin=12;
+  c0n0 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>_ambig</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">\sin xyz</font></td></tr><tr><td><font point-size="8" color="#888888">0:8</font></td></tr></table>>, shape=octagon, style="filled,rounded", fillcolor="#f4b6b6"];
+  c0n1 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>latex_string</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">\sin xyz</font></td></tr><tr><td><font point-size="8" color="#888888">0:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n2 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>trigonometric_function</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">\sin xyz</font></td></tr><tr><td><font point-size="8" color="#888888">0:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n3 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">FUNC_TRIG</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>\sin</b></font></td></tr><tr><td><font point-size="8" color="#888888">0:4</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n2 -> c0n3;
+  c0n4 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>adjacent_expressions</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">xyz</font></td></tr><tr><td><font point-size="8" color="#888888">5:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n5 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>x</b></font></td></tr><tr><td><font point-size="8" color="#888888">5:6</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n4 -> c0n5;
+  c0n6 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>adjacent_expressions</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">yz</font></td></tr><tr><td><font point-size="8" color="#888888">6:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n7 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>y</b></font></td></tr><tr><td><font point-size="8" color="#888888">6:7</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n6 -> c0n7;
+  c0n8 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>z</b></font></td></tr><tr><td><font point-size="8" color="#888888">7:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n6 -> c0n8;
+  c0n4 -> c0n6;
+  c0n2 -> c0n4;
+  c0n1 -> c0n2;
+  c0n0 -> c0n1;
+  c0n9 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>latex_string</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">\sin xyz</font></td></tr><tr><td><font point-size="8" color="#888888">0:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n10 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>trigonometric_function</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">\sin xyz</font></td></tr><tr><td><font point-size="8" color="#888888">0:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n11 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">FUNC_TRIG</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>\sin</b></font></td></tr><tr><td><font point-size="8" color="#888888">0:4</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n10 -> c0n11;
+  c0n12 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>factors_after_argument</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">xyz</font></td></tr><tr><td><font point-size="8" color="#888888">5:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#c8e6c9"];
+  c0n13 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>x</b></font></td></tr><tr><td><font point-size="8" color="#888888">5:6</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n12 -> c0n13;
+  c0n14 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>adjacent_expressions</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">yz</font></td></tr><tr><td><font point-size="8" color="#888888">6:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n15 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>y</b></font></td></tr><tr><td><font point-size="8" color="#888888">6:7</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n14 -> c0n15;
+  c0n16 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>z</b></font></td></tr><tr><td><font point-size="8" color="#888888">7:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n14 -> c0n16;
+  c0n12 -> c0n14;
+  c0n10 -> c0n12;
+  c0n9 -> c0n10;
+  c0n0 -> c0n9;
+  }
+}

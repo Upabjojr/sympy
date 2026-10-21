@@ -1,0 +1,27 @@
+\lim_{x \to 0} \frac{\sin x}{x}
+  readings: [Limit(sin(x)/x, x, 0, dir='+-')]
+
+--- \lim_{x \to 0} \frac{\sin x}{x}   =   Limit(sin(x)/x, x, 0, dir='+-')
+ 0:31  latex_string             '\\lim_{x \\to 0} \\frac{\\sin x}{x}'
+ 0:31    limit                    '\\lim_{x \\to 0} \\frac{\\sin x}{x}'
+ 0:4       FUNC_LIM                 '\\lim'
+ 4:5       UNDERSCORE               '_'
+ 5:14      group_curly_parentheses_lim '{x \\to 0}'
+ 5:6         L_BRACE                  '{'
+ 6:7         SYMBOL                   'x'
+ 8:11        LIM_APPROACH_SYM         '\\to'
+12:13        number                   '0'
+12:13          '0'                      '0'
+13:14        R_BRACE                  '}'
+15:31      fraction                 '\\frac{\\sin x}{x}'
+15:20        CMD_FRAC                 '\\frac'
+20:28        group_curly_parentheses  '{\\sin x}'
+20:21          L_BRACE                  '{'
+21:27          trigonometric_function   '\\sin x'
+21:25            FUNC_TRIG                '\\sin'
+26:27            SYMBOL                   'x'
+27:28          R_BRACE                  '}'
+28:31        group_curly_parentheses  '{x}'
+28:29          L_BRACE                  '{'
+29:30          SYMBOL                   'x'
+30:31          R_BRACE                  '}'

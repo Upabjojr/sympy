@@ -1,0 +1,94 @@
+[
+ {
+  "name": "s01_sin_xyz_raw",
+  "inputs": [
+   "\\sin xyz"
+  ],
+  "raw": true,
+  "title": "The tree Lark returns for \\sin xyz: the _ambig node holds both readings of the same span"
+ },
+ {
+  "name": "s02_sin_xyz",
+  "inputs": [
+   "\\sin xyz"
+  ],
+  "title": "The two readings of \\sin xyz after CollapseAmbiguities"
+ },
+ {
+  "name": "s03_powers_a",
+  "inputs": [
+   "\\sin x^2",
+   "\\sin^2 x"
+  ],
+  "title": "A power after a bare argument belongs to the argument; a power on the function name does not"
+ },
+ {
+  "name": "s03_powers_b",
+  "inputs": [
+   "\\sin(x)^2",
+   "\\sin 2(x+1)^2"
+  ],
+  "title": "A parenthesised argument ends the function; a number starts an argument that goes on"
+ },
+ {
+  "name": "s04_fg",
+  "inputs": [
+   "f(x)g(x)"
+  ],
+  "title": "The two readings of f(x)g(x)"
+ },
+ {
+  "name": "s05_delimited",
+  "inputs": [
+   "\\sin(x) y",
+   "\\sqrt{x} y"
+  ],
+  "title": "Delimited expressions are factors of an implicit product"
+ },
+ {
+  "name": "s06_leibniz",
+  "inputs": [
+   "\\frac{d^2 y}{dx^2}"
+  ],
+  "raw": true,
+  "title": "\\frac{d^2 y}{dx^2} is an ordinary fraction to the grammar; the transformer retags it"
+ },
+ {
+  "name": "s06b_leibniz_marked",
+  "inputs": [
+   "\\frac{d^2 y}{dx^2}"
+  ],
+  "marked": true,
+  "title": "The same tree after the pre-pass: fraction becomes leibniz_fraction holding the factors"
+ },
+ {
+  "name": "s07_operatorname",
+  "inputs": [
+   "\\operatorname{sin}^{-1} x",
+   "\\operatorname{foo}(x, y)"
+  ],
+  "title": "\\operatorname: one terminal for the whole command, resolved by the transformer"
+ },
+ {
+  "name": "s08_cos_sin",
+  "inputs": [
+   "\\cos ab + \\sin xy"
+  ],
+  "title": "\\cos ab + \\sin xy: two readings choosing the same way at both sites"
+ },
+ {
+  "name": "s09_relations",
+  "inputs": [
+   "x < y \\leq z",
+   "a - -b"
+  ],
+  "title": "A relation chain, and a sign after an operator"
+ },
+ {
+  "name": "s10_limit",
+  "inputs": [
+   "\\lim_{x \\to 0} \\frac{\\sin x}{x}"
+  ],
+  "title": "A limit of a fraction holding a function argument"
+ }
+]

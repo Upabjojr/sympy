@@ -1,0 +1,26 @@
+\sin(x) y
+  readings: [y*sin(x)]
+
+--- \sin(x) y   =   y*sin(x)
+ 0:9   latex_string             '\\sin(x) y'
+ 0:9     trigonometric_function   '\\sin(x) y'
+ 0:4       FUNC_TRIG                '\\sin'
+ 4:9       factors_after_argument   '(x) y'
+ 4:7         group_round_parentheses  '(x)'
+ 4:5           L_PAREN                  '('
+ 5:6           SYMBOL                   'x'
+ 6:7           R_PAREN                  ')'
+ 8:9         SYMBOL                   'y'
+\sqrt{x} y
+  readings: [sqrt(x)*y]
+
+--- \sqrt{x} y   =   sqrt(x)*y
+ 0:10  latex_string             '\\sqrt{x} y'
+ 0:10    adjacent_expressions     '\\sqrt{x} y'
+ 0:8       square_root              '\\sqrt{x}'
+ 0:5         FUNC_SQRT                '\\sqrt'
+ 5:8         group_curly_parentheses  '{x}'
+ 5:6           L_BRACE                  '{'
+ 6:7           SYMBOL                   'x'
+ 7:8           R_BRACE                  '}'
+ 9:10      SYMBOL                   'y'

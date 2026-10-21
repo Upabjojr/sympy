@@ -1,0 +1,22 @@
+\sin xyz
+  readings: [sin(x*y*z), y*z*sin(x)]
+
+--- \sin xyz   reading 1 of 2: sin(x*y*z)
+ 0:8   latex_string             '\\sin xyz'
+ 0:8     trigonometric_function   '\\sin xyz'
+ 0:4       FUNC_TRIG                '\\sin'
+ 5:8       adjacent_expressions     'xyz'
+ 5:6         SYMBOL                   'x'
+ 6:8         adjacent_expressions     'yz'
+ 6:7           SYMBOL                   'y'
+ 7:8           SYMBOL                   'z'
+
+--- \sin xyz   reading 2 of 2: y*z*sin(x)
+ 0:8   latex_string             '\\sin xyz'
+ 0:8     trigonometric_function   '\\sin xyz'
+ 0:4       FUNC_TRIG                '\\sin'
+ 5:8       factors_after_argument   'xyz'
+ 5:6         SYMBOL                   'x'
+ 6:8         adjacent_expressions     'yz'
+ 6:7           SYMBOL                   'y'
+ 7:8           SYMBOL                   'z'

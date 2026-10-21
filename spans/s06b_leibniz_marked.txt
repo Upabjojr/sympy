@@ -1,0 +1,17 @@
+\frac{d^2 y}{dx^2}
+  readings: [Derivative(y, (x, 2))]
+
+--- \frac{d^2 y}{dx^2}   after _mark_leibniz_notation   =   Derivative(y, (x, 2))
+ 6:17  latex_string             'd^2 y}{dx^2'
+ 6:17    leibniz_fraction         'd^2 y}{dx^2'
+ 6:9       superscript              'd^2'
+ 6:7         SYMBOL                   'd'
+ 7:8         CARET                    '^'
+ 8:9         number                   '2'
+ 8:9           '2'                      '2'
+10:11      SYMBOL                   'y'
+14:17      superscript              'x^2'
+14:15        SYMBOL                   'x'
+15:16        CARET                    '^'
+16:17        number                   '2'
+16:17          '2'                      '2'

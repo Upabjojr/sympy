@@ -1,0 +1,54 @@
+digraph G {
+  graph [fontname="DejaVu Sans", fontsize=12, labelloc=t, nodesep=0.15, ranksep=0.35, compound=true];
+  node [fontname="DejaVu Sans", fontsize=10];
+  edge [arrowhead=none, color="#777777"];
+  label=<<b>\frac{d^2 y}{dx^2} is an ordinary fraction to the grammar; the transformer retags it</b>>;
+  subgraph cluster_c0 {
+    label=<<font face="DejaVu Sans Mono">parse tree of \frac{d^2 y}{dx^2}   (before CollapseAmbiguities)</font>>; labeljust=l; style="rounded"; color="#bbbbbb"; margin=12;
+  c0n0 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>latex_string</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">\frac{d^2 y}{dx^2}</font></td></tr><tr><td><font point-size="8" color="#888888">0:18</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n1 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>fraction</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">\frac{d^2 y}{dx^2}</font></td></tr><tr><td><font point-size="8" color="#888888">0:18</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n2 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">CMD_FRAC</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>\frac</b></font></td></tr><tr><td><font point-size="8" color="#888888">0:5</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n1 -> c0n2;
+  c0n3 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>group_curly_parentheses</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">{d^2 y}</font></td></tr><tr><td><font point-size="8" color="#888888">5:12</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#dbe9f6"];
+  c0n4 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">L_BRACE</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>{</b></font></td></tr><tr><td><font point-size="8" color="#888888">5:6</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n3 -> c0n4;
+  c0n5 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>adjacent_expressions</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">d^2 y</font></td></tr><tr><td><font point-size="8" color="#888888">6:11</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n6 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>superscript</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">d^2</font></td></tr><tr><td><font point-size="8" color="#888888">6:9</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n7 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>d</b></font></td></tr><tr><td><font point-size="8" color="#888888">6:7</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n6 -> c0n7;
+  c0n8 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">CARET</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>^</b></font></td></tr><tr><td><font point-size="8" color="#888888">7:8</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n6 -> c0n8;
+  c0n9 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>number</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">2</font></td></tr><tr><td><font point-size="8" color="#888888">8:9</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n10 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">&#x27;2&#x27;</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>2</b></font></td></tr><tr><td><font point-size="8" color="#888888">8:9</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n9 -> c0n10;
+  c0n6 -> c0n9;
+  c0n5 -> c0n6;
+  c0n11 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>y</b></font></td></tr><tr><td><font point-size="8" color="#888888">10:11</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n5 -> c0n11;
+  c0n3 -> c0n5;
+  c0n12 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">R_BRACE</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>}</b></font></td></tr><tr><td><font point-size="8" color="#888888">11:12</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n3 -> c0n12;
+  c0n1 -> c0n3;
+  c0n13 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>group_curly_parentheses</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">{dx^2}</font></td></tr><tr><td><font point-size="8" color="#888888">12:18</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#dbe9f6"];
+  c0n14 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">L_BRACE</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>{</b></font></td></tr><tr><td><font point-size="8" color="#888888">12:13</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n13 -> c0n14;
+  c0n15 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>adjacent_expressions</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">dx^2</font></td></tr><tr><td><font point-size="8" color="#888888">13:17</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n16 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>d</b></font></td></tr><tr><td><font point-size="8" color="#888888">13:14</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n15 -> c0n16;
+  c0n17 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>superscript</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">x^2</font></td></tr><tr><td><font point-size="8" color="#888888">14:17</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n18 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">SYMBOL</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>x</b></font></td></tr><tr><td><font point-size="8" color="#888888">14:15</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n17 -> c0n18;
+  c0n19 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">CARET</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>^</b></font></td></tr><tr><td><font point-size="8" color="#888888">15:16</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n17 -> c0n19;
+  c0n20 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><b>number</b></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="10">2</font></td></tr><tr><td><font point-size="8" color="#888888">16:17</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#fff3b0"];
+  c0n21 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">&#x27;2&#x27;</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>2</b></font></td></tr><tr><td><font point-size="8" color="#888888">16:17</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n20 -> c0n21;
+  c0n17 -> c0n20;
+  c0n15 -> c0n17;
+  c0n13 -> c0n15;
+  c0n22 [label=<<table border="0" cellborder="0" cellspacing="0" cellpadding="1"><tr><td><font point-size="9" color="#555555">R_BRACE</font></td></tr><tr><td><font face="DejaVu Sans Mono" point-size="11"><b>}</b></font></td></tr><tr><td><font point-size="8" color="#888888">17:18</font></td></tr></table>>, shape=box, style="filled,rounded", fillcolor="#e8e8e8"];
+  c0n13 -> c0n22;
+  c0n1 -> c0n13;
+  c0n0 -> c0n1;
+  }
+}

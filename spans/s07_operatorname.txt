@@ -1,0 +1,28 @@
+\operatorname{sin}^{-1} x
+  readings: [asin(x)]
+
+--- \operatorname{sin}^{-1} x   =   asin(x)
+ 0:25  latex_string             '\\operatorname{sin}^{-1} x'
+ 0:25    named_function           '\\operatorname{sin}^{-1} x'
+ 0:18      FUNC_OPERATORNAME        '\\operatorname{sin}'
+18:19      CARET                    '^'
+19:23      group_curly_parentheses  '{-1}'
+19:20        L_BRACE                  '{'
+20:22        sub                      '-1'
+20:21          SUB                      '-'
+21:22          number                   '1'
+21:22            '1'                      '1'
+22:23        R_BRACE                  '}'
+24:25      SYMBOL                   'x'
+\operatorname{foo}(x, y)
+  readings: [foo(x, y)]
+
+--- \operatorname{foo}(x, y)   =   foo(x, y)
+ 0:24  latex_string             '\\operatorname{foo}(x, y)'
+ 0:24    named_function           '\\operatorname{foo}(x, y)'
+ 0:18      FUNC_OPERATORNAME        '\\operatorname{foo}'
+18:19      L_PAREN                  '('
+19:20      SYMBOL                   'x'
+20:21      COMMA                    ','
+22:23      SYMBOL                   'y'
+23:24      R_PAREN                  ')'

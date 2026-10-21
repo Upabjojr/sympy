@@ -1,0 +1,37 @@
+\sin(x)^2
+  readings: [sin(x)**2]
+
+--- \sin(x)^2   =   sin(x)**2
+ 0:9   latex_string             '\\sin(x)^2'
+ 0:9     superscript              '\\sin(x)^2'
+ 0:7       trigonometric_function   '\\sin(x)'
+ 0:4         FUNC_TRIG                '\\sin'
+ 4:7         group_round_parentheses  '(x)'
+ 4:5           L_PAREN                  '('
+ 5:6           SYMBOL                   'x'
+ 6:7           R_PAREN                  ')'
+ 7:8       CARET                    '^'
+ 8:9       number                   '2'
+ 8:9         '2'                      '2'
+\sin 2(x+1)^2
+  readings: [sin(2*(x + 1)**2)]
+
+--- \sin 2(x+1)^2   =   sin(2*(x + 1)**2)
+ 0:13  latex_string             '\\sin 2(x+1)^2'
+ 0:13    trigonometric_function   '\\sin 2(x+1)^2'
+ 0:4       FUNC_TRIG                '\\sin'
+ 5:13      adjacent_expressions     '2(x+1)^2'
+ 5:6         number                   '2'
+ 5:6           '2'                      '2'
+ 6:13        superscript              '(x+1)^2'
+ 6:11          group_round_parentheses  '(x+1)'
+ 6:7             L_PAREN                  '('
+ 7:10            add                      'x+1'
+ 7:8               SYMBOL                   'x'
+ 8:9               ADD                      '+'
+ 9:10              number                   '1'
+ 9:10                '1'                      '1'
+10:11            R_PAREN                  ')'
+11:12          CARET                    '^'
+12:13          number                   '2'
+12:13            '2'                      '2'

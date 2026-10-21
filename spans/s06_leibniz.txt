@@ -1,0 +1,27 @@
+\frac{d^2 y}{dx^2}
+  readings: [Derivative(y, (x, 2))]
+
+--- parse tree of \frac{d^2 y}{dx^2}   (before CollapseAmbiguities)
+ 0:18  latex_string             '\\frac{d^2 y}{dx^2}'
+ 0:18    fraction                 '\\frac{d^2 y}{dx^2}'
+ 0:5       CMD_FRAC                 '\\frac'
+ 5:12      group_curly_parentheses  '{d^2 y}'
+ 5:6         L_BRACE                  '{'
+ 6:11        adjacent_expressions     'd^2 y'
+ 6:9           superscript              'd^2'
+ 6:7             SYMBOL                   'd'
+ 7:8             CARET                    '^'
+ 8:9             number                   '2'
+ 8:9               '2'                      '2'
+10:11          SYMBOL                   'y'
+11:12        R_BRACE                  '}'
+12:18      group_curly_parentheses  '{dx^2}'
+12:13        L_BRACE                  '{'
+13:17        adjacent_expressions     'dx^2'
+13:14          SYMBOL                   'd'
+14:17          superscript              'x^2'
+14:15            SYMBOL                   'x'
+15:16            CARET                    '^'
+16:17            number                   '2'
+16:17              '2'                      '2'
+17:18        R_BRACE                  '}'

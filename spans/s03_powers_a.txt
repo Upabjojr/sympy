@@ -1,0 +1,23 @@
+\sin x^2
+  readings: [sin(x**2)]
+
+--- \sin x^2   =   sin(x**2)
+ 0:8   latex_string             '\\sin x^2'
+ 0:8     trigonometric_function   '\\sin x^2'
+ 0:4       FUNC_TRIG                '\\sin'
+ 5:8       superscript              'x^2'
+ 5:6         SYMBOL                   'x'
+ 6:7         CARET                    '^'
+ 7:8         number                   '2'
+ 7:8           '2'                      '2'
+\sin^2 x
+  readings: [sin(x)**2]
+
+--- \sin^2 x   =   sin(x)**2
+ 0:8   latex_string             '\\sin^2 x'
+ 0:8     trigonometric_function_power '\\sin^2 x'
+ 0:4       FUNC_TRIG                '\\sin'
+ 4:5       CARET                    '^'
+ 5:6       number                   '2'
+ 5:6         '2'                      '2'
+ 7:8       SYMBOL                   'x'

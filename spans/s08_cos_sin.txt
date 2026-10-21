@@ -1,0 +1,32 @@
+\cos ab + \sin xy
+  readings: [sin(x*y) + cos(a*b), b*cos(a) + y*sin(x)]
+
+--- \cos ab + \sin xy   reading 1 of 2: sin(x*y) + cos(a*b)
+ 0:17  latex_string             '\\cos ab + \\sin xy'
+ 0:17    add                      '\\cos ab + \\sin xy'
+ 0:7       trigonometric_function   '\\cos ab'
+ 0:4         FUNC_TRIG                '\\cos'
+ 5:7         adjacent_expressions     'ab'
+ 5:6           SYMBOL                   'a'
+ 6:7           SYMBOL                   'b'
+ 8:9       ADD                      '+'
+10:17      trigonometric_function   '\\sin xy'
+10:14        FUNC_TRIG                '\\sin'
+15:17        adjacent_expressions     'xy'
+15:16          SYMBOL                   'x'
+16:17          SYMBOL                   'y'
+
+--- \cos ab + \sin xy   reading 2 of 2: b*cos(a) + y*sin(x)
+ 0:17  latex_string             '\\cos ab + \\sin xy'
+ 0:17    add                      '\\cos ab + \\sin xy'
+ 0:7       trigonometric_function   '\\cos ab'
+ 0:4         FUNC_TRIG                '\\cos'
+ 5:7         factors_after_argument   'ab'
+ 5:6           SYMBOL                   'a'
+ 6:7           SYMBOL                   'b'
+ 8:9       ADD                      '+'
+10:17      trigonometric_function   '\\sin xy'
+10:14        FUNC_TRIG                '\\sin'
+15:17        factors_after_argument   'xy'
+15:16          SYMBOL                   'x'
+16:17          SYMBOL                   'y'

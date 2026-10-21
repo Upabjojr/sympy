@@ -1,0 +1,34 @@
+f(x)g(x)
+  readings: [f*g*x**2, f(x)*g(x)]
+
+--- f(x)g(x)   reading 1 of 2: f*g*x**2
+ 0:8   latex_string             'f(x)g(x)'
+ 0:8     adjacent_expressions     'f(x)g(x)'
+ 0:1       SYMBOL                   'f'
+ 1:8       adjacent_expressions     '(x)g(x)'
+ 1:4         group_round_parentheses  '(x)'
+ 1:2           L_PAREN                  '('
+ 2:3           SYMBOL                   'x'
+ 3:4           R_PAREN                  ')'
+ 4:8         adjacent_expressions     'g(x)'
+ 4:5           SYMBOL                   'g'
+ 5:8           group_round_parentheses  '(x)'
+ 5:6             L_PAREN                  '('
+ 6:7             SYMBOL                   'x'
+ 7:8             R_PAREN                  ')'
+
+--- f(x)g(x)   reading 2 of 2: f(x)*g(x)
+ 0:8   latex_string             'f(x)g(x)'
+ 0:8     adjacent_expressions     'f(x)g(x)'
+ 0:4       function_applied         'f(x)'
+ 0:1         SYMBOL                   'f'
+ 1:2         L_PAREN                  '('
+ 2:3         list_of_expressions      'x'
+ 2:3           SYMBOL                   'x'
+ 3:4         R_PAREN                  ')'
+ 4:8       function_applied         'g(x)'
+ 4:5         SYMBOL                   'g'
+ 5:6         L_PAREN                  '('
+ 6:7         list_of_expressions      'x'
+ 6:7           SYMBOL                   'x'
+ 7:8         R_PAREN                  ')'
